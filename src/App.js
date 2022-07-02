@@ -15,7 +15,6 @@ function App() {
     <BrowserRouter>
       <div>
         <Navbar />
-        <h1>Travel Agency</h1>
 
         <Routes>
           <Route path="/" element={<Home />} />

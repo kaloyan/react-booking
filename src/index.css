@@ -10,4 +10,6 @@
 
 * {
   --primary: rgb(6, 75, 154);
+  --primary-btn: rgb(11, 108, 220);
+  --icon-color: rgb(121, 121, 121);
 }
