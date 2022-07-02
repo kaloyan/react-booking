@@ -7,10 +7,14 @@ import Home from "./pages/Home";
 import Hotel from "./pages/Hotel";
 import HotelsList from "./pages/HotelsList";
 
+// Import compponenst
+import Navbar from "./components/Navbar";
+
 function App() {
   return (
     <BrowserRouter>
       <div>
+        <Navbar />
         <h1>Travel Agency</h1>
 
         <Routes>

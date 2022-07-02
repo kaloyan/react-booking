@@ -1,0 +1,13 @@
+/* Browser resets */
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* Color variables */
+
+* {
+  --primary: rgb(6, 75, 154);
+}
