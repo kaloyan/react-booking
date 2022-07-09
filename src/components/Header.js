@@ -8,7 +8,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { NavLink } from "react-router-dom";
 
-import SearchBar from "./SearchBar";
+import SearchBar from "./search-bar/SearchBar";
 
 export default function Header() {
   return (
