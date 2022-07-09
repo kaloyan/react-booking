@@ -10,7 +10,7 @@ import { NavLink } from "react-router-dom";
 
 import SearchBar from "./search-bar/SearchBar";
 
-export default function Header() {
+export default function Header(props) {
   return (
     <div className={styles.header}>
       <div className={styles.container}>
@@ -41,21 +41,24 @@ export default function Header() {
           </li>
         </ul>
 
-        <h1 className={styles.title}>
-          A lifetime of discounts? It's a Genius.
-        </h1>
+        {!props.compact && (
+          <>
+            <h1 className={styles.title}>
+              A lifetime of discounts? It's a Genius.
+            </h1>
 
-        <p className={styles.description}>
-          Get rewarded for your travels - unlock instant savings of 10% or more
-          with a free booking account.
-        </p>
+            <p className={styles.description}>
+              Get rewarded for your travels - unlock instant savings of 10% or
+              more with a free booking account.
+            </p>
 
-        <NavLink to={"/register"} className={styles.headerLink}>
-          Sign in / Register
-        </NavLink>
+            <NavLink to={"/register"} className={styles.headerLink}>
+              Sign in / Register
+            </NavLink>
+          </>
+        )}
 
-        {/* Import searchBar component */}
-        <SearchBar />
+        {!props.compact && <SearchBar />}
       </div>
     </div>
   );

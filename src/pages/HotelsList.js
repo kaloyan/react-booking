@@ -1,3 +1,5 @@
+import Header from "../components/Header";
+
 export default function HotelsList() {
-  return <div>Hotels List</div>;
+  return <Header compact={true} />;
 }
