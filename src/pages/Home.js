@@ -5,6 +5,7 @@ import Featured from "../components/lists/Featured";
 import PropertyList from "../components/lists/PropertyList";
 import FeaturedHotels from "../components/lists/FeaturedHotels";
 import Subscribtion from "../components/Subscribtion";
+import Footer from "../components/footer/Footer";
 
 export default function Home() {
   return (
@@ -21,6 +22,8 @@ export default function Home() {
         <FeaturedHotels />
 
         <Subscribtion />
+
+        <Footer />
       </div>
     </>
   );
