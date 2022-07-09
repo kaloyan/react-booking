@@ -1,0 +1,30 @@
+.list {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  width: 100%;
+  max-width: 1024px;
+  margin-bottom: 2rem;
+}
+
+.listItem {
+  flex: 1;
+  overflow: hidden;
+  cursor: pointer;
+  border-radius: 0.5rem;
+}
+
+.image {
+  width: 100%;
+  object-fit: cover;
+  height: 150px;
+}
+
+.listTitles > h1 {
+  font-size: 1rem;
+}
+
+.listTitles > h2 {
+  font-size: 0.8rem;
+  font-weight: 300;
+}
