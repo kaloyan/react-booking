@@ -1,0 +1,31 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.2rem;
+  width: 100%;
+  margin-top: 2.5rem;
+  padding: 2.5rem;
+  background-color: var(--primary);
+  color: white;
+}
+
+.inputContainer > input {
+  width: 300px;
+  height: 3rem;
+  padding: 0.5rem;
+  border: none;
+  font-size: 1.3rem;
+  margin-right: 0.5rem;
+}
+
+.inputContainer > button {
+  height: 3rem;
+  background-color: var(--primary-btn);
+  border: none;
+  font-size: 1.4rem;
+  font-weight: 500;
+  color: white;
+  padding: 0.3rem 1rem;
+  cursor: pointer;
+}
