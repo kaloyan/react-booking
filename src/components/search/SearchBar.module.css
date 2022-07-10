@@ -3,7 +3,7 @@
   max-width: 1024px;
   height: 4rem;
   background-color: white;
-  border: 3px solid #febb02;
+  border: 3px solid var(--focus-color);
   display: flex;
   align-items: center;
   justify-content: space-around;
