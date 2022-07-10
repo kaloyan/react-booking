@@ -1,0 +1,111 @@
+.item {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.6rem;
+  border: 1px solid var(--icon-color);
+  margin-bottom: 1rem;
+  border-radius: 0.5rem;
+}
+
+.image {
+  width: 200px;
+  height: 200px;
+  object-fit: cover;
+}
+
+.description {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  flex: 2;
+}
+
+.details {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.title {
+  color: var(--primary);
+  font-size: 1.2rem;
+}
+
+.distance {
+  font-size: 0.8rem;
+}
+
+.taxiOp {
+  width: max-content;
+  padding: 0.2rem;
+  font-size: 0.8rem;
+  background-color: var(--color-success);
+  color: white;
+  border-radius: 0.3rem;
+}
+
+.subtitle {
+  font-size: 0.9rem;
+  font-weight: bold;
+}
+
+.features {
+  font-size: 0.9rem;
+}
+
+.cancelOp {
+  font-size: 0.8rem;
+  font-weight: bold;
+  color: var(--color-success);
+}
+
+.cancelSubtitle {
+  font-size: 0.8rem;
+  color: var(--color-success);
+}
+
+.rating {
+  display: flex;
+  justify-content: space-between;
+}
+
+.rating > span {
+  font-weight: 600;
+}
+
+.rating > button {
+  background-color: var(--primary);
+  color: white;
+  padding: 0.3rem;
+  font-weight: bold;
+  border: none;
+  border-radius: 0.3rem;
+}
+
+.detailText {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  text-align: right;
+}
+
+.price {
+  font-size: 1.4rem;
+}
+
+.taxOps {
+  font-size: 0.8rem;
+  color: gray;
+}
+
+.checkBtn {
+  background-color: var(--primary-btn);
+  color: white;
+  font-weight: bold;
+  padding: 0.5rem;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+}
