@@ -1,6 +1,9 @@
 import styles from "./Hotel.module.css";
 
+import { useState } from "react";
+
 import Header from "../components/Header";
+import ImageSlider from "../components/ImageSlider";
 import Subscription from "../components/Subscribtion";
 import Footer from "../components/footer/Footer";
 
@@ -8,6 +11,30 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLocationDot } from "@fortawesome/free-solid-svg-icons";
 
 export default function Hotel() {
+  const [imgIndex, setImgIndex] = useState(0);
+  const [openSlider, setOpenSlider] = useState(false);
+
+  const sliderHandler = (idx) => {
+    setImgIndex(idx);
+    setOpenSlider(true);
+  };
+
+  const closeHandler = () => {
+    setOpenSlider(false);
+  };
+
+  const slideHandler = (direction) => {
+    let idx = direction == "next" ? imgIndex + 1 : imgIndex - 1;
+
+    if (idx < 0) {
+      idx = images.length - 1;
+    } else if (idx > images.length - 1) {
+      idx = 0;
+    }
+
+    setImgIndex(idx);
+  };
+
   const images = [
     {
       src: "https://cf.bstatic.com/xdata/images/hotel/max1024x768/334096260.jpg?k=a628011df426a415ef2680fca4b8fd1ee1fb4ca7e82e23feb64844b4dd2db93f&o=&hp=1",
@@ -34,6 +61,14 @@ export default function Hotel() {
       <Header compact={true} />
 
       <div className={styles.container}>
+        {openSlider && (
+          <ImageSlider
+            slideHandler={slideHandler}
+            closeHandler={closeHandler}
+            imgSrc={images[imgIndex].src}
+          />
+        )}
+
         <div className={styles.wrapper}>
           <button className={styles.bookBtn}>Reserve or book Now!</button>
 
@@ -53,12 +88,13 @@ export default function Hotel() {
           </span>
 
           <div className={styles.gallery}>
-            {images.map((image) => (
-              <div className={styles.imgWrapper}>
+            {images.map((image, idx) => (
+              <div key={idx} className={styles.imgWrapper}>
                 <img
                   src={image.src}
                   alt="hotel"
                   className={styles.hotelImage}
+                  onClick={() => sliderHandler(idx)}
                 />
               </div>
             ))}
