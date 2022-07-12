@@ -7,6 +7,9 @@ const { userCtl } = require("./controllers/userCtl.js");
 
 // import middlewares
 const { err } = require("./middlewares/errorHandler.js");
+const { isAuth } = require("./middlewares/authMiddleware.js");
+
+route.use(isAuth);
 
 // define all paths
 
