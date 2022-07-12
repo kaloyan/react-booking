@@ -4,6 +4,7 @@ const route = require("express").Router();
 const { authCtl } = require("./controllers/authCtl.js");
 const { hotelsCtl } = require("./controllers/hotelsCtl.js");
 const { userCtl } = require("./controllers/userCtl.js");
+const { roomCtl } = require("./controllers/roomCtl.js");
 
 // import middlewares
 const { err } = require("./middlewares/errorHandlerMW.js");
@@ -27,7 +28,11 @@ route.put("/api/v1/hotels/:id", hotelsCtl.update, err);
 route.delete("/api/v1/hotels/:id", hotelsCtl.del, err);
 
 // rooms API routes
-// route.get("/api/v1/rooms", apiCtl.rooms);
+route.get("/api/v1/rooms", roomCtl.getAll, err);
+route.get("/api/v1/rooms/:id", roomCtl.getOne, err);
+route.post("/api/v1/rooms/:hotelId", roomCtl.create, err);
+route.put("/api/v1/rooms/:id", roomCtl.update, err);
+route.delete("/api/v1/rooms/:id", roomCtl.del, err);
 
 // users API routes
 route.get("/api/v1/users", guard.isAdmin, userCtl.getAll, err);
