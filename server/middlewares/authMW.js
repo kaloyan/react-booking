@@ -7,6 +7,7 @@ const isAuth = (req, res, next) => {
 
   if (!tokenCookie) {
     req.user = null;
+    req.admin = false;
     res.locals.user = null;
 
     return next();
@@ -18,6 +19,7 @@ const isAuth = (req, res, next) => {
       res.clearCookie("jwt_token");
 
       req.user = null;
+      req.admin = false;
       res.locals.user = null;
 
       return next();
@@ -25,6 +27,13 @@ const isAuth = (req, res, next) => {
 
     req.user = user;
     res.locals.user = user;
+
+    if (user.role === "admin") {
+      req.admin = true;
+    } else {
+      req.admin = false;
+    }
+
     next();
   });
 };

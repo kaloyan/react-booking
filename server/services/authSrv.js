@@ -7,12 +7,20 @@ const User = require("../models/User.js");
 const register = async (username, email, password, role) => {
   const hashPass = await bcrypt.hash(password, 10);
 
+  //if user is the first one, set role to admin
+  const count = await User.count({});
+  let newRole = role;
+
+  if (count == 0) {
+    newRole = "admin";
+  }
+
   try {
     const newUser = new User({
       username,
       email,
       password: hashPass,
-      role,
+      role: newRole,
     });
 
     await newUser.save();
@@ -24,10 +32,8 @@ const register = async (username, email, password, role) => {
 };
 
 const login = async (username, password) => {
-  // console.log(username, password);
   try {
     const usr = await User.findOne({ username }).exec();
-    console.log(usr);
 
     if (!usr) throw { message: "Invalid username or password" };
 

@@ -52,8 +52,4 @@ const logout = (req, res) => {
   });
 };
 
-//!TODO
-// reset password
-// delete account
-
 exports.authCtl = { login, register, logout };

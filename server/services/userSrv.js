@@ -2,7 +2,7 @@ const User = require("../models/User.js");
 
 const getUser = async (id) => {
   try {
-    const user = await User.findById(id);
+    const user = await User.findById(id).lean();
     return user;
   } catch (err) {
     throw err;
@@ -11,7 +11,7 @@ const getUser = async (id) => {
 
 const getAll = async () => {
   try {
-    const users = await User.find({});
+    const users = await User.find({}).lean();
     return users;
   } catch (err) {
     throw err;
