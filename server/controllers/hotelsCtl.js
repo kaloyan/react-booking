@@ -19,8 +19,13 @@ const getAll = async (req, res, next) => {
 };
 
 const create = async (req, res) => {
+  const data = {
+    ...req.body,
+    creator: req.user.id,
+  };
+
   try {
-    const hotel = await hotelSrv.create(req.body);
+    const hotel = await hotelSrv.create(data);
     res.json(hotel);
   } catch (err) {
     next(err);

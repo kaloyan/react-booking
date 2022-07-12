@@ -23,8 +23,13 @@ const userSchema = mongoose.Schema(
 
     role: {
       type: String,
-      enum: ["user", "admin"],
+      enum: ["user", "owner", "admin"],
       default: "user",
+    },
+
+    messages: {
+      type: [String],
+      default: ["Welcomme to our website."],
     },
   },
   { timestamps: true }

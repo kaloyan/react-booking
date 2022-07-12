@@ -62,6 +62,17 @@ const hotelSchema = new mongoose.Schema({
     type: Boolean,
     default: false,
   },
+
+  creator: {
+    type: mongoose.Types.ObjectId,
+    ref: "User",
+    required: true,
+  },
+
+  editAccess: {
+    type: [mongoose.Types.ObjectId],
+    ref: "User",
+  },
 });
 
 module.exports = mongoose.model("hotel", hotelSchema);

@@ -1,4 +1,5 @@
 const Hotel = require("../models/Hotel.js");
+const Room = require("../models/Room.js");
 
 const getAll = async () => {
   try {
@@ -43,6 +44,16 @@ const update = async (id, data) => {
 
 const del = async (id) => {
   try {
+    // first find all hotels rooms and delete them
+    const hotel = await Hotel.findById(id);
+
+    for (const room of hotel.rooms) {
+      await Room.findByIdAndDelete(room);
+    }
+
+    //!TODO - find all reservations and remove them, then send message to users
+
+    // next detele the hotel
     const result = await Hotel.findByIdAndDelete(id);
     return result;
   } catch (err) {
