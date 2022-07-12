@@ -46,9 +46,14 @@ const register = async (req, res, next) => {
   }
 };
 
+const logout = (req, res) => {
+  res.clearCookie("jwt_token").json({
+    message: "Logout successfull",
+  });
+};
+
 //!TODO
 // reset password
 // delete account
-// logout
 
-exports.authCtl = { login, register };
+exports.authCtl = { login, register, logout };
