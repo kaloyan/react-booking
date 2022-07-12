@@ -1,5 +1,6 @@
 // Auth service
 const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 
 const User = require("../models/User.js");
 
@@ -40,4 +41,23 @@ const login = async (username, password) => {
   }
 };
 
-exports.authSrv = { register, login };
+const genToken = (user) => {
+  const payload = {
+    id: user._id,
+    username: user.username,
+    role: user.role,
+  };
+
+  const options = {
+    expiresIn: "7d",
+  };
+
+  try {
+    const token = jwt.sign(payload, process.env.JWT_KEY, options);
+    return token;
+  } catch (err) {
+    throw err;
+  }
+};
+
+exports.authSrv = { register, login, genToken };
