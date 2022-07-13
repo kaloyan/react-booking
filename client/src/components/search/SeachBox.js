@@ -1,11 +1,14 @@
+import { useDispatch, useSelector } from "react-redux";
+import { setDestination } from "../../redux/filterSlice";
+
 import styles from "./SearchBar.module.css";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBed } from "@fortawesome/free-solid-svg-icons";
-import { useState } from "react";
 
 export default function SeachBox() {
-  const [destination, setDestination] = useState("");
+  const { destination } = useSelector((state) => state.filter);
+  const dispatch = useDispatch();
 
   return (
     <div className={styles.searchItem}>
@@ -14,7 +17,8 @@ export default function SeachBox() {
         type="text"
         placeholder="Where are you going?"
         className={styles.searchInput}
-        onChange={(e) => setDestination(e.target.value)}
+        value={destination}
+        onChange={(e) => dispatch(setDestination(e.target.value))}
       />
     </div>
   );

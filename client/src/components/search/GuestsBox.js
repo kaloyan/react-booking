@@ -1,4 +1,7 @@
 import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { setAdults, setChildren, setRooms } from "../../redux/filterSlice";
+
 import styles from "./SearchBar.module.css";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -7,18 +10,8 @@ import { faPerson } from "@fortawesome/free-solid-svg-icons";
 export default function GuestsBox() {
   const [showOptions, setShowOptions] = useState(false);
 
-  const [options, setOptions] = useState({
-    adult: 1,
-    children: 0,
-    room: 1,
-  });
-
-  const handleOptions = (option, operation) => {
-    setOptions((prev) => ({
-      ...prev,
-      [option]: operation === "inc" ? options[option] + 1 : options[option] - 1,
-    }));
-  };
+  const { adults, children, rooms } = useSelector((state) => state.filter);
+  const dispatch = useDispatch();
 
   return (
     <div className={styles.searchItem}>
@@ -26,7 +19,9 @@ export default function GuestsBox() {
       <span
         onClick={() => setShowOptions(!showOptions)}
         className={styles.searchText}
-      >{`${options.adult} adult - ${options.children} children - ${options.room} room`}</span>
+      >
+        {`${adults} adult - ${children} children - ${rooms} room`}
+      </span>
 
       {showOptions && (
         <div className={styles.options}>
@@ -34,16 +29,16 @@ export default function GuestsBox() {
             <span className={styles.optionText}>Adult</span>
             <div className={styles.counter}>
               <button
-                disabled={options.adult <= 1}
+                disabled={adults <= 1}
                 className={styles.optionsBtn}
-                onClick={() => handleOptions("adult", "dec")}
+                onClick={() => dispatch(setAdults(adults - 1))}
               >
                 -
               </button>
-              <span className={styles.optionsCountNumber}>{options.adult}</span>
+              <span className={styles.optionsCountNumber}>{adults}</span>
               <button
                 className={styles.optionsBtn}
-                onClick={() => handleOptions("adult", "inc")}
+                onClick={() => dispatch(setAdults(adults + 1))}
               >
                 +
               </button>
@@ -54,18 +49,16 @@ export default function GuestsBox() {
             <span className={styles.optionText}>Children</span>
             <div className={styles.counter}>
               <button
-                disabled={options.children <= 0}
+                disabled={children <= 0}
                 className={styles.optionsBtn}
-                onClick={() => handleOptions("children", "dec")}
+                onClick={() => dispatch(setChildren(children - 1))}
               >
                 -
               </button>
-              <span className={styles.optionsCountNumber}>
-                {options.children}
-              </span>
+              <span className={styles.optionsCountNumber}>{children}</span>
               <button
                 className={styles.optionsBtn}
-                onClick={() => handleOptions("children", "inc")}
+                onClick={() => dispatch(setChildren(children + 1))}
               >
                 +
               </button>
@@ -76,16 +69,16 @@ export default function GuestsBox() {
             <span className={styles.optionText}>Room</span>
             <div className={styles.counter}>
               <button
-                disabled={options.room <= 1}
+                disabled={rooms <= 1}
                 className={styles.optionsBtn}
-                onClick={() => handleOptions("room", "dec")}
+                onClick={() => dispatch(setRooms(rooms - 1))}
               >
                 -
               </button>
-              <span className={styles.optionsCountNumber}>{options.room}</span>
+              <span className={styles.optionsCountNumber}>{rooms}</span>
               <button
                 className={styles.optionsBtn}
-                onClick={() => handleOptions("room", "inc")}
+                onClick={() => dispatch(setRooms(rooms + 1))}
               >
                 +
               </button>
