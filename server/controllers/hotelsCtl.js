@@ -14,7 +14,7 @@ const getOne = async (req, res, next) => {
 };
 
 const getAll = async (req, res, next) => {
-  const hotels = await hotelSrv.getAll();
+  const hotels = await hotelSrv.getAll(req.query, req.query.limit);
   res.json(hotels);
 };
 
@@ -55,4 +55,44 @@ const del = async (req, res, next) => {
   }
 };
 
-exports.hotelsCtl = { getOne, getAll, create, update, del };
+const countByCity = async (req, res, next) => {
+  const cities = req.query.cities.split(",");
+
+  try {
+    const counts = await Promise.all(
+      cities.map((city) => hotelSrv.getCount({ city }))
+    );
+
+    return res.json({ counts });
+  } catch (err) {
+    return next(err);
+  }
+};
+
+const countByType = async (req, res, next) => {
+  // const types = ["hotel", "villa", "resort", "apartment", "cabin"];
+
+  try {
+    return res.json({
+      counts: {
+        hotel: await hotelSrv.getCount({ type: "hotel" }),
+        villa: await hotelSrv.getCount({ type: "villa" }),
+        resort: await hotelSrv.getCount({ type: "resort" }),
+        apartment: await hotelSrv.getCount({ type: "apartment" }),
+        cabin: await hotelSrv.getCount({ type: "cabin" }),
+      },
+    });
+  } catch (err) {
+    return next(err);
+  }
+};
+
+exports.hotelsCtl = {
+  getOne,
+  getAll,
+  create,
+  update,
+  del,
+  countByCity,
+  countByType,
+};

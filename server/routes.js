@@ -22,6 +22,8 @@ route.get("/auth/logout", authCtl.logout, err);
 
 // hotels API routes
 route.get("/api/v1/hotels", hotelsCtl.getAll, err);
+route.get("/api/v1/hotels/countByCity", hotelsCtl.countByCity, err);
+route.get("/api/v1/hotels/countByType", hotelsCtl.countByType, err);
 route.get("/api/v1/hotels/:id", hotelsCtl.getOne, err);
 route.post("/api/v1/hotels", hotelsCtl.create, err);
 route.put("/api/v1/hotels/:id", hotelsCtl.update, err);

@@ -1,9 +1,14 @@
 const Hotel = require("../models/Hotel.js");
 const Room = require("../models/Room.js");
 
-const getAll = async () => {
+const getAll = async (query, limit) => {
+  const { min, max, ...params } = query;
+
   try {
-    const hotels = await Hotel.find({});
+    const hotels = await Hotel.find({
+      ...params,
+      cheepestPrice: { $gt: min || 0, $lt: max || 10000 },
+    }).limit(limit);
     return hotels;
   } catch (err) {
     throw err;
@@ -61,4 +66,12 @@ const del = async (id) => {
   }
 };
 
-exports.hotelSrv = { getAll, getOne, create, update, del };
+const getCount = (obj) => {
+  try {
+    return Hotel.countDocuments(obj);
+  } catch (err) {
+    throw err;
+  }
+};
+
+exports.hotelSrv = { getAll, getOne, create, update, del, getCount };
