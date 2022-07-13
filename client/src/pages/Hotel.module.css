@@ -114,3 +114,25 @@
   font-size: 0.9rem;
   margin-top: 1rem;
 }
+
+.closeBtn {
+  font-size: 3rem;
+  cursor: pointer;
+  position: absolute;
+  top: 2rem;
+  left: 2rem;
+  z-index: 1000;
+  color: var(--primary-btn);
+}
+
+.backdrop {
+  height: 100vh;
+  width: 100vw;
+  background-color: rgba(0, 0, 0, 0.479);
+  /* z-index: 900; */
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+}

@@ -1,37 +1,39 @@
-import styles from "./ImageSlider.module.css";
+import React, { useRef, useState } from "react";
+// Import Swiper React components
+import { Swiper, SwiperSlide } from "swiper/react";
 
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faCircleArrowLeft,
-  faCircleArrowRight,
-  faCircleXmark,
-} from "@fortawesome/free-solid-svg-icons";
+// Import Swiper styles
+import "swiper/css";
+import "swiper/css/pagination";
+import "swiper/css/navigation";
 
-export default function ImageSlider({ slideHandler, closeHandler, imgSrc }) {
+// import required modules
+import { Pagination, Navigation } from "swiper";
+
+import "./ImageSlider.css";
+
+export default function ImageSlider({ images }) {
+  console.log(images);
+
   return (
     <>
-      <div className={styles.slider}>
-        <FontAwesomeIcon
-          icon={faCircleXmark}
-          className={styles.closeBtn}
-          onClick={closeHandler}
-        />
-        <FontAwesomeIcon
-          icon={faCircleArrowLeft}
-          className={styles.arrowBtn}
-          onClick={() => slideHandler("prev")}
-        />
-
-        <div className={styles.sliderWrapper}>
-          <img className={styles.sliderImage} src={imgSrc} alt="image" />
-        </div>
-
-        <FontAwesomeIcon
-          icon={faCircleArrowRight}
-          className={styles.arrowBtn}
-          onClick={() => slideHandler("next")}
-        />
-      </div>
+      <Swiper
+        slidesPerView={1}
+        spaceBetween={30}
+        loop={true}
+        pagination={{
+          clickable: true,
+        }}
+        navigation={true}
+        modules={[Pagination, Navigation]}
+        className="mySwiper"
+      >
+        {images.map((img, idx) => (
+          <SwiperSlide key={idx}>
+            <img src={img} alt="photo" />
+          </SwiperSlide>
+        ))}
+      </Swiper>
     </>
   );
 }
