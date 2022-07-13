@@ -5,7 +5,9 @@ export default function Navbar() {
   return (
     <div className={styles.navbar}>
       <div className={styles.navContainer}>
-        <span className={styles.logo}>Travel Agency</span>
+        <NavLink to={"/"}>
+          <span className={styles.logo}>Travel Agency</span>
+        </NavLink>
 
         <ul className={styles.navItems}>
           <li className={styles.item}>
