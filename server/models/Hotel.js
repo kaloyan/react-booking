@@ -8,6 +8,7 @@ const hotelSchema = new mongoose.Schema({
 
   type: {
     type: String,
+    enum: ["hotel", "villa", "resort", "apartment", "cabin"],
     required: [true, "Type is required"],
   },
 
