@@ -66,6 +66,18 @@ export const filterSlice = createSlice({
       state.endDate = action.payload;
     },
 
+    setStatus: (state, action) => {
+      state.results.status = action.payload;
+    },
+
+    setError: (state, action) => {
+      state.results.error = action.payload;
+    },
+
+    setResult: (state, action) => {
+      state.results.items = action.payload;
+    },
+
     getResults: async (state) => {
       //todo
       // console.log("fetch results from server");
@@ -85,6 +97,9 @@ export const {
   setRooms,
   setStartDate,
   setEndDate,
+  setStatus,
+  setError,
+  setResult,
 } = filterSlice.actions;
 
 export default filterSlice.reducer;
