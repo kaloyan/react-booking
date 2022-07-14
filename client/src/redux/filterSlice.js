@@ -4,7 +4,11 @@ const initialState = {
   destination: "",
   minPrice: 0,
   maxPrice: 10000,
-  results: [],
+  results: {
+    items: [],
+    status: "idle", // 'idle, 'loading', 'succeeded', 'failed'
+    error: null,
+  },
   adults: 1,
   children: 0,
   rooms: 1,
@@ -20,7 +24,9 @@ export const filterSlice = createSlice({
       state.destination = "";
       state.minPrice = 0;
       state.maxPrice = 10000;
-      state.results = [];
+      state.results.items = [];
+      state.results.status = "idle";
+      state.results.error = null;
       state.adults = 1;
       state.children = 0;
       state.rooms = 1;

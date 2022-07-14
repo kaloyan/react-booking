@@ -1,11 +1,11 @@
-import Header from "../components/Header";
 import styles from "./Home.module.css";
 
-import Featured from "../components/lists/Featured";
-import PropertyList from "../components/lists/PropertyList";
-import FeaturedHotels from "../components/lists/FeaturedHotels";
-import Subscribtion from "../components/Subscribtion";
-import Footer from "../components/footer/Footer";
+import Header from "../../layouts/Header";
+import Featured from "../../lists/Featured";
+import PropertyList from "../../lists/PropertyList";
+import FeaturedHotels from "../../lists/FeaturedHotels";
+import Subscribtion from "../../ui/Subscribtion";
+import Footer from "../../layouts/Footer";
 
 export default function Home() {
   return (

@@ -3,16 +3,16 @@ import styles from "./HotelsList.module.css";
 import { useLocation } from "react-router-dom";
 import { useState } from "react";
 
-import { useFetch } from "../hooks/useFetch.js";
+import { useFetch } from "../../../hooks/useFetch";
 
-import Header from "../components/Header";
-import SearchTool from "../components/search/SearchTool";
-import SearchItem from "../components/SearchItem";
-import Footer from "../components/footer/Footer";
+import Header from "../../layouts/Header";
+import SearchTool from "../../search/SearchTool";
+import SearchItem from "../../ui/SearchItem";
+import Footer from "../../layouts/Footer";
 
 export default function HotelsList() {
   const { data, loading, error, reFetch } = useFetch(
-    "http://localhost:3000/api/v1/hotels?city=Sofia&limit=310"
+    "http://localhost:3000/api/v1/hotels?city=Sofia&limit=10"
   );
 
   console.log(data);

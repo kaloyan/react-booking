@@ -3,12 +3,12 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 // Import all pages
-import Home from "./pages/Home";
-import Hotel from "./pages/Hotel";
-import HotelsList from "./pages/HotelsList";
+import Home from "./components/pages/Home";
+import Hotel from "./components/pages/Hotel";
+import HotelsList from "./components/pages/Hotelslist";
 
 // Import compponenst
-import Navbar from "./components/Navbar";
+import Navbar from "./components/layouts/Navbar";
 
 function App() {
   return (

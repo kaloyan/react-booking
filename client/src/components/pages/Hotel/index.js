@@ -1,13 +1,12 @@
 import styles from "./Hotel.module.css";
 
 import { useState } from "react";
+import { useFetch } from "../../../hooks/useFetch.js";
 
-import { useFetch } from "../hooks/useFetch.js";
-
-import Header from "../components/Header";
-import ImageSlider from "../components/ImageSlider";
-import Subscription from "../components/Subscribtion";
-import Footer from "../components/footer/Footer";
+import Header from "../../layouts/Header";
+import ImageSlider from "../../ui/ImageSlider";
+import Subscription from "../../ui/Subscribtion";
+import Footer from "../../layouts/Footer";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
