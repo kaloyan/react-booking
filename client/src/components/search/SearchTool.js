@@ -11,7 +11,6 @@ export default function SearchTool() {
   const dispatch = useDispatch();
 
   const loadContent = useLoadContent();
-  // const loadContent = () => {};
 
   return (
     <div className={styles.search}>
@@ -29,7 +28,7 @@ export default function SearchTool() {
 
       <div className={styles.searchtoolItem}>
         <label htmlFor="">Chaekc-in Date</label>
-        <CalendarBox />
+        <CalendarBox style={"inlineCal"} />
       </div>
 
       <div className={styles.searchtoolItem}>
@@ -43,9 +42,7 @@ export default function SearchTool() {
             className={styles.optionInput}
             type="number"
             value={state.minPrice}
-            onChange={(e) =>
-              dispatch(actions.setMinPrice(Number(e.target.value)))
-            }
+            onChange={(e) => dispatch(actions.setMinPrice(e.target.value))}
           />
         </div>
 
@@ -57,9 +54,7 @@ export default function SearchTool() {
             className={styles.optionInput}
             type="number"
             value={state.maxPrice}
-            onChange={(e) =>
-              dispatch(actions.setMaxPrice(Number(e.target.value)))
-            }
+            onChange={(e) => dispatch(actions.setMaxPrice(e.target.value))}
           />
         </div>
 

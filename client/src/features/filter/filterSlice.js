@@ -1,9 +1,10 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
+import { format } from "date-fns";
 
 const initialState = {
   destination: "",
-  minPrice: 0,
-  maxPrice: 10000,
+  minPrice: "",
+  maxPrice: "",
   results: {
     items: [],
     status: "idle", // 'idle, 'loading', 'succeeded', 'failed'
@@ -12,8 +13,8 @@ const initialState = {
   adults: 1,
   children: 0,
   rooms: 1,
-  startDate: null,
-  endDate: null,
+  startDate: format(new Date(), "MM/dd/yyy"),
+  endDate: format(new Date(), "MM/dd/yyy"),
 };
 
 export const filterSlice = createSlice({
@@ -30,8 +31,8 @@ export const filterSlice = createSlice({
       state.adults = 1;
       state.children = 0;
       state.rooms = 1;
-      state.startDate = null;
-      state.endDate = null;
+      state.startDate = format(new Date(), "MM/dd/yyy");
+      state.endDate = format(new Date(), "MM/dd/yyy");
     },
 
     setDestination: (state, action) => {

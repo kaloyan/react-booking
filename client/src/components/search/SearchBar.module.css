@@ -45,9 +45,15 @@
   font-weight: bold;
 }
 
-.date {
+.boxCal {
   position: absolute;
   top: 3rem;
+  box-shadow: 0 5px 5px rgba(0, 0, 0, 0.5);
+}
+
+.inlineCal {
+  position: relative;
+  background-color: white;
 }
 
 .options {

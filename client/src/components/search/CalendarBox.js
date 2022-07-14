@@ -1,26 +1,22 @@
 import { useState } from "react";
+import { DateRange } from "react-date-range";
+import { format } from "date-fns";
+import { useSelector, useDispatch } from "react-redux";
+import { setStartDate, setEndDate } from "../../features/filter/filterSlice";
 
 import styles from "./SearchBar.module.css";
 
 import "react-date-range/dist/styles.css"; // main css file
 import "react-date-range/dist/theme/default.css"; // theme css file
 
-import { DateRange } from "react-date-range";
-import { format } from "date-fns";
-
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCalendarDays } from "@fortawesome/free-regular-svg-icons";
 
-export default function CalendarBox() {
+export default function CalendarBox(props) {
   const [openDate, setOpenDate] = useState(false);
 
-  const [date, setDate] = useState([
-    {
-      startDate: new Date(),
-      endDate: new Date(),
-      key: "selection",
-    },
-  ]);
+  const dispatch = useDispatch();
+  const state = useSelector((state) => state.filter);
 
   const toggleDate = () => {
     setOpenDate(!openDate);
@@ -30,21 +26,31 @@ export default function CalendarBox() {
     setOpenDate(false);
   };
 
+  const handleSelectdate = (selection) => {
+    dispatch(setStartDate(format(selection.startDate, "MM/dd/yyy")));
+    dispatch(setEndDate(format(selection.endDate, "MM/dd/yyy")));
+  };
+
   return (
     <div className={styles.searchItem} onClick={toggleDate} onBlur={closeDate}>
       <FontAwesomeIcon icon={faCalendarDays} className={styles.icon} />
-      <span className={styles.searchText}>{`${format(
-        date[0].startDate,
-        "MM/dd/yyyy"
-      )} to ${format(date[0].endDate, "MM/dd/yyyy")}`}</span>
+      <span className={styles.searchText}>
+        {`${state.startDate} to ${state.endDate}`}
+      </span>
 
       {openDate && (
         <DateRange
           editableDateInputs={true}
-          onChange={(item) => setDate([item.selection])}
+          onChange={(item) => handleSelectdate(item.selection)}
           moveRangeOnFirstSelection={false}
-          ranges={date}
-          className={styles.date}
+          ranges={[
+            {
+              startDate: new Date(state.startDate),
+              endDate: new Date(state.endDate),
+              key: "selection",
+            },
+          ]}
+          className={styles[props.style]}
         />
       )}
     </div>

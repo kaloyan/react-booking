@@ -1,7 +1,6 @@
 import styles from "./SearchBar.module.css";
 
 import { useNavigate } from "react-router-dom";
-import { useLoadContent } from "../../hooks/useLoadcontent";
 
 import GuestsBox from "./GuestsBox";
 import SeachBox from "./SeachBox";
@@ -9,12 +8,7 @@ import CalendarBox from "./CalendarBox";
 export default function SearchBar() {
   const navigate = useNavigate();
 
-  const loadContent = useLoadContent();
-
   const searchHandler = () => {
-    // First load content from server into state
-    loadContent();
-    // Then navigate to /hotels route
     navigate("/hotels");
   };
 
@@ -22,7 +16,7 @@ export default function SearchBar() {
     <div className={styles.searchBar}>
       <SeachBox />
 
-      <CalendarBox />
+      <CalendarBox style={"boxCal"} />
 
       <GuestsBox />
 
