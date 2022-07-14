@@ -1,0 +1,37 @@
+.login {
+  height: 90vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.input {
+  height: 3rem;
+  padding: 0.5rem;
+  font-size: 1rem;
+}
+
+.label {
+  margin: 0;
+}
+
+.submit {
+  border: none;
+  padding: 1rem;
+  background-color: var(--primary-btn);
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 0.2rem;
+}
+
+.submit:disabled {
+  background-color: rgba(20, 134, 215, 0.55);
+  cursor: not-allowed;
+}
