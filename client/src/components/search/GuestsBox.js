@@ -1,6 +1,10 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setAdults, setChildren, setRooms } from "../../redux/filterSlice";
+import {
+  setAdults,
+  setChildren,
+  setRooms,
+} from "../../features/filter/filterSlice";
 
 import styles from "./SearchBar.module.css";
 

@@ -1,22 +1,21 @@
 import styles from "./SearchBar.module.css";
 
 import { useNavigate } from "react-router-dom";
+import { useLoadContent } from "../../hooks/useLoadcontent";
 
 import GuestsBox from "./GuestsBox";
 import SeachBox from "./SeachBox";
 import CalendarBox from "./CalendarBox";
-
 export default function SearchBar() {
   const navigate = useNavigate();
 
+  const loadContent = useLoadContent();
+
   const searchHandler = () => {
-    navigate("/hotels", {
-      state: {
-        destination: "Bali",
-        date: "01-01-2023",
-        options: "1-0-1",
-      },
-    });
+    // First load content from server into state
+    loadContent();
+    // Then navigate to /hotels route
+    navigate("/hotels");
   };
 
   return (

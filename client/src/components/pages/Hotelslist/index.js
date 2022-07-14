@@ -1,28 +1,15 @@
 import styles from "./HotelsList.module.css";
 
-import { useLocation } from "react-router-dom";
-import { useState } from "react";
-
-import { useFetch } from "../../../hooks/useFetch";
+import { useSelector } from "react-redux";
 
 import Header from "../../layouts/Header";
 import SearchTool from "../../search/SearchTool";
 import SearchItem from "../../ui/SearchItem";
 import Footer from "../../layouts/Footer";
+import Info from "../../ui/Info";
 
 export default function HotelsList() {
-  const { data, loading, error, reFetch } = useFetch(
-    "http://localhost:3000/api/v1/hotels?city=Sofia&limit=10"
-  );
-
-  console.log(data);
-
-  const location = useLocation();
-  // console.log(location);
-
-  const [destination, setDestination] = useState(location.state.destination);
-  const [date, setDate] = useState(location.state.date);
-  const [options, setOptions] = useState(location.state.options);
+  const { results } = useSelector((state) => state.filter);
 
   return (
     <>
@@ -31,11 +18,11 @@ export default function HotelsList() {
       <div className={styles.listContainer}>
         <div className={styles.wrapper}>
           <div className={styles.results}>
-            {loading ? (
-              <div>Loading please wait</div>
+            {results.status == "loading" ? (
+              <Info content={"Loading please wait"} />
             ) : (
               <>
-                {data.map((item) => (
+                {results.items.map((item) => (
                   <SearchItem key={item._id} data={item} />
                 ))}
               </>

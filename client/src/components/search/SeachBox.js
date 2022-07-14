@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { setDestination } from "../../redux/filterSlice";
+import { setDestination } from "../../features/filter/filterSlice";
 
 import styles from "./SearchBar.module.css";
 

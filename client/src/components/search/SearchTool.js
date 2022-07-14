@@ -1,22 +1,17 @@
 import { useDispatch, useSelector } from "react-redux";
-import * as actions from "../../redux/filterSlice";
+import * as actions from "../../features/filter/filterSlice";
 
 import styles from "./SearchTool.module.css";
 
 import CalendarBox from "./CalendarBox";
+import { useLoadContent } from "../../hooks/useLoadcontent";
 
 export default function SearchTool() {
-  const {
-    destination,
-    minPrice,
-    maxPrice,
-    adults,
-    children,
-    rooms,
-    startDate,
-    endDate,
-  } = useSelector((state) => state.filter);
+  const state = useSelector((state) => state.filter);
   const dispatch = useDispatch();
+
+  const loadContent = useLoadContent();
+  // const loadContent = () => {};
 
   return (
     <div className={styles.search}>
@@ -27,7 +22,7 @@ export default function SearchTool() {
         <input
           type="text"
           placeholder={"Bali"}
-          value={destination}
+          value={state.destination}
           onChange={(e) => dispatch(actions.setDestination(e.target.value))}
         />
       </div>
@@ -47,7 +42,7 @@ export default function SearchTool() {
           <input
             className={styles.optionInput}
             type="number"
-            value={minPrice}
+            value={state.minPrice}
             onChange={(e) =>
               dispatch(actions.setMinPrice(Number(e.target.value)))
             }
@@ -61,7 +56,7 @@ export default function SearchTool() {
           <input
             className={styles.optionInput}
             type="number"
-            value={maxPrice}
+            value={state.maxPrice}
             onChange={(e) =>
               dispatch(actions.setMaxPrice(Number(e.target.value)))
             }
@@ -75,7 +70,7 @@ export default function SearchTool() {
             min={1}
             placeholder={1}
             type="number"
-            value={adults}
+            value={state.adults}
             onChange={(e) =>
               dispatch(actions.setAdults(Number(e.target.value)))
             }
@@ -89,7 +84,7 @@ export default function SearchTool() {
             min={0}
             placeholder={0}
             type="number"
-            value={children}
+            value={state.children}
             onChange={(e) =>
               dispatch(actions.setChildren(Number(e.target.value)))
             }
@@ -103,16 +98,13 @@ export default function SearchTool() {
             min={1}
             placeholder={1}
             type="number"
-            value={rooms}
+            value={state.rooms}
             onChange={(e) => dispatch(actions.setRooms(Number(e.target.value)))}
           />
         </div>
       </div>
 
-      <button
-        className={styles.searchBtn}
-        onClick={async () => await dispatch(await actions.getResults())}
-      >
+      <button className={styles.searchBtn} onClick={async () => loadContent()}>
         Search
       </button>
     </div>

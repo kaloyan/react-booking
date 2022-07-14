@@ -13,8 +13,6 @@ import { Pagination, Navigation } from "swiper";
 import "./ImageSlider.css";
 
 export default function ImageSlider({ images }) {
-  console.log(images);
-
   return (
     <>
       <Swiper
