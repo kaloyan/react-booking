@@ -7,7 +7,6 @@ import { useLoadContent } from "../../../hooks/useLoadcontent";
 import Header from "../../layouts/Header";
 import SearchTool from "../../search/SearchTool";
 import SearchItem from "../../ui/SearchItem";
-import Footer from "../../layouts/Footer";
 import Info from "../../ui/Info";
 
 export default function HotelsList() {
@@ -38,7 +37,6 @@ export default function HotelsList() {
 
           <SearchTool />
         </div>
-        <Footer />
       </div>
     </>
   );

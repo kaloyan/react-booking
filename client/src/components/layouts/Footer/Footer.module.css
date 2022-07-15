@@ -1,7 +1,9 @@
 .footer {
+  margin: auto;
   width: 100%;
   max-width: 1024px;
   font-size: 0.9rem;
+  padding-top: 2rem;
 }
 
 .lists {

@@ -7,9 +7,11 @@ import Home from "./components/pages/Home";
 import Hotel from "./components/pages/Hotel";
 import HotelsList from "./components/pages/Hotelslist";
 import Login from "./components/pages/Login";
+import Register from "./components/pages/Register";
 
 // Import compponenst
 import Navbar from "./components/layouts/Navbar";
+import Footer from "./components/layouts/Footer";
 
 function App() {
   return (
@@ -22,7 +24,10 @@ function App() {
           <Route path="/hotels" element={<HotelsList />} />
           <Route path="/hotels/:id" element={<Hotel />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
         </Routes>
+
+        <Footer />
       </div>
     </BrowserRouter>
   );

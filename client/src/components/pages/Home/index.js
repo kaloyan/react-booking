@@ -5,7 +5,6 @@ import Featured from "../../lists/Featured";
 import PropertyList from "../../lists/PropertyList";
 import FeaturedHotels from "../../lists/FeaturedHotels";
 import Subscribtion from "../../ui/Subscribtion";
-import Footer from "../../layouts/Footer";
 
 export default function Home() {
   return (
@@ -22,8 +21,6 @@ export default function Home() {
         <FeaturedHotels />
 
         <Subscribtion />
-
-        <Footer />
       </div>
     </>
   );

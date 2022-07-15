@@ -6,7 +6,6 @@ import { useFetch } from "../../../hooks/useFetch.js";
 import Header from "../../layouts/Header";
 import ImageSlider from "../../ui/ImageSlider";
 import Subscription from "../../ui/Subscribtion";
-import Footer from "../../layouts/Footer";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -113,8 +112,6 @@ export default function Hotel() {
             )}
 
             <Subscription />
-
-            <Footer />
           </div>
         </>
       )}
