@@ -102,6 +102,7 @@ export default function Login() {
             id="password"
             required
             minLength={3}
+            placeholder="must be at least 3 characters long"
             value={formik.values.password}
             onChange={formik.handleChange}
           />
@@ -116,6 +117,7 @@ export default function Login() {
             id="repass"
             required
             minLength={3}
+            placeholder="type same password again"
             value={formik.values.repass}
             onChange={formik.handleChange}
           />

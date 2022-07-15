@@ -2,8 +2,9 @@ import styles from "./Navbar.module.css";
 import { NavLink } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
-import { getAccount, doLogout } from "../../../services/netReq";
-import { setAccount, logout } from "../../../features/account/accountSlice";
+import { getAccount } from "../../../services/netReq";
+import { setAccount } from "../../../features/account/accountSlice";
+import AccountTool from "../../ui/AccountTool";
 
 export default function Navbar() {
   const { username, email } = useSelector((state) => state.account);
@@ -19,13 +20,6 @@ export default function Navbar() {
     checkAcount();
   }, []);
 
-  const handleLogout = async (e) => {
-    e.preventDefault();
-
-    await doLogout();
-    dispatch(logout());
-  };
-
   return (
     <div className={styles.navbar}>
       <div className={styles.navContainer}>
@@ -35,17 +29,7 @@ export default function Navbar() {
 
         <ul className={styles.navItems}>
           {username ? (
-            <>
-              <li className={styles.item}>
-                <NavLink
-                  to={"/"}
-                  onClick={handleLogout}
-                  className={styles.navLink}
-                >
-                  {username} [{email}]
-                </NavLink>
-              </li>
-            </>
+            <AccountTool username={username} email={email} />
           ) : (
             <>
               <li className={styles.item}>
