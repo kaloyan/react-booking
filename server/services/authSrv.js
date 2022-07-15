@@ -31,15 +31,15 @@ const register = async (username, email, password, role) => {
   }
 };
 
-const login = async (username, password) => {
+const login = async (email, password) => {
   try {
-    const usr = await User.findOne({ username }).exec();
+    const usr = await User.findOne({ email }).exec();
 
-    if (!usr) throw { message: "Invalid username or password" };
+    if (!usr) throw { message: "Invalid email or password" };
 
     const isValid = await bcrypt.compare(password, usr.password);
 
-    if (!isValid) throw { message: "Invalid username or password" };
+    if (!isValid) throw { message: "Invalid email or password" };
 
     return usr;
   } catch (err) {

@@ -1,11 +1,22 @@
-.login {
+.container {
   height: 90vh;
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-direction: column;
 }
 
-.container {
+.wrapper {
+  border: 0.7px solid grey;
+  border-radius: 1rem;
+  padding: 0.7rem 4rem;
+}
+
+.title {
+  margin: 1rem;
+}
+
+.form {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
@@ -15,6 +26,14 @@
   height: 3rem;
   padding: 0.5rem;
   font-size: 1rem;
+}
+
+.input:invalid {
+  border: 2px solid var(--primary-btn);
+}
+
+.input:valid {
+  border: 1px solid gray;
 }
 
 .label {
@@ -29,6 +48,7 @@
   font-weight: bold;
   cursor: pointer;
   border-radius: 0.2rem;
+  margin: 1rem;
 }
 
 .submit:disabled {

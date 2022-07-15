@@ -3,13 +3,14 @@
 const { authSrv } = require("../services/authSrv.js");
 
 const login = async (req, res, next) => {
-  const username = req.body.username;
+  const email = req.body.email;
   const password = req.body.password;
 
   try {
     //!TODO - validate input
 
-    const user = await authSrv.login(username, password);
+    const user = await authSrv.login(email, password);
+
     const token = authSrv.genToken(user);
     res.cookie("jwt_token", token, { httpOnly: true }).json({
       message: "Login successfull",

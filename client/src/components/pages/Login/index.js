@@ -1,70 +1,86 @@
 import styles from "./Login.module.css";
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { login } from "../../../services/netReq";
 import { useDispatch } from "react-redux";
 import { setAccount } from "../../../features/account/accountSlice";
+import { useFormik } from "formik";
 
 export default function Login() {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState(null);
+  const formik = useFormik({
+    initialValues: {
+      email: "",
+      password: "",
+      error: "",
+    },
+    onSubmit: async (values) => {
+      try {
+        const response = await login({
+          email: values.email,
+          password: values.password,
+        });
+
+        if (response?.status == "OK") {
+          values.error = "";
+          dispatch(setAccount(response));
+          navigate("/");
+        } else {
+          values.error = response.response.data.message;
+        }
+      } catch (err) {
+        console.log("Error: ", err);
+      }
+    },
+  });
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const loginHandler = async (e) => {
-    e.preventDefault();
-
-    const response = await login({ username, password });
-
-    if (response?.status == "OK") {
-      setError(null);
-      dispatch(setAccount(response));
-      navigate("/");
-    } else {
-      setError(response.response.data);
-      // console.log(response?.response?.data);
-    }
-  };
-
   return (
-    <div className={styles.login}>
-      <form onSubmit={loginHandler} className={styles.container}>
-        <label htmlFor="username" className={styles.label}>
-          Username
-        </label>
-        <input
-          className={styles.input}
-          type="text"
-          name="username"
-          id="username"
-          placeholder="John Doe"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-        />
+    <div className={styles.container}>
+      <div className={styles.wrapper}>
+        <h1 className={styles.title}>Sign in</h1>
 
-        <label htmlFor="password" className={styles.label}>
-          password
-        </label>
-        <input
-          className={styles.input}
-          type="password"
-          name="password"
-          id="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
+        <form onSubmit={formik.handleSubmit} className={styles.form}>
+          <label htmlFor="email" className={styles.label}>
+            Email address:
+          </label>
+          <input
+            className={styles.input}
+            type="email"
+            name="email"
+            id="email"
+            placeholder="john@example.com"
+            required
+            value={formik.values.email}
+            onChange={formik.handleChange}
+          />
 
-        <input
-          type="submit"
-          name="submit"
-          value="Login"
-          className={styles.submit}
-        />
+          <label htmlFor="password" className={styles.label}>
+            Your password:
+          </label>
+          <input
+            className={styles.input}
+            type="password"
+            name="password"
+            id="password"
+            value={formik.values.password}
+            required
+            minLength={3}
+            onChange={formik.handleChange}
+          />
 
-        {error && <div className={styles.errorBox}>{error.message}</div>}
-      </form>
+          <input
+            type="submit"
+            name="submit"
+            value="Login"
+            className={styles.submit}
+          />
+
+          {formik.values.error && (
+            <div className={styles.errorBox}>{formik.values.error}</div>
+          )}
+        </form>
+      </div>
     </div>
   );
 }
