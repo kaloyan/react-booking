@@ -7,10 +7,12 @@ import {
   faTaxi,
 } from "@fortawesome/free-solid-svg-icons";
 import { NavLink } from "react-router-dom";
-
 import SearchBar from "../../search/SearchBar";
+import { useSelector } from "react-redux";
 
 export default function Header(props) {
+  const { username } = useSelector((state) => state.account);
+
   return (
     <div className={styles.header}>
       <div className={styles.container}>
@@ -52,9 +54,11 @@ export default function Header(props) {
               more with a free booking account.
             </p>
 
-            <NavLink to={"/register"} className={styles.headerLink}>
-              Sign in / Register
-            </NavLink>
+            {!username && (
+              <NavLink to={"/register"} className={styles.headerLink}>
+                Sign in / Register
+              </NavLink>
+            )}
           </>
         )}
 

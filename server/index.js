@@ -10,7 +10,12 @@ const port = process.env.SERVER_PORT || 3000;
 
 const app = express();
 
-app.use(cors());
+const corsOptions = {
+  origin: true,
+  credentials: true,
+};
+
+app.use(cors(corsOptions));
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());

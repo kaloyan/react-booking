@@ -78,12 +78,6 @@ export const filterSlice = createSlice({
     setResult: (state, action) => {
       state.results.items = action.payload;
     },
-
-    getResults: async (state) => {
-      //todo
-      // console.log("fetch results from server");
-      // console.log(state);
-    },
   },
 });
 
@@ -92,7 +86,6 @@ export const {
   setDestination,
   setMinPrice,
   setMaxPrice,
-  getResults,
   setAdults,
   setChildren,
   setRooms,

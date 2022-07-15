@@ -1,14 +1,31 @@
 import styles from "./Login.module.css";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { login } from "../../../services/netReq";
+import { useDispatch } from "react-redux";
+import { setAccount } from "../../../features/account/accountSlice";
 
 export default function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState(null);
 
-  const loginHandler = (e) => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const loginHandler = async (e) => {
     e.preventDefault();
 
-    console.log(username, password);
+    const response = await login({ username, password });
+
+    if (response?.status == "OK") {
+      setError(null);
+      dispatch(setAccount(response));
+      navigate("/");
+    } else {
+      setError(response.response.data);
+      // console.log(response?.response?.data);
+    }
   };
 
   return (
@@ -45,6 +62,8 @@ export default function Login() {
           value="Login"
           className={styles.submit}
         />
+
+        {error && <div className={styles.errorBox}>{error.message}</div>}
       </form>
     </div>
   );

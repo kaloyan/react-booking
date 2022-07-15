@@ -35,3 +35,7 @@
   background-color: rgba(20, 134, 215, 0.55);
   cursor: not-allowed;
 }
+
+.errorBox {
+  color: red;
+}

@@ -52,6 +52,7 @@ const genToken = (user) => {
     id: user._id,
     username: user.username,
     role: user.role,
+    email: user.email,
   };
 
   const options = {

@@ -19,6 +19,7 @@ route.use(isAuth);
 route.post("/auth/login", guard.isGuest, authCtl.login, err);
 route.post("/auth/register", guard.isGuest, authCtl.register, err);
 route.get("/auth/logout", authCtl.logout, err);
+route.get("/auth/account", authCtl.account, err);
 
 // hotels API routes
 route.get("/api/v1/hotels", hotelsCtl.getAll, err);

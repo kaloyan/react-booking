@@ -52,4 +52,12 @@ const logout = (req, res) => {
   });
 };
 
-exports.authCtl = { login, register, logout };
+const account = (req, res, next) => {
+  if (req.user) {
+    res.json(req.user);
+  } else {
+    res.status(203).send([]);
+  }
+};
+
+exports.authCtl = { login, register, logout, account };
