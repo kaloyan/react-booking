@@ -55,7 +55,7 @@ export default function Navbar() {
               </li>
 
               <li className="item">
-                <NavLink to={"/login"} className={styles.navLink}>
+                <NavLink to={"/register"} className={styles.navLink}>
                   Register
                 </NavLink>
               </li>

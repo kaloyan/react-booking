@@ -1,5 +1,6 @@
-import styles from "./Login.module.css";
-import { useNavigate } from "react-router-dom";
+import styles from "../../../assets/Forms.module.css";
+
+import { useNavigate, Link } from "react-router-dom";
 import { login } from "../../../services/netReq";
 import { useDispatch } from "react-redux";
 import { setAccount } from "../../../features/account/accountSlice";
@@ -79,6 +80,10 @@ export default function Login() {
           {formik.values.error && (
             <div className={styles.errorBox}>{formik.values.error}</div>
           )}
+
+          <div className={styles.infoBox}>
+            Dont't have account? <Link to={"/register"}>Register here</Link>
+          </div>
         </form>
       </div>
     </div>

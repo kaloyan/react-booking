@@ -12,6 +12,7 @@ const login = async (req, res, next) => {
     const user = await authSrv.login(email, password);
 
     const token = authSrv.genToken(user);
+
     res.cookie("jwt_token", token, { httpOnly: true }).json({
       message: "Login successfull",
       status: "OK",
@@ -29,18 +30,29 @@ const register = async (req, res, next) => {
   const email = req.body.email;
   const password = req.body.password;
   const rePass = req.body.rePass;
+  let role = req.body.role;
+
+  // validate role
+  if (role !== "user" && role !== "owner") {
+    role = "user";
+  }
 
   try {
     //!TODO - validate inputs
     if (password !== rePass) {
-      throw { status: 500, message: "Passwords dont match" };
+      throw { status: 500, message: "Passwords don't match" };
     }
 
-    const user = await authSrv.register(username, email, password, "user");
-    res.status(201).json({
-      status: "OK",
+    const user = await authSrv.register(username, email, password, role);
+
+    const token = authSrv.genToken(user);
+
+    res.cookie("jwt_token", token, { httpOnly: true }).status(201).json({
       message: "Registratoin successfull",
+      status: "OK",
       username: user.username,
+      role: user.role,
+      email: user.email,
     });
   } catch (err) {
     next(err);
