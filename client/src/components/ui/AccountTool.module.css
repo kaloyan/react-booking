@@ -1,6 +1,6 @@
 .dropbtn {
-  background-color: var(--color-primary);
-  color: white;
+  color: var(--color-primary);
+  background-color: white;
   padding: 16px;
   font-size: 16px;
   border: none;
@@ -8,10 +8,12 @@
   cursor: pointer;
   display: flex;
   gap: 5px;
+  transform: all 0.5s;
 }
 
 .dropbtn:hover,
 .dropbtn:focus {
+  color: white;
   background-color: var(--color-primary-btn);
 }
 
@@ -55,12 +57,5 @@
 }
 
 .icon {
-  margin: 4px 0 0 5px;
-}
-
-.avatar {
-  border-radius: 50%;
-  padding: 3px;
-  border: 1px solid white;
-  margin: 0 0.3rem;
+  margin: 0 0.5rem;
 }

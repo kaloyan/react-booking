@@ -1,25 +1,20 @@
 import styles from "./HotelsList.module.css";
 
-import { useEffect } from "react";
 import { useSelector } from "react-redux";
-import { useLoadContent } from "../../hooks/useLoadcontent";
 
 import Header from "../layouts/Header";
-import SearchTool from "../search/SearchTool";
+import SearchBar from "../search/SearchBar";
 import SearchItem from "../ui/SearchItem";
 import Info from "../ui/Info";
 
 export default function HotelsList() {
   const { results } = useSelector((state) => state.filter);
-  const loadContent = useLoadContent();
-
-  useEffect(() => {
-    loadContent();
-  }, []);
 
   return (
     <>
-      <Header compact={true} />
+      <Header compact={true}>
+        <SearchBar />
+      </Header>
 
       <div className={styles.listContainer}>
         <div className={styles.wrapper}>
@@ -34,8 +29,6 @@ export default function HotelsList() {
               </>
             )}
           </div>
-
-          <SearchTool />
         </div>
       </div>
     </>

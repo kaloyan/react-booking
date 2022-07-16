@@ -63,6 +63,8 @@ export default function Header(props) {
         )}
 
         {!props.compact && <SearchBar />}
+
+        <div className={styles["content"]}>{props.children}</div>
       </div>
     </div>
   );

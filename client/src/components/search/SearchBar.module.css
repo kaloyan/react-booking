@@ -1,41 +1,70 @@
-.searchBar {
+.search-tool {
+  width: fit-content;
+  margin: auto;
+}
+
+.container {
   width: 100%;
-  max-width: 1024px;
-  height: 4rem;
+  display: flex;
+  justify-content: center;
+}
+
+.wrapper {
+  width: 100%;
   background-color: white;
-  border: 3px solid var(--focus-color);
+  color: var(--text-very-dark);
+  position: relative;
+  max-height: 0;
+  transition: max-height 0.5s ease-out;
+  overflow: hidden;
+}
+
+.wrapper.visible {
   display: flex;
-  align-items: center;
   justify-content: space-around;
+  align-items: stretch;
+  padding: 1rem;
+  max-height: 206px;
+  position: sticky;
+}
+
+.wrapper input {
   font-size: 1.2rem;
-  border-radius: 0.2rem;
-  position: absolute;
-  bottom: -40%;
+  color: black;
 }
 
-.searchItem {
-  display: flex;
-  align-items: center;
-  gap: 0.6rem;
+.search-tool.visible {
+  box-shadow: 0 0.3rem 0.3rem 0 rgba(0, 0, 0, 0.5);
 }
 
-.icon {
-  color: var(--color-gary);
-}
+.search-box {
+  font-size: 1.4rem;
+  height: 3rem;
+  width: 100%;
+  min-width: 500px;
+  padding: 0.5rem;
 
-.searchInput {
   border: none;
-  outline: none;
-  font-size: 1.2rem;
 }
 
-.searchText {
-  color: var(--color-gary);
-  font-size: 1.2rem;
+.search-box:focus {
+  border: none;
+}
+
+.search-btn {
+  height: 3rem;
+  padding: 0.7rem 1rem;
+  background-color: var(--color-primary-btn);
+  color: white;
+  border: none;
   cursor: pointer;
+  font-size: 1.3rem;
+  font-weight: bold;
+  width: 100%;
 }
 
-.searchBtn {
+.close-btn {
+  height: 3rem;
   padding: 0.7rem 1rem;
   background-color: var(--color-primary-btn);
   color: white;
@@ -45,47 +74,12 @@
   font-weight: bold;
 }
 
-.boxCal {
-  position: absolute;
-  top: 3rem;
-  box-shadow: 0 5px 5px rgba(0, 0, 0, 0.5);
+.hidden {
+  display: none;
 }
 
-.inlineCal {
-  position: relative;
-  background-color: white;
-}
-
-.options {
-  position: absolute;
-  top: 2.5rem;
-  background-color: white;
-  color: var(--color-gary);
-  border-radius: 0.2rem;
-  box-shadow: 0px 0px 10px -5px rgba(0, 0, 0, 0.5);
-}
-
-.optionItem {
-  width: 10rem;
+.date-box {
   display: flex;
-  justify-content: space-between;
-  margin: 0.6rem;
-}
-
-.counter {
-  display: flex;
-  gap: 0.5rem;
-  align-items: center;
-  color: black;
-}
-
-.optionsBtn {
-  border: 1px solid var(--color-primary-btn);
-  width: 1.7rem;
-  height: 1.7rem;
-  font-size: 1.1rem;
-}
-
-.optionsBtn:disabled {
-  cursor: not-allowed;
+  flex-direction: column;
+  gap: 1rem;
 }

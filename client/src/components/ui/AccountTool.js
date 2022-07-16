@@ -20,22 +20,22 @@ export default function AccountTool(props) {
   };
 
   return (
-    <div className={styles.dropdown}>
+    <div className={styles["dropdown"]}>
       <button
         onClick={() => setOpenMenu((state) => !state)}
         onBlur={() => setOpenMenu(false)}
-        className={styles.dropbtn}
+        className={styles["dropbtn"]}
       >
-        <FontAwesomeIcon icon={faUser} className={styles.avatar} />
+        <FontAwesomeIcon icon={faUser} className={styles["avatar"]} />
         {props.username}
-        <FontAwesomeIcon icon={faCaretDown} className={styles.icon} />
+        <FontAwesomeIcon icon={faCaretDown} className={styles["icon"]} />
       </button>
       <div
         className={`${styles["dropdown-content"]} ${
           openMenu && styles["show"]
         }`}
       >
-        <span className={styles.menuItem}> {props.email}</span>
+        <span> {props.email}</span>
         <Link to={"/dashboard"} onMouseDown={() => navigate("/dashboard")}>
           Dashboard
         </Link>
