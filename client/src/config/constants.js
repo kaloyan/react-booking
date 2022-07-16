@@ -6,3 +6,4 @@ export const loginURL = `${BASE_URL}/auth/login`;
 export const accountURL = `${BASE_URL}/auth/account`;
 export const logoutURL = `${BASE_URL}/auth/logout`;
 export const registerURL = `${BASE_URL}/auth/register`;
+export const itemURL = `${BASE_URL}/api/v1/hotels/`;

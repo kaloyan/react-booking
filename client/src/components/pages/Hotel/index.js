@@ -1,25 +1,31 @@
 import styles from "./Hotel.module.css";
 
-import { useState } from "react";
-import { useFetch } from "../../../hooks/useFetch.js";
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 
 import Header from "../../layouts/Header";
 import ImageSlider from "../../ui/ImageSlider";
 import Subscription from "../../ui/Subscribtion";
+import { getItem } from "../../../services/netReq";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCircleXmark,
   faLocationDot,
 } from "@fortawesome/free-solid-svg-icons";
-import { useLocation } from "react-router-dom";
 
 export default function Hotel() {
-  const location = useLocation();
+  const { id } = useParams();
+  const [data, setData] = useState(null);
 
-  const { data, loading, error } = useFetch(
-    `http://localhost:3000/api/v1${location.pathname}`
-  );
+  useEffect(() => {
+    const getData = async () => {
+      const response = await getItem(id);
+      setData(response);
+    };
+
+    getData();
+  }, [id]);
 
   const [openSlider, setOpenSlider] = useState(false);
 
@@ -47,7 +53,7 @@ export default function Hotel() {
       ) : (
         <>
           <div className={styles.container}>
-            {loading ? (
+            {!data ? (
               <div>Loading please wait</div>
             ) : (
               <>

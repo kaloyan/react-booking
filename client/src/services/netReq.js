@@ -1,12 +1,7 @@
 // Network Requests Service
 
 import axios from "axios";
-import {
-  loginURL,
-  accountURL,
-  logoutURL,
-  registerURL,
-} from "../config/constants";
+import * as urls from "../config/constants";
 
 const netReq = async (url, options = { method: "get", data: null }) => {
   let response = null;
@@ -22,7 +17,6 @@ const netReq = async (url, options = { method: "get", data: null }) => {
         });
         break;
     }
-    // console.log(response);
 
     return response?.data || response?.response?.data;
   } catch (err) {
@@ -31,17 +25,22 @@ const netReq = async (url, options = { method: "get", data: null }) => {
 };
 
 export const login = (data) => {
-  return netReq(loginURL, { method: "post", data });
+  return netReq(urls.loginURL, { method: "post", data });
 };
 
 export const getAccount = () => {
-  return netReq(accountURL);
+  return netReq(urls.accountURL);
 };
 
 export const doLogout = () => {
-  return netReq(logoutURL);
+  return netReq(urls.logoutURL);
 };
 
 export const register = (data) => {
-  return netReq(registerURL, { method: "post", data });
+  return netReq(urls.registerURL, { method: "post", data });
+};
+
+export const getItem = (itemId) => {
+  const url = urls.itemURL + itemId;
+  return netReq(url);
 };

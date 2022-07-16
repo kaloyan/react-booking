@@ -13,12 +13,13 @@ export default function Navbar() {
   useEffect(() => {
     const checkAcount = async () => {
       const response = await getAccount();
-      // console.log(response);
       dispatch(setAccount(response));
     };
 
     checkAcount();
   }, []);
+
+  const setActive = ({ isActive }) => (isActive ? styles.activeLink : "");
 
   return (
     <div className={styles.navbar}>
@@ -32,14 +33,14 @@ export default function Navbar() {
             <AccountTool username={username} email={email} />
           ) : (
             <>
-              <li className={styles.item}>
-                <NavLink to={"/login"} className={styles.navLink}>
+              <li>
+                <NavLink to={"/login"} className={setActive}>
                   Login
                 </NavLink>
               </li>
 
-              <li className="item">
-                <NavLink to={"/register"} className={styles.navLink}>
+              <li>
+                <NavLink to={"/register"} className={setActive}>
                   Register
                 </NavLink>
               </li>

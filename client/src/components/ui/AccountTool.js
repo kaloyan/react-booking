@@ -3,7 +3,7 @@ import { doLogout } from "../../services/netReq";
 import { logout } from "../../features/account/accountSlice";
 import { useDispatch } from "react-redux";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCaretDown, faUser } from "@fortawesome/free-solid-svg-icons";
 
@@ -36,8 +36,12 @@ export default function AccountTool(props) {
         }`}
       >
         <span className={styles.menuItem}> {props.email}</span>
-        <a onMouseDown={() => navigate("/dashboard")}>Dashboard</a>
-        <a onMouseDown={handleLogout}>logout</a>
+        <Link to={"/dashboard"} onMouseDown={() => navigate("/dashboard")}>
+          Dashboard
+        </Link>
+        <Link to={"/logout"} onMouseDown={handleLogout}>
+          logout
+        </Link>
       </div>
     </div>
   );
