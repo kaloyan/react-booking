@@ -1,17 +1,39 @@
+/* Fonts */
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap");
+
+/* Color variables */
+
+* {
+  --color-bg: rgb(239, 240, 243);
+  --color-primary: rgb(0, 98, 188);
+  --color-primary-btn: rgb(20, 122, 237);
+  --color-gary: rgb(121, 121, 121);
+  --color-middle-dark: rgb(65, 65, 65);
+  --focus-color: rgb(227, 192, 17);
+  --color-success: rgb(33, 169, 33);
+  --color-dark: rgb(49, 49, 49);
+  --text-dark: rgb(193, 193, 193);
+  --text-very-dark: rgb(125, 125, 125);
+}
+
 /* Browser resets */
 
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  font-family: Roboto, sans;
 }
 
-/* Color variables */
+body {
+  background-color: var(--color-bg);
+}
 
-* {
-  --primary: rgb(6, 75, 154);
-  --primary-btn: rgb(11, 108, 220);
-  --icon-color: rgb(121, 121, 121);
-  --focus-color: rgb(227, 192, 17);
-  --color-success: rgb(18, 123, 18);
+a {
+  text-decoration: none;
+  color: var(--color-primary);
+}
+
+a:visited {
+  color: var(--color-primary);
 }

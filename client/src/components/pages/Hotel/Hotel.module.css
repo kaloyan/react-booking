@@ -30,7 +30,7 @@
   top: 1rem;
   border: none;
   border-radius: 0.4rem;
-  background-color: var(--primary-btn);
+  background-color: var(--color-primary-btn);
   color: white;
   padding: 1rem;
   font-size: 1.1rem;
@@ -50,7 +50,7 @@
 }
 
 .distance {
-  color: var(--primary);
+  color: var(--color-primary);
   font-weight: bold;
 }
 
@@ -102,7 +102,7 @@
 .detailsPrice > button {
   border: none;
   border-radius: 0.4rem;
-  background-color: var(--primary-btn);
+  background-color: var(--color-primary-btn);
   color: white;
   padding: 1rem;
   font-size: 1rem;
@@ -122,7 +122,7 @@
   top: 2rem;
   left: 2rem;
   z-index: 1000;
-  color: var(--primary-btn);
+  color: var(--color-primary-btn);
 }
 
 .backdrop {

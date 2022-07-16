@@ -7,7 +7,7 @@
 }
 
 .wrapper {
-  border-radius: 0.4rem;
+  background-color: white;
   box-shadow: 0px 0 6px 1px rgba(0, 0, 0, 0.2);
   padding: 0.7rem 4rem;
 }
@@ -31,7 +31,7 @@
 }
 
 .input:invalid {
-  border: 2px solid var(--primary-btn);
+  border: 2px solid var(--color-primary-btn);
 }
 
 .input:valid {
@@ -46,7 +46,7 @@
 .submit {
   border: none;
   padding: 1rem;
-  background-color: var(--primary-btn);
+  background-color: var(--color-primary-btn);
   color: white;
   font-weight: bold;
   cursor: pointer;

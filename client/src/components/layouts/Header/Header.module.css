@@ -1,5 +1,5 @@
 .header {
-  background-color: var(--primary);
+  background-color: var(--color-primary);
   display: flex;
   justify-content: center;
   color: white;
@@ -46,7 +46,7 @@
 }
 
 .headerLink {
-  background-color: var(--primary-btn);
+  background-color: var(--color-primary-btn);
   border: none;
   border-radius: 0;
   color: white;
@@ -54,4 +54,8 @@
   margin: 0.5rem;
   padding: 0.7rem;
   cursor: pointer;
+}
+
+.headerLink:visited {
+  color: white;
 }

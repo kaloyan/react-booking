@@ -30,7 +30,7 @@
 }
 
 .rating > button {
-  background-color: var(--primary);
+  background-color: var(--color-primary);
   color: white;
   padding: 0.2rem 0.5rem;
   border: none;

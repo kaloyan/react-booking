@@ -10,7 +10,7 @@
 
 .title {
   font-size: 1.1rem;
-  color: var(--icon-color);
+  color: var(--color-gary);
   margin-bottom: 0.5rem;
 }
 
@@ -45,7 +45,7 @@
 
 .searchBtn {
   width: 100%;
-  background-color: var(--primary-btn);
+  background-color: var(--color-primary-btn);
   border: none;
   border-radius: 0.5rem;
   color: white;

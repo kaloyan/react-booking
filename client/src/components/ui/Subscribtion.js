@@ -11,7 +11,7 @@ export default function Subscribtion() {
 
       <div className={styles.inputContainer}>
         <input
-          type="text"
+          type="email"
           className={styles.emailInput}
           placeholder="Your email"
         />
