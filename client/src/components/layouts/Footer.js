@@ -12,9 +12,9 @@ import { faShieldHalved } from "@fortawesome/free-solid-svg-icons";
 
 export default function Footer() {
   return (
-    <div className={styles.footer}>
-      <div className={styles.lists}>
-        <ul className={styles.list}>
+    <div className={styles["footer"]}>
+      <div className={styles["lists"]}>
+        <ul className={styles["list"]}>
           <li className={styles["itemTtile"]}>About Us</li>
           <li>
             <p>
@@ -30,7 +30,7 @@ export default function Footer() {
           </li>
         </ul>
 
-        <ul className={styles.list}>
+        <ul className={styles["list"]}>
           <li className={styles["itemTtile"]}>branch locations</li>
           <li>
             <Link to={"/catalog?destinations=Bulgaria"}>Bulgaria</Link>
@@ -49,7 +49,7 @@ export default function Footer() {
           </li>
         </ul>
 
-        <ul className={styles.list}>
+        <ul className={styles["list"]}>
           <li className={styles["itemTtile"]}>Services</li>
           <li>
             <Link to={"/hotels"}>affordable hotels</Link>
@@ -71,7 +71,7 @@ export default function Footer() {
           </li>
         </ul>
 
-        <ul className={styles.list}>
+        <ul className={styles["list"]}>
           <li className={styles["itemTtile"]}>Follow Us</li>
           <li>
             <p>Follow us on on sotial media:</p>
@@ -113,7 +113,7 @@ export default function Footer() {
         </ul>
       </div>
 
-      <div className={styles.copy}>Copyright &copy; 2022 Travel Agency</div>
+      <div className={styles["copy"]}>Copyright &copy; 2022 Travel Agency</div>
     </div>
   );
 }

@@ -2,7 +2,7 @@ import { useState } from "react";
 import { DateRange } from "react-date-range";
 import { format } from "date-fns";
 import { useSelector, useDispatch } from "react-redux";
-import { setStartDate, setEndDate } from "../../features/filter/filterSlice";
+import { setStartDate, setEndDate } from "../../features/slices/filterSlice";
 
 import styles from "./SearchBar.module.css";
 

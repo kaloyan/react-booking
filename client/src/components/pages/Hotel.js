@@ -3,10 +3,10 @@ import styles from "./Hotel.module.css";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
-import Header from "../../layouts/Header";
-import ImageSlider from "../../ui/ImageSlider";
-import Subscription from "../../ui/Subscribtion";
-import { getItem } from "../../../services/netReq";
+import Header from "../layouts/Header";
+import ImageSlider from "../ui/ImageSlider";
+import Subscription from "../ui/Subscribtion";
+import { getItem } from "../../services/netReq";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {

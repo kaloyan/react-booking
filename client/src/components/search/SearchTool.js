@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import * as actions from "../../features/filter/filterSlice";
+import * as actions from "../../features/slices/filterSlice";
 
 import styles from "./SearchTool.module.css";
 

@@ -5,7 +5,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 // Import all pages
 import Home from "./components/pages/Home";
 import Hotel from "./components/pages/Hotel";
-import HotelsList from "./components/pages/Hotelslist";
+import HotelsList from "./components/pages/HotelsList";
 import Login from "./components/pages/Login";
 import Register from "./components/pages/Register";
 import Dashboard from "./components/pages/Dashboard";

@@ -2,7 +2,7 @@
 
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
-import { setStatus, setResult, setError } from "../features/filter/filterSlice";
+import { setStatus, setResult, setError } from "../features/slices/filterSlice";
 
 export const useLoadContent = () => {
   const state = useSelector((state) => state.filter);

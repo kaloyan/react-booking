@@ -4,7 +4,7 @@ import {
   setAdults,
   setChildren,
   setRooms,
-} from "../../features/filter/filterSlice";
+} from "../../features/slices/filterSlice";
 
 import styles from "./SearchBar.module.css";
 

@@ -1,9 +1,9 @@
-import styles from "../../../assets/Forms.module.css";
+import styles from "../../assets/Forms.module.css";
 
 import { useNavigate, Link } from "react-router-dom";
-import { login } from "../../../services/netReq";
+import { login } from "../../services/netReq";
 import { useDispatch } from "react-redux";
-import { setAccount } from "../../../features/account/accountSlice";
+import { setAccount } from "../../features/slices/accountSlice";
 import { useFormik } from "formik";
 
 export default function Login() {

@@ -1,11 +1,11 @@
-import styles from "../../../assets/Forms.module.css";
+import styles from "../../assets/Forms.module.css";
 
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
-import { register } from "../../../services/netReq";
+import { register } from "../../services/netReq";
 import { useDispatch } from "react-redux";
 import { useFormik } from "formik";
-import { setAccount } from "../../../features/account/accountSlice";
+import { setAccount } from "../../features/slices/accountSlice";
 
 export default function Login() {
   const [error, setError] = useState(null);

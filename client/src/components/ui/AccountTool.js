@@ -1,6 +1,6 @@
 import styles from "./AccountTool.module.css";
 import { doLogout } from "../../services/netReq";
-import { logout } from "../../features/account/accountSlice";
+import { logout } from "../../features/slices/accountSlice";
 import { useDispatch } from "react-redux";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";

@@ -2,12 +2,12 @@ import styles from "./HotelsList.module.css";
 
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
-import { useLoadContent } from "../../../hooks/useLoadcontent";
+import { useLoadContent } from "../../hooks/useLoadcontent";
 
-import Header from "../../layouts/Header";
-import SearchTool from "../../search/SearchTool";
-import SearchItem from "../../ui/SearchItem";
-import Info from "../../ui/Info";
+import Header from "../layouts/Header";
+import SearchTool from "../search/SearchTool";
+import SearchItem from "../ui/SearchItem";
+import Info from "../ui/Info";
 
 export default function HotelsList() {
   const { results } = useSelector((state) => state.filter);
