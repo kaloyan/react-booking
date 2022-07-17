@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { format } from "date-fns";
 
 const initialState = {
   destination: "",
@@ -13,8 +12,8 @@ const initialState = {
   adults: 1,
   children: 0,
   rooms: 1,
-  startDate: format(new Date(), "MM/dd/yyy"),
-  endDate: format(new Date(), "MM/dd/yyy"),
+  startDate: "",
+  endDate: "",
 };
 
 export const filterSlice = createSlice({
@@ -31,8 +30,8 @@ export const filterSlice = createSlice({
       state.adults = 1;
       state.children = 0;
       state.rooms = 1;
-      state.startDate = format(new Date(), "MM/dd/yyy");
-      state.endDate = format(new Date(), "MM/dd/yyy");
+      state.startDate = "";
+      state.endDate = "";
     },
 
     setDestination: (state, action) => {

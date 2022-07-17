@@ -20,12 +20,14 @@ export default function Login() {
           password: values.password,
         });
 
+        console.log(response);
+
         if (response?.status == "OK") {
           values.error = "";
           dispatch(setAccount(response));
           navigate("/");
         } else {
-          values.error = response.response.data.message;
+          values.error = response.response?.data?.message;
         }
       } catch (err) {
         console.log("Error: ", err);

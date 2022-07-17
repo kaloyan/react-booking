@@ -44,3 +44,19 @@ export const getItem = (itemId) => {
   const url = urls.itemURL + itemId;
   return netReq(url);
 };
+
+export const countByCity = (cityArray) => {
+  const url =
+    urls.BASE_URL + "/api/v1/hotels/countByCity?cities=" + cityArray.join(",");
+  return netReq(url);
+};
+
+export const featuredHotels = () => {
+  const url = urls.BASE_URL + "/api/v1/hotels?featured=true&limit=3";
+  return netReq(url);
+};
+
+export const getPropertyList = () => {
+  const url = urls.BASE_URL + "/api/v1/hotels/countByType";
+  return netReq(url);
+};

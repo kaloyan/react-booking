@@ -1,11 +1,18 @@
 import styles from "./PropertyList.module.css";
-
-import { useFetch } from "../../hooks/useFetch.js";
+import { useEffect, useState } from "react";
+import { getPropertyList } from "../../services/netReq";
 
 export default function PropertyList() {
-  const { data, loading, error } = useFetch(
-    "http://localhost:3000/api/v1/hotels/countByType"
-  );
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    const getData = async () => {
+      const response = await getPropertyList();
+      setData(response);
+    };
+
+    getData();
+  }, []);
 
   const types = [
     {
@@ -36,16 +43,16 @@ export default function PropertyList() {
   ];
 
   return (
-    <div className={styles.list}>
-      {loading ? (
+    <div className={styles["list"]}>
+      {!data ? (
         <div>Loading please wait</div>
       ) : (
         <>
           {types.map((item, idx) => (
-            <div key={idx} className={styles.listItem}>
-              <img className={styles.image} src={item.img} alt={item.type} />
+            <div key={idx} className={styles["listItem"]}>
+              <img className={styles["image"]} src={item.img} alt={item.type} />
 
-              <div className={styles.listTitles}>
+              <div className={styles["listTitles"]}>
                 <h1>{item.name}</h1>
                 <h2>
                   {data?.counts
