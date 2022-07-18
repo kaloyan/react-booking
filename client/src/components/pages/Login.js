@@ -20,8 +20,6 @@ export default function Login() {
           password: values.password,
         });
 
-        console.log(response);
-
         if (response?.status == "OK") {
           values.error = "";
           dispatch(setAccount(response));

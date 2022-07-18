@@ -41,7 +41,7 @@ export default function Login() {
         if (response?.status == "OK") {
           setError(null);
           dispatch(setAccount(response));
-          navigate("/dashboard");
+          navigate("/dashboard/messages");
         } else {
           setError(response.response?.data?.message);
           console.log(response.response.data);
