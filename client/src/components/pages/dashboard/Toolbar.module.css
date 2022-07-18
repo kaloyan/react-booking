@@ -22,6 +22,18 @@
 }
 
 .menu li a.activeLink {
-  border-bottom: 3px solid var(--color-primary);
+  border-bottom: 3px solid var(--color-primary-btn);
   font-weight: bold;
 }
+
+/* .menu li a.activeLink::before {
+  content: "[";
+  padding-right: 1rem;
+  color: var(--color-primary-btn);
+}
+
+.menu li a.activeLink::after {
+  content: "]";
+  padding-left: 1rem;
+  color: var(--color-primary-btn);
+} */
