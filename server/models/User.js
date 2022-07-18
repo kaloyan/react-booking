@@ -1,6 +1,7 @@
 // Users model
 
 const mongoose = require("mongoose");
+const { v4: uuid } = require("uuid");
 
 const userSchema = mongoose.Schema(
   {
@@ -17,9 +18,30 @@ const userSchema = mongoose.Schema(
       unique: [true, "Email already exist"],
     },
 
+    phone: {
+      type: String,
+      default: "",
+    },
+
+    address: {
+      type: String,
+      default: "",
+    },
+
+    gender: {
+      type: String,
+      default: "",
+      enum: ["", "male", "female"],
+    },
+
     password: {
       type: String,
       required: true,
+    },
+
+    avatar: {
+      type: String,
+      default: "",
     },
 
     role: {
@@ -29,8 +51,26 @@ const userSchema = mongoose.Schema(
     },
 
     messages: {
-      type: [String],
-      default: ["Welcomme to our website."],
+      type: [Object],
+      default: [
+        {
+          msg: "Welcomme to our website.",
+          unread: true,
+          id: uuid(),
+          time: Date.now(),
+        },
+      ],
+    },
+
+    reservations: {
+      type: [Object],
+      default: [],
+    },
+
+    hotels: {
+      type: [mongoose.Types.ObjectId],
+      ref: "Hotel",
+      default: [],
     },
   },
   { timestamps: true }

@@ -1,6 +1,7 @@
 // Auth Controller
 
 const { authSrv } = require("../services/authSrv.js");
+const { userSrv } = require("../services/userSrv.js");
 
 const login = async (req, res, next) => {
   const email = req.body.email;
@@ -14,6 +15,7 @@ const login = async (req, res, next) => {
     const token = authSrv.genToken(user);
 
     res.cookie("jwt_token", token, { httpOnly: true }).json({
+      _id: user._id,
       message: "Login successfull",
       status: "OK",
       username: user.username,
@@ -48,6 +50,7 @@ const register = async (req, res, next) => {
     const token = authSrv.genToken(user);
 
     res.cookie("jwt_token", token, { httpOnly: true }).status(201).json({
+      _id: user._id,
       message: "Registratoin successfull",
       status: "OK",
       username: user.username,
@@ -65,9 +68,26 @@ const logout = (req, res) => {
   });
 };
 
-const account = (req, res, next) => {
+const account = async (req, res, next) => {
   if (req.user) {
-    res.json(req.user);
+    // get users data
+    const response = await userSrv.getUser(req.user.id);
+    console.log(response);
+
+    res.json({
+      id: response._id,
+      username: response.username,
+      email: response.email,
+      phone: response.phone,
+      address: response.address,
+      role: response.role,
+      avatar: response.avatar,
+      messages: response.messages,
+      reservations: response.reservations,
+      hotels: response.hotels,
+      createdAt: response.createdAt,
+      updatedAt: response.updatedAt,
+    });
   } else {
     res.status(203).send([]);
   }
