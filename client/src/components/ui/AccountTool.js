@@ -36,7 +36,10 @@ export default function AccountTool(props) {
         }`}
       >
         <span> {props.email}</span>
-        <Link to={"/dashboard"} onMouseDown={() => navigate("/dashboard")}>
+        <Link
+          to={"/dashboard"}
+          onMouseDown={() => navigate("/dashboard/profile")}
+        >
           Dashboard
         </Link>
         <Link to={"/logout"} onMouseDown={handleLogout}>

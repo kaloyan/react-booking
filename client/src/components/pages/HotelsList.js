@@ -3,7 +3,7 @@ import styles from "./HotelsList.module.css";
 import { useSelector } from "react-redux";
 
 import Header from "../layouts/Header";
-import SearchBar from "../search/SearchBar";
+import SearchBar from "../ui/search/SearchBar";
 import SearchItem from "../ui/SearchItem";
 import Info from "../ui/Info";
 

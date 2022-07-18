@@ -7,7 +7,7 @@ import {
   faTaxi,
 } from "@fortawesome/free-solid-svg-icons";
 import { NavLink } from "react-router-dom";
-import SearchBar from "../search/SearchBar";
+import SearchBar from "../ui/search/SearchBar";
 import { useSelector } from "react-redux";
 
 export default function Header(props) {

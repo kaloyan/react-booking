@@ -4,7 +4,7 @@ import {
   setAdults,
   setChildren,
   setRooms,
-} from "../../features/slices/filterSlice";
+} from "../../../features/slices/filterSlice";
 
 import styles from "./GuestBox.module.css";
 

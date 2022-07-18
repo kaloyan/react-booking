@@ -5,7 +5,7 @@ import {
   setDestination,
   setStartDate,
   setEndDate,
-} from "../../features/slices/filterSlice";
+} from "../../../features/slices/filterSlice";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -16,7 +16,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
 import GuestsBox from "./GuestsBox";
-import { useLoadContent } from "../../hooks/useLoadcontent";
+import { useLoadContent } from "../../../hooks/useLoadcontent";
 
 export default function SearchBar() {
   const navigate = useNavigate();
