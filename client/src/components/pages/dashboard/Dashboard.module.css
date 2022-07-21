@@ -1,3 +1,159 @@
 .container {
   display: flex;
 }
+
+form {
+  width: 100%;
+}
+
+.grid-container {
+  width: 100%;
+  padding: 3rem 2rem;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  /* background-color: rgba(223, 199, 245, 0.503); */
+  grid-gap: 1rem;
+}
+
+.header {
+  grid-column: span 5;
+  display: grid;
+  grid-auto-rows: minmax(1rem, auto);
+  grid-template-columns: 2fr 1fr;
+  align-self: start;
+}
+
+.header div {
+  justify-self: end;
+  margin-right: 3rem;
+}
+
+.side {
+  grid-column: span 1;
+  /* background-color: rgba(0, 128, 0, 0.347); */
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  padding-top: 1rem;
+}
+
+.content {
+  grid-column: span 4;
+  /* background-color: rgba(0, 0, 255, 0.381); */
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 1rem;
+  margin-bottom: 5rem;
+}
+
+.content span {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.content span em {
+  color: var(--text-dark);
+}
+
+.item {
+  width: 50%;
+  /* padding: 1rem 3rem; */
+  margin: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.5rem;
+  font-size: 1.1rem;
+}
+
+.item > input,
+.item > select {
+  line-height: 2rem;
+  font-size: 1.5rem;
+  padding: 0.5rem;
+  min-width: 350px;
+}
+
+.item > span {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: var(--color-primary);
+}
+
+.item > span > em {
+  color: var(--text-dark);
+}
+
+.avatar {
+  font-size: 5rem;
+  color: var(--text-very-dark);
+  border: 1px solid var(--text-very-dark);
+  border-radius: 0.5rem;
+  padding: 1rem;
+}
+
+.action-btn {
+  background-color: transparent;
+  border: 1px solid var(--color-success);
+  padding: 0.7rem 1.5rem;
+  width: fit-content;
+}
+
+.action-btn:hover {
+  background-color: var(--color-success);
+}
+
+.action-btn > span {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: var(--color-success);
+}
+
+.action-btn:hover > span {
+  color: white;
+}
+
+input[type="file"] {
+  display: none;
+}
+
+.file-upload {
+  display: inline-block;
+  padding: 6px 12px;
+  cursor: pointer;
+  margin-top: 0.5rem;
+  background-color: var(--color-primary-btn);
+  color: white;
+  border: none;
+  border-radius: 0.2rem;
+}
+
+hr {
+  grid-column: span 2;
+  width: 70%;
+  margin-left: 4rem;
+  color: var(--color-bg);
+}
+
+.grid-col-span-2 {
+  grid-column: span 2;
+}
+
+.delete-btn {
+  background-color: var(--color-danger);
+  color: white;
+  cursor: pointer;
+  padding: 1rem 3rem;
+  font-size: 1.5rem;
+  border: none;
+}
+
+input[type="submit"] {
+  background-color: var(--color-primary-btn);
+  color: white;
+  cursor: pointer;
+  padding: 1rem 3rem;
+  font-size: 1.5rem;
+  border: none;
+}

@@ -72,7 +72,6 @@ const account = async (req, res, next) => {
   if (req.user) {
     // get users data
     const response = await userSrv.getUser(req.user.id);
-    console.log(response);
 
     res.json({
       id: response._id,
@@ -87,6 +86,7 @@ const account = async (req, res, next) => {
       hotels: response.hotels,
       createdAt: response.createdAt,
       updatedAt: response.updatedAt,
+      gender: response.gender,
     });
   } else {
     res.status(203).send([]);

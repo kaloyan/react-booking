@@ -4,6 +4,7 @@ import Toolbar from "./Toolbar";
 
 import Messages from "./Messages";
 import Profile from "./Profile";
+import EditProfile from "./EditProfile";
 import UsersList from "./UsersList";
 import Reservations from "./Reservations";
 import MyHotels from "./MyHotels";
@@ -18,6 +19,7 @@ export default function index(props) {
       <Routes>
         <Route path="messages" element={<Messages />} />
         <Route path="profile" element={<Profile />} />
+        <Route path="profile/edit" element={<EditProfile />} />
         <Route path="users" element={<UsersList />} />
         <Route path="reservations" element={<Reservations />} />
         <Route path="my-hotels" element={<MyHotels />} />
