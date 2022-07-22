@@ -5,6 +5,7 @@ const { authCtl } = require("./controllers/authCtl.js");
 const { hotelsCtl } = require("./controllers/hotelsCtl.js");
 const { userCtl } = require("./controllers/userCtl.js");
 const { roomCtl } = require("./controllers/roomCtl.js");
+const { destCtl } = require("./controllers/destinationsCtl");
 
 // import middlewares
 const { err } = require("./middlewares/errorHandlerMW.js");
@@ -42,6 +43,13 @@ route.get("/api/v1/users", guard.isAdmin, userCtl.getAll, err);
 route.get("/api/v1/users/:id", userCtl.getUser, err);
 route.put("/api/v1/users/:id", userCtl.updateUser, err);
 route.delete("/api/v1/users/:id", userCtl.delUser, err);
+
+// destinations API routes
+route.post("/api/v1/destinations", guard.isAdmin, destCtl.create, err);
+route.get("/api/v1/destinations", destCtl.getAll, err);
+route.get("/api/v1/destinations/:id", destCtl.getOne, err);
+route.put("/api/v1/destinations/edit/:id", guard.isAdmin, destCtl.edit, err);
+route.delete("/api/v1/destinations/del/:id", guard.isAdmin, destCtl.del, err);
 
 // define 404 not found route
 route.get("*", (req, res) => {
