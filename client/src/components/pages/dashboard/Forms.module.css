@@ -5,18 +5,29 @@
 
 .form,
 .wrapper {
-  width: 100%;
-  display: flex;
+  /* padding: 0;
+  margin: 0; */
+  /* width: 100%; */
+  /* display: flex;
   justify-content: flex-start;
-  flex-wrap: wrap;
+  flex-wrap: wrap; */
+  display: grid;
+  grid-template-areas: 1rf 2rf;
+  background-color: blueviolet;
 }
 
 .row {
   width: 100%;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: flex-start;
-  margin: 1rem 3rem;
+  /* display: grid;
+  grid-gap: 1rem;
+  border: 1px solid red; */
+  background-color: green;
+}
+
+.row > div {
+  width: fit-content;
+  /* margin: 0;
+  padding: 0; */
 }
 
 .row input[type="submit"] {
@@ -42,10 +53,23 @@
   border: none;
 }
 
+.cancel {
+  background-color: var(--text-dark);
+  color: var(--color-danger);
+  cursor: pointer;
+  padding: 1rem 3rem;
+  font-size: 1.5rem;
+  border: none;
+  width: fit-content;
+}
+
 .item {
-  padding: 1rem;
+  width: 50%;
+  padding: 1rem 3rem;
+  margin: 1rem;
   display: flex;
   flex-direction: column;
+  justify-content: center;
   gap: 0.5rem;
   font-size: 1.1rem;
 }
@@ -56,6 +80,15 @@
   font-size: 1.5rem;
   padding: 0.5rem;
   min-width: 350px;
+}
+
+.item > span {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.item > span > em {
+  color: var(--text-dark);
 }
 
 hr {
@@ -133,3 +166,33 @@ table button.delete-btn:hover {
   color: var(--text-very-dark);
   font-weight: bold;
 }
+
+.header {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.action-btn {
+  background-color: transparent;
+  border: 1px solid var(--color-success);
+  padding: 0.7rem 1.5rem;
+}
+
+.action-btn:hover {
+  background-color: var(--color-success);
+}
+
+.action-btn > span {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: var(--color-success);
+}
+
+.action-btn:hover > span {
+  color: white;
+}
+
+/* .form div {
+  border: 1px solid red;
+} */
