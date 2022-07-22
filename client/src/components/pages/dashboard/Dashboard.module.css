@@ -1,5 +1,6 @@
 .container {
-  display: flex;
+  display: grid;
+  grid-template-columns: minmax(200px, 1fr) 6fr;
 }
 
 form {
@@ -7,12 +8,13 @@ form {
 }
 
 .grid-container {
+  background-color: white;
   width: 100%;
   padding: 3rem 2rem;
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
   /* background-color: rgba(223, 199, 245, 0.503); */
   grid-gap: 1rem;
+  align-self: start;
 }
 
 .header {
@@ -21,6 +23,7 @@ form {
   grid-auto-rows: minmax(1rem, auto);
   grid-template-columns: 2fr 1fr;
   align-self: start;
+  padding-bottom: 3rem;
 }
 
 .header div {
@@ -47,6 +50,32 @@ form {
   margin-bottom: 5rem;
 }
 
+.table {
+  grid-column: span 5;
+  display: grid;
+  align-self: center;
+}
+
+.table > div {
+  display: grid;
+  grid-template-columns: 1fr 0.6fr 0.6fr 3fr 1fr;
+  justify-items: start;
+  align-items: center;
+  background-color: rgba(211, 211, 211, 0.308);
+}
+
+.table > div:nth-child(2n) {
+  background-color: white;
+}
+
+.table > div > div {
+  padding: 1rem;
+}
+
+.table > div > div:nth-child(1) {
+  text-transform: capitalize;
+}
+
 .content span {
   font-size: 1.5rem;
   font-weight: bold;
@@ -58,7 +87,6 @@ form {
 
 .item {
   width: 50%;
-  /* padding: 1rem 3rem; */
   margin: 1rem;
   display: flex;
   flex-direction: column;
@@ -73,6 +101,15 @@ form {
   font-size: 1.5rem;
   padding: 0.5rem;
   min-width: 350px;
+  border: none;
+  background-color: white;
+  border-bottom: 2px solid var(--text-very-dark);
+}
+
+.item > input:focus,
+.item > select:focus {
+  border-radius: 0.2rem;
+  border: none;
 }
 
 .item > span {
@@ -97,6 +134,7 @@ form {
   background-color: transparent;
   border: 1px solid var(--color-success);
   padding: 0.7rem 1.5rem;
+  margin: 0 0.5rem;
   width: fit-content;
 }
 
@@ -140,7 +178,7 @@ hr {
   grid-column: span 2;
 }
 
-.delete-btn {
+input.delete-btn {
   background-color: var(--color-danger);
   color: white;
   cursor: pointer;
@@ -156,4 +194,20 @@ input[type="submit"] {
   padding: 1rem 3rem;
   font-size: 1.5rem;
   border: none;
+}
+
+.photo-box {
+  max-width: 300px;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.photo-box img.single {
+  width: 200px;
+  height: 200px;
+}
+
+.thumb {
+  height: 50px;
+  width: 50px;
 }

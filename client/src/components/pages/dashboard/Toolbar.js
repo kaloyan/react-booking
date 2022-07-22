@@ -38,6 +38,11 @@ export default function Toolbar() {
           </NavLink>
         </li>
         <li>
+          <NavLink to={"destinations"} className={setActive}>
+            Destinations
+          </NavLink>
+        </li>
+        <li>
           <NavLink to={"my-reservations"} className={setActive}>
             My reservations
           </NavLink>
