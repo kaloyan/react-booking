@@ -16,6 +16,14 @@ const netReq = async (url, options = { method: "get", data: null }) => {
           withCredentials: true,
         });
         break;
+      case "put":
+        response = await axios.put(url, options.data, {
+          withCredentials: true,
+        });
+        break;
+      case "delete":
+        response = await axios.delete(url, { withCredentials: true });
+        break;
     }
 
     return response?.data || response?.response?.data;
@@ -59,4 +67,28 @@ export const featuredHotels = () => {
 export const getPropertyList = () => {
   const url = urls.BASE_URL + "/api/v1/hotels/countByType";
   return netReq(url);
+};
+
+export const createDestination = (data) => {
+  return netReq(urls.destURL, { method: "post", data });
+};
+
+export const getAllDestinations = (data) => {
+  return netReq(urls.destURL);
+};
+
+export const getDestination = (id) => {
+  const url = urls.destURL + id;
+  return netReq(url);
+};
+
+export const editDestination = (id, data) => {
+  const url = urls.destURL + "edit/" + id;
+  // console.log("edit", url);
+  return netReq(url, { method: "put", data });
+};
+
+export const deleteDestination = (id) => {
+  const url = urls.destURL + "del/" + id;
+  return netReq(url, { method: "delete" });
 };

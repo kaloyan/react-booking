@@ -1,7 +1,12 @@
 // Firebase service for file storage
 
 import { storage } from "../config/firebaseCfg";
-import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import {
+  ref,
+  uploadBytes,
+  getDownloadURL,
+  deleteObject,
+} from "firebase/storage";
 import { uuidv4 } from "@firebase/util";
 
 const uploadImage = async (image, folder) => {
@@ -20,4 +25,22 @@ export const uploadAvatar = (avatar) => {
 
 export const uploadDest = (image) => {
   return uploadImage(image, "img/destinations");
+};
+
+export const uploadHotelImgs = (imageList) => {
+  const folder = "img/hotels";
+  return Promise.all((imageList) =>
+    imageList.map((x) => uploadImage(x, folder))
+  );
+};
+
+export const delDestinationImg = async (imgId) => {
+  try {
+    const delRef = ref(storage, `img/destinations/${imgId}`);
+    await deleteObject(delRef);
+
+    return "Image deleted";
+  } catch (err) {
+    throw err;
+  }
 };
