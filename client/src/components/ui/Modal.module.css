@@ -1,0 +1,41 @@
+.wrapper {
+  background-color: rgba(0, 0, 0, 0.251);
+  position: fixed;
+  height: 100vh;
+  width: 100vw;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow-y: hidden;
+  z-index: 1000;
+}
+
+.dialog {
+  min-height: 200px;
+  min-width: 300px;
+  background-color: white;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  border-radius: 1rem;
+  font-size: 1.2rem;
+  box-shadow: 0 0 30px 0 rgba(0, 0, 0, 0.349);
+}
+
+.controls {
+  text-align: end;
+}
+
+.controls button {
+  padding: 0.5rem 1rem;
+  margin: 0 0.3rem;
+  background-color: var(--color-primary-btn);
+  color: white;
+  border: none;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+}
