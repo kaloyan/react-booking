@@ -1,0 +1,20 @@
+.message-box {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.message-box > div {
+  width: fit-content;
+  height: fit-content;
+  background-color: rgb(236, 231, 231);
+  box-shadow: 0 0 16px 0 rgba(0, 0, 0, 0.687);
+  padding: 2rem;
+  border-radius: 0.6rem;
+  font-size: 1.2rem;
+}
