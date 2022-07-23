@@ -69,6 +69,8 @@ export const getPropertyList = () => {
   return netReq(url);
 };
 
+// Destinations
+
 export const createDestination = (data) => {
   return netReq(urls.destURL, { method: "post", data });
 };
@@ -91,4 +93,26 @@ export const editDestination = (id, data) => {
 export const deleteDestination = (id) => {
   const url = urls.destURL + "del/" + id;
   return netReq(url, { method: "delete" });
+};
+
+// Hotels
+
+export const createHotel = (data) => {
+  const url = urls.itemURL;
+  return netReq(url, { method: "post", data });
+};
+
+export const getOwnHotels = () => {
+  const url = urls.itemURL + "own";
+  return netReq(url);
+};
+
+export const delHotel = (hotelId) => {
+  const url = urls.itemURL + hotelId;
+  return netReq(url, { method: "delete" });
+};
+
+export const getOneHotel = (hitelId) => {
+  const url = urls.itemURL + hitelId;
+  return netReq(url);
 };

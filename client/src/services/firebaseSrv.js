@@ -24,23 +24,36 @@ export const uploadAvatar = (avatar) => {
 };
 
 export const uploadDest = (image) => {
-  return uploadImage(image, "img/destinations");
+  const folder = "img/destinations";
+  return uploadImage(image, folder);
 };
 
-export const uploadHotelImgs = (imageList) => {
+export const uploadHotelImg = (image) => {
   const folder = "img/hotels";
-  return Promise.all((imageList) =>
-    imageList.map((x) => uploadImage(x, folder))
-  );
+  return uploadImage(image, folder);
 };
 
-export const delDestinationImg = async (imgId) => {
+const delImage = async (imgRef) => {
   try {
-    const delRef = ref(storage, `img/destinations/${imgId}`);
-    await deleteObject(delRef);
-
-    return "Image deleted";
+    await deleteObject(imgRef);
+    return true;
   } catch (err) {
     throw err;
   }
+};
+
+export const delDestinationImg = async (imgName) => {
+  const delRef = ref(storage, `img/destinations/${imgName}`);
+  await delImage(delRef);
+  return "Image deleted";
+};
+
+export const delHotelImage = async (imgName) => {
+  try {
+    const delRef = ref(storage, `img/hotels/${imgName}`);
+    await delImage(delRef);
+  } catch (err) {
+    // console.log(err);
+  }
+  return "Image deleted";
 };

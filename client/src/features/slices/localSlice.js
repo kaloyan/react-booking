@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { v4 as uuid } from "uuid";
 
 const initialState = {
   favorites: [],
@@ -34,7 +35,11 @@ export const localSlice = createSlice({
     },
 
     pushMessage: (state, action) => {
-      state.messages.push(action.payload);
+      state.messages.push({
+        id: uuid(),
+        text: action.payload.text,
+        type: action.payload.type,
+      });
     },
 
     removeMessage: (state, action) => {
