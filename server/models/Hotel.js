@@ -52,10 +52,12 @@ const hotelSchema = new mongoose.Schema({
   rooms: {
     type: [mongoose.Types.ObjectId],
     ref: "Room",
+    default: [],
   },
 
   cheepestPrice: {
     type: Number,
+    min: 1,
     required: [true, "Cheapest room price is required"],
   },
 
@@ -73,6 +75,7 @@ const hotelSchema = new mongoose.Schema({
   editAccess: {
     type: [mongoose.Types.ObjectId],
     ref: "User",
+    default: [],
   },
 });
 

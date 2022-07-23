@@ -24,10 +24,16 @@ const register = async (username, email, password, role) => {
     });
 
     await newUser.save();
-
+    // console.log(newUser);
     return newUser;
   } catch (err) {
-    throw err;
+    const error = { message: "Server error" };
+
+    if (err.code == 11000) {
+      error.message = `Email: ${err.keyValue.email} already exist`;
+    }
+
+    throw error;
   }
 };
 

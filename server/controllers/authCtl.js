@@ -3,6 +3,32 @@
 const { authSrv } = require("../services/authSrv.js");
 const { userSrv } = require("../services/userSrv.js");
 
+const getAccount = async (userId, message) => {
+  try {
+    const response = await userSrv.getUser(userId);
+
+    return {
+      id: response._id,
+      username: response.username,
+      email: response.email,
+//      phone: response.phone,
+//      address: response.address,
+      role: response.role,
+      avatar: response.avatar,
+      messages: response.messages,
+      reservations: response.reservations.length,
+      hotels: response.hotels.length,
+//      createdAt: response.createdAt,
+//      updatedAt: response.updatedAt,
+//      gender: response.gender,
+      message,
+      status: "OK",
+    };
+  } catch (err) {
+    return false;
+  }
+};
+
 const login = async (req, res, next) => {
   const email = req.body.email;
   const password = req.body.password;
@@ -11,17 +37,10 @@ const login = async (req, res, next) => {
     //!TODO - validate input
 
     const user = await authSrv.login(email, password);
-
     const token = authSrv.genToken(user);
+    const answer = await getAccount(user._id, "Login successfull");
 
-    res.cookie("jwt_token", token, { httpOnly: true }).json({
-      _id: user._id,
-      message: "Login successfull",
-      status: "OK",
-      username: user.username,
-      role: user.role,
-      email: user.email,
-    });
+    res.cookie("jwt_token", token, { httpOnly: true }).json(answer);
   } catch (err) {
     next(err);
   }
@@ -46,17 +65,10 @@ const register = async (req, res, next) => {
     }
 
     const user = await authSrv.register(username, email, password, role);
-
     const token = authSrv.genToken(user);
+    const answer = await getAccount(user._id, "Registratoin successfull");
 
-    res.cookie("jwt_token", token, { httpOnly: true }).status(201).json({
-      _id: user._id,
-      message: "Registratoin successfull",
-      status: "OK",
-      username: user.username,
-      role: user.role,
-      email: user.email,
-    });
+    res.cookie("jwt_token", token, { httpOnly: true }).status(201).json(answer);
   } catch (err) {
     next(err);
   }
@@ -71,23 +83,13 @@ const logout = (req, res) => {
 const account = async (req, res, next) => {
   if (req.user) {
     // get users data
-    const response = await userSrv.getUser(req.user.id);
+    const answer = await getAccount(req.user.id, "Account is valid");
 
-    res.json({
-      id: response._id,
-      username: response.username,
-      email: response.email,
-      phone: response.phone,
-      address: response.address,
-      role: response.role,
-      avatar: response.avatar,
-      messages: response.messages,
-      reservations: response.reservations,
-      hotels: response.hotels,
-      createdAt: response.createdAt,
-      updatedAt: response.updatedAt,
-      gender: response.gender,
-    });
+    if (answer) {
+      res.json(answer);
+    } else {
+      res.status(400).json({ error: "Invalid account" });
+    }
   } else {
     res.status(203).send([]);
   }

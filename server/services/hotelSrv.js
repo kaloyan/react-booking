@@ -1,5 +1,6 @@
 const Hotel = require("../models/Hotel.js");
 const Room = require("../models/Room.js");
+const User = require("../models/User");
 
 const getAll = async (query, limit) => {
   const { min, max, ...params } = query;
@@ -9,6 +10,15 @@ const getAll = async (query, limit) => {
       ...params,
       cheepestPrice: { $gt: min || 0, $lt: max || 10000 },
     }).limit(limit);
+    return hotels;
+  } catch (err) {
+    throw err;
+  }
+};
+
+const getOwn = async (userId) => {
+  try {
+    const hotels = await Hotel.find({ creator: userId });
     return hotels;
   } catch (err) {
     throw err;
@@ -28,6 +38,12 @@ const create = async (data) => {
   try {
     const newHotel = new Hotel(data);
     await newHotel.save();
+
+    // push hotel to users list of own hotels
+    await User.findByIdAndUpdate(data.creator, {
+      $push: { hotels: newHotel._id },
+    });
+
     return newHotel;
   } catch (err) {
     throw err;
@@ -56,6 +72,10 @@ const del = async (id) => {
       await Room.findByIdAndDelete(room);
     }
 
+    // remove hotel from user's list of own hotels
+    const owner = await User.findById(hotel.creator);
+    await User.findByIdAndUpdate(owner._id, { $pull: { hotels: hotel._id } });
+
     //!TODO - find all reservations and remove them, then send message to users
 
     // next detele the hotel
@@ -74,4 +94,4 @@ const getCount = (obj) => {
   }
 };
 
-exports.hotelSrv = { getAll, getOne, create, update, del, getCount };
+exports.hotelSrv = { getAll, getOne, getOwn, create, update, del, getCount };

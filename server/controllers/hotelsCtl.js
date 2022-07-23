@@ -18,7 +18,12 @@ const getAll = async (req, res, next) => {
   res.json(hotels);
 };
 
-const create = async (req, res) => {
+const getOwn = async (req, res, next) => {
+  const hotels = await hotelSrv.getOwn(req.user.id);
+  res.json(hotels);
+};
+
+const create = async (req, res, next) => {
   const data = {
     ...req.body,
     creator: req.user.id,
@@ -90,6 +95,7 @@ const countByType = async (req, res, next) => {
 exports.hotelsCtl = {
   getOne,
   getAll,
+  getOwn,
   create,
   update,
   del,
