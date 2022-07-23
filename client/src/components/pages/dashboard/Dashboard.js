@@ -9,6 +9,8 @@ import EditProfile from "./EditProfile";
 import UsersList from "./UsersList";
 import Reservations from "./Reservations";
 import MyHotels from "./MyHotels";
+import NewHotel from "./NewHotel";
+import EditHotel from "./EditHotel";
 import AddHotel from "./AddHotel";
 import MyReservations from "./MyReservations";
 import Destinations from "./Destinations";
@@ -29,7 +31,13 @@ export default function index() {
           <Route path="profile/edit" element={<EditProfile />} />
           <Route path="users" element={<UsersList />} />
           <Route path="reservations" element={<Reservations />} />
-          <Route path="my-hotels" element={<MyHotels />} />
+          <Route path="hotels" element={<MyHotels />} />
+          <Route path="hotels/new" element={<NewHotel />} />
+          <Route path="hotels/edit/:id" element={<EditHotel />} />
+          <Route
+            path="hotels/del/:id"
+            element={<Navigate to={"../hotels"} replace={true} />}
+          />
           <Route path="add-hotel" element={<AddHotel />} />
           <Route path="destinations" element={<Destinations />} />
           <Route path="destinations/new" element={<NewDestination />} />

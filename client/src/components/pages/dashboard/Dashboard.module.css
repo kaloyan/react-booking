@@ -112,6 +112,10 @@ form {
   border: none;
 }
 
+.item > textarea {
+  width: 100%;
+}
+
 .item > span {
   font-size: 1.5rem;
   font-weight: bold;
@@ -210,4 +214,13 @@ input[type="submit"] {
 .thumb {
   height: 50px;
   width: 50px;
+}
+
+.empty-box {
+  font-size: 2rem;
+  padding: 3rem 0;
+  background-color: var(--color-bg);
+  color: var(--text-very-dark);
+  text-align: center;
+  grid-column: span 5;
 }

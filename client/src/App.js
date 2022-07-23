@@ -14,13 +14,15 @@ import NotFound from "./components/pages/NotFound";
 // Import compponenst
 import Navbar from "./components/layouts/Navbar";
 import Footer from "./components/layouts/Footer";
-import Messages from "./components/pages/dashboard/Messages";
+import InfoBox from "./components/ui/InfoBox";
 
 function App() {
   return (
     <BrowserRouter>
       <div>
         <Navbar />
+
+        <InfoBox />
 
         <Routes>
           <Route path="/" element={<Home />} />
