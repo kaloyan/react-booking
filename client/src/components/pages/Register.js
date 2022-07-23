@@ -1,15 +1,13 @@
-import styles from "../../assets/Forms.module.css";
+import styles from "./Forms.module.css";
 
 import { Link, useNavigate } from "react-router-dom";
-import { useState } from "react";
 import { register } from "../../services/netReq";
 import { useDispatch } from "react-redux";
 import { useFormik } from "formik";
 import { setAccount } from "../../features/slices/accountSlice";
+import { pushMessage } from "../../features/slices/localSlice";
 
 export default function Login() {
-  const [error, setError] = useState(null);
-
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -22,10 +20,13 @@ export default function Login() {
       role: "user",
     },
     onSubmit: async (values) => {
-      setError(null);
-
       if (values.password !== values.repass) {
-        setError("Passwords don't match");
+        dispatch(
+          pushMessage({
+            text: "Passwords don't match",
+            type: "error",
+          })
+        );
         return;
       }
 
@@ -39,34 +40,38 @@ export default function Login() {
         });
 
         if (response?.status == "OK") {
-          setError(null);
           dispatch(setAccount(response));
           navigate("/dashboard/messages");
         } else {
-          setError(response.response?.data?.message);
-          console.log(response.response.data);
+          dispatch(
+            pushMessage({
+              text: response.response?.data?.message,
+              type: "error",
+            })
+          );
         }
       } catch (err) {
-        setError(err);
+        dispatch(
+          pushMessage({
+            text: err,
+            type: "error",
+          })
+        );
       }
     },
   });
 
   return (
-    <div className={styles.container}>
-      <div className={styles.wrapper}>
-        <h1 className={styles.title}>Register</h1>
+    <div className={styles["container"]}>
+      <div className={styles["wrapper"]}>
+        <h1 className={styles["title"]}>Register</h1>
 
-        <form
-          onSubmit={formik.handleSubmit}
-          className={styles.form}
-          onChange={() => setError("")}
-        >
-          <label htmlFor="username" className={styles.label}>
+        <form onSubmit={formik.handleSubmit} className={styles["form"]}>
+          <label htmlFor="username" className={styles["label"]}>
             Username
           </label>
           <input
-            className={styles.input}
+            className={styles["input"]}
             type="text"
             name="username"
             id="username"
@@ -78,11 +83,11 @@ export default function Login() {
             onChange={formik.handleChange}
           />
 
-          <label htmlFor="email" className={styles.label}>
+          <label htmlFor="email" className={styles["label"]}>
             Email
           </label>
           <input
-            className={styles.input}
+            className={styles["input"]}
             type="email"
             name="email"
             id="email"
@@ -92,11 +97,11 @@ export default function Login() {
             onChange={formik.handleChange}
           />
 
-          <label htmlFor="password" className={styles.label}>
+          <label htmlFor="password" className={styles["label"]}>
             Password
           </label>
           <input
-            className={styles.input}
+            className={styles["input"]}
             type="password"
             name="password"
             id="password"
@@ -107,11 +112,11 @@ export default function Login() {
             onChange={formik.handleChange}
           />
 
-          <label htmlFor="repass" className={styles.label}>
+          <label htmlFor="repass" className={styles["label"]}>
             Retype password
           </label>
           <input
-            className={styles.input}
+            className={styles["input"]}
             type="password"
             name="repass"
             id="repass"
@@ -122,13 +127,13 @@ export default function Login() {
             onChange={formik.handleChange}
           />
 
-          <label htmlFor="role" className={styles.label}>
+          <label htmlFor="role" className={styles["label"]}>
             Register as:{" "}
           </label>
           <select
             name="role"
             id="role"
-            className={styles.input}
+            className={styles["input"]}
             value={formik.values.role}
             onChange={formik.handleChange}
           >
@@ -140,12 +145,10 @@ export default function Login() {
             type="submit"
             name="submit"
             value="Register"
-            className={styles.submit}
+            className={styles["submit"]}
           />
 
-          {error && <div className={styles.errorBox}>{error}</div>}
-
-          <div className={styles.infoBox}>
+          <div className={styles["infoBox"]}>
             Already have account? <Link to={"/login"}>Login here</Link>
           </div>
         </form>

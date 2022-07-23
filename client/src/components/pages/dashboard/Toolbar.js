@@ -28,13 +28,8 @@ export default function Toolbar() {
           </NavLink>
         </li>
         <li>
-          <NavLink to={"my-hotels"} className={setActive}>
+          <NavLink to={"hotels"} className={setActive}>
             My hotels
-          </NavLink>
-        </li>
-        <li>
-          <NavLink to={"add-hotel"} className={setActive}>
-            Add new hotel
           </NavLink>
         </li>
         <li>

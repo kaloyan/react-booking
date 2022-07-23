@@ -70,14 +70,14 @@ export default function Profile() {
         {account.role == "user" && (
           <div className={styles["item"]}>
             <label>My reservations: </label>
-            <span>{account.reservations.length}</span>
+            <span>{account.reservations}</span>
           </div>
         )}
 
         {account.role == "owner" && (
           <div className={styles["item"]}>
             <label>My hotels: </label>
-            <span>{account.hotels.length}</span>
+            <span>{account.hotels}</span>
           </div>
         )}
       </div>

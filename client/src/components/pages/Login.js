@@ -1,10 +1,11 @@
-import styles from "../../assets/Forms.module.css";
+import styles from "./Forms.module.css";
 
 import { useNavigate, Link } from "react-router-dom";
 import { login } from "../../services/netReq";
 import { useDispatch } from "react-redux";
 import { setAccount } from "../../features/slices/accountSlice";
 import { useFormik } from "formik";
+import { pushMessage } from "../../features/slices/localSlice";
 
 export default function Login() {
   const formik = useFormik({
@@ -25,10 +26,20 @@ export default function Login() {
           dispatch(setAccount(response));
           navigate("/");
         } else {
-          values.error = response.response?.data?.message;
+          dispatch(
+            pushMessage({
+              text: response.response?.data?.message,
+              type: "error",
+            })
+          );
         }
       } catch (err) {
-        console.log("Error: ", err);
+        dispatch(
+          pushMessage({
+            text: err,
+            type: "error",
+          })
+        );
       }
     },
   });
@@ -37,16 +48,16 @@ export default function Login() {
   const navigate = useNavigate();
 
   return (
-    <div className={styles.container}>
-      <div className={styles.wrapper}>
-        <h1 className={styles.title}>Sign in</h1>
+    <div className={styles["container"]}>
+      <div className={styles["wrapper"]}>
+        <h1 className={styles["title"]}>Sign in</h1>
 
-        <form onSubmit={formik.handleSubmit} className={styles.form}>
-          <label htmlFor="email" className={styles.label}>
+        <form onSubmit={formik.handleSubmit} className={styles["form"]}>
+          <label htmlFor="email" className={styles["label"]}>
             Email address:
           </label>
           <input
-            className={styles.input}
+            className={styles["input"]}
             type="email"
             name="email"
             id="email"
@@ -56,11 +67,11 @@ export default function Login() {
             onChange={formik.handleChange}
           />
 
-          <label htmlFor="password" className={styles.label}>
+          <label htmlFor="password" className={styles["label"]}>
             Your password:
           </label>
           <input
-            className={styles.input}
+            className={styles["input"]}
             type="password"
             name="password"
             id="password"
@@ -74,14 +85,10 @@ export default function Login() {
             type="submit"
             name="submit"
             value="Login"
-            className={styles.submit}
+            className={styles["submit"]}
           />
 
-          {formik.values.error && (
-            <div className={styles.errorBox}>{formik.values.error}</div>
-          )}
-
-          <div className={styles.infoBox}>
+          <div className={styles["infoBox"]}>
             Dont't have account? <Link to={"/register"}>Register here</Link>
           </div>
         </form>

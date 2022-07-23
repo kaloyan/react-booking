@@ -7,6 +7,7 @@ import {
 } from "../../../services/netReq";
 import { delDestinationImg } from "../../../services/firebaseSrv";
 import Modal from "../../ui/Modal";
+import { extractImageName } from "../../../utils/helpers";
 
 export default function Destinations() {
   const [destinations, setDestinations] = useState([]);
@@ -28,7 +29,7 @@ export default function Destinations() {
     e.preventDefault();
 
     const item = destinations.filter((x) => x._id === id);
-    const imgName = item[0].image.split("%2F")[2].split("?")[0];
+    const imgName = extractImageName(item[0].image);
 
     setModal({
       item: item[0],
@@ -44,13 +45,12 @@ export default function Destinations() {
 
   const doDelete = async () => {
     try {
-      const responseItem = await deleteDestination(modal.item._id);
-      // console.log(responseItem);
-      const responseImage = await delDestinationImg(modal.imageName);
-      // console.log(responseImage);
+      await deleteDestination(modal.item._id);
+      await delDestinationImg(modal.imageName);
 
+      const linkId = modal.item._id;
       setModal(null);
-      navigate(`del/${modal.item._id}`);
+      navigate(`del/${linkId}`);
     } catch (err) {
       console.log(err);
     }
