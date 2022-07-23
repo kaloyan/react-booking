@@ -1,0 +1,62 @@
+.image-select {
+  font-size: 5rem;
+  color: var(--text-very-dark);
+  border: 1px solid var(--text-very-dark);
+  border-radius: 0.5rem;
+  padding: 1rem;
+}
+
+.photo-box {
+  max-width: 300px;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.photo-box img.single {
+  width: 200px;
+  height: 200px;
+}
+
+.thumb {
+  height: 80px;
+  width: 80px;
+  margin: 0.2rem;
+}
+
+.photo-box > .image-box:first-child > img.thumb {
+  height: 250px;
+  width: 250px;
+}
+
+input[type="file"] {
+  display: none;
+}
+
+.file-upload {
+  display: inline-block;
+  padding: 6px 12px;
+  cursor: pointer;
+  margin-top: 0.5rem;
+  background-color: var(--color-primary-btn);
+  color: white;
+  border: none;
+  border-radius: 0.2rem;
+}
+
+.image-box {
+  position: relative;
+}
+
+.image-box > button {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background-color: black;
+  color: white;
+  padding: 5px;
+  height: 1.5rem;
+  width: 1.5rem;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+}
