@@ -33,6 +33,11 @@ const userSchema = mongoose.Schema(
       default: "",
       enum: ["", "male", "female"],
     },
+    
+    birthday: {
+      type: String,
+      default: "",
+    },
 
     password: {
       type: String,

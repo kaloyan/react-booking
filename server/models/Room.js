@@ -35,17 +35,17 @@ const roomSchema = new mongoose.Schema({
     },
   ],
 
-  creator: {
-    type: mongoose.Types.ObjectId,
-    ref: "User",
-    required: true,
-  },
+//  creator: {
+//    type: mongoose.Types.ObjectId,
+//    ref: "User",
+//    required: true,
+//  },
 
-  editAccess: {
-    type: [mongoose.Types.ObjectId],
-    ref: "User",
-    default: [],
-  },
+//  editAccess: {
+//    type: [mongoose.Types.ObjectId],
+//    ref: "User",
+//    default: [],
+//  },
 });
 
 module.exports = mongoose.model("Room", roomSchema);

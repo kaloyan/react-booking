@@ -22,9 +22,14 @@ const hotelSchema = new mongoose.Schema({
     required: [true, "Address is required"],
   },
 
-  distance: {
-    type: String,
-    required: [true, "Distance is required"],
+//  distance: {
+//    type: String,
+//    required: [true, "Distance is required"],
+//  },
+  country: {
+  	type: String,
+  	required: true,
+  	enum: [""],
   },
 
   pictures: {
@@ -37,10 +42,10 @@ const hotelSchema = new mongoose.Schema({
     required: [true, "Description is required"],
   },
 
-  title: {
-    type: String,
-    required: [true, "Title is required"],
-  },
+//  title: {
+//    type: String,
+//    required: [true, "Title is required"],
+//  },
 
   rating: {
     type: Number,
