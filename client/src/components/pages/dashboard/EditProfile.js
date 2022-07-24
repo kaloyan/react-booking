@@ -1,29 +1,176 @@
 import styles from "./Dashboard.module.css";
-import { useSelector, useDispatch } from "react-redux";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
-import { uploadAvatar } from "../../../services/firebaseSrv";
-import { NavLink } from "react-router-dom";
+import { uploadAvatar, delAvatar } from "../../../services/firebaseSrv";
+import { getAccount, updateAccount } from "../../../services/netReq";
+import { NavLink, useNavigate } from "react-router-dom";
+import { useFormik } from "formik";
+import { pushMessage } from "../../../features/slices/localSlice";
+import { createBlobImage, extractImageName } from "../../../utils/helpers";
+import Modal from "../../ui/Modal";
 
 export default function Profile() {
-  const account = useSelector((state) => state.account);
+  const [userId, setUserId] = useState("");
+  const [avatar, setAvatar] = useState("");
+  const [newAvatar, setNewAvatar] = useState("");
+  const [modal, setModal] = useState(null);
 
-  const [username, setUsername] = useState(account.username);
-  const [email, setEmail] = useState(account.email);
-  const [avatar, setAvatar] = useState(account.avatar);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const formik = useFormik({
+    initialValues: {
+      username: "",
+      email: "",
+      phone: "",
+      address: "",
+      gender: "",
+      avatar: "",
+      birthday: "",
+      oldPass: "",
+      newPass: "",
+      rePass: "",
+    },
 
-    if (avatar !== null) {
-      const result = await uploadAvatar(avatar);
-      console.log(result);
+    onSubmit: async (values) => {
+      // console.log(values);
+
+      if (
+        formik.values.newPass !== "" &&
+        formik.values.newPass !== formik.values.repPass
+      ) {
+        dispatch(
+          pushMessage({
+            text: "Passwords dont match",
+            type: "error",
+          })
+        );
+        return;
+      }
+
+      if (formik.values.avatar !== newAvatar) {
+        if (formik.values.avatar !== "") {
+          try {
+            const avatarHandle = extractImageName(formik.values.avatar);
+            await delAvatar(avatarHandle);
+          } catch (err) {
+            dispatch(
+              pushMessage({
+                text: err,
+                type: "error",
+              })
+            );
+          }
+        }
+
+        const image = await uploadAvatar(newAvatar);
+        // console.log(image);
+        formik.values.avatar = image;
+
+        updateProfile();
+      } else {
+        updateProfile();
+      }
+    },
+  });
+
+  const updateProfile = async () => {
+    const content = {
+      username: formik.values.username,
+      email: formik.values.email,
+      phone: formik.values.phone,
+      address: formik.values.address,
+      gender: formik.values.gender,
+      avatar: formik.values.avatar,
+      birthday: formik.values.birthday,
+      gender: formik.values.gender,
+    };
+
+    if (formik.values.newPass !== "") {
+      content.password = formik.values.newPass;
+    }
+
+    try {
+      const response = await updateAccount(userId, content);
+
+      if (response?.status === "OK") {
+        dispatch(
+          pushMessage({
+            text: response.message,
+            type: "success",
+          })
+        );
+      }
+
+      navigate("../profile");
+    } catch (err) {
+      dispatch(
+        pushMessage({
+          text: err,
+          type: "error",
+        })
+      );
     }
   };
 
+  const handleDeleteAccount = (e) => {
+    // console.log("delete account");
+    setModal(`Are you shure you want to delete account ${formik.values.email}`);
+  };
+
+  const closeHandler = () => {
+    setModal(null);
+  };
+
+  const acceptHandler = () => {
+    console.log("account will be deleted!");
+    setModal(null);
+  };
+
+  const handleChangeAvatar = (e) => {
+    setNewAvatar(e.target.files[0]);
+
+    const img = createBlobImage(e.target.files[0]);
+    setAvatar(img);
+  };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await getAccount();
+
+      formik.setValues({
+        username: data.username,
+        email: data.email,
+        phone: data.phone,
+        address: data.address,
+        gender: data.gender,
+        avatar: data.avatar,
+        birthday: data.birthday,
+        oldPass: "",
+        newPass: "",
+        rePass: "",
+      });
+
+      setUserId(data.id);
+      setAvatar(data.avatar);
+      setNewAvatar(data.avatar);
+    };
+
+    fetchData();
+  }, []);
+
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={formik.handleSubmit}>
+      {modal && (
+        <Modal
+          message={modal}
+          closeHandler={closeHandler}
+          acceptHandler={acceptHandler}
+        />
+      )}
+
       <section className={styles["grid-container"]}>
         <div className={styles["header"]}>
           <h1>Edit Profile</h1>
@@ -37,12 +184,8 @@ export default function Profile() {
 
         <div className={styles["side"]}>
           <div>
-            {account.avatar ? (
-              <img
-                src={account.avatar}
-                alt="avatar"
-                className={styles["avatar"]}
-              />
+            {avatar ? (
+              <img src={avatar} alt="avatar" className={styles["avatar"]} />
             ) : (
               <FontAwesomeIcon icon={faUser} className={styles["avatar"]} />
             )}
@@ -51,11 +194,7 @@ export default function Profile() {
             <label htmlFor="avatar" className={styles["file-upload"]}>
               Upload picture
             </label>
-            <input
-              type="file"
-              id="avatar"
-              onChange={(e) => setAvatar(e.target.files[0])}
-            />
+            <input type="file" id="avatar" onChange={handleChangeAvatar} />
           </div>
         </div>
 
@@ -65,8 +204,9 @@ export default function Profile() {
             <input
               type="text"
               id="username"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
+              name="username"
+              value={formik.values.username}
+              onChange={formik.handleChange}
             />
           </div>
 
@@ -75,28 +215,57 @@ export default function Profile() {
             <input
               type="email"
               id="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              name="email"
+              value={formik.values.email}
+              onChange={formik.handleChange}
             />
           </div>
 
           <div className={styles["item"]}>
             <label htmlFor="phone">Phone number: </label>
-            <input type="tel" id="phone" />
+            <input
+              type="tel"
+              id="phone"
+              name="phone"
+              value={formik.values.phone}
+              onChange={formik.handleChange}
+            />
           </div>
 
           <div className={styles["item"]}>
             <label htmlFor="address">Address: </label>
-            <input type="address" id="address" />
+            <input
+              type="address"
+              id="address"
+              name="address"
+              value={formik.values.address}
+              onChange={formik.handleChange}
+            />
           </div>
 
           <div className={styles["item"]}>
             <label htmlFor="gender">Gender: </label>
-            <select name="gender" id="gender">
+            <select
+              name="gender"
+              id="gender"
+              value={formik.values.gender}
+              onChange={formik.handleChange}
+            >
               <option value="">-- Prefer not to say --</option>
               <option value="male">Male</option>
               <option value="female">Female</option>
             </select>
+          </div>
+
+          <div className={styles["item"]}>
+            <label htmlFor="birthday">Birthday: </label>
+            <input
+              type="date"
+              id="birthday"
+              name="birthday"
+              value={formik.values.birthday}
+              onChange={formik.handleChange}
+            />
           </div>
 
           <hr />
@@ -105,21 +274,41 @@ export default function Profile() {
 
           <div></div>
 
-          <div className={`${styles["item"]}`}>
+          {/* <div className={`${styles["item"]}`}>
             <label htmlFor="oldpass">Current password </label>
-            <input type="password" id="oldpass" />
-          </div>
+            <input
+              type="password"
+              id="oldpass"
+              name="oldPass"
+              value={formik.values.oldPass}
+              onChange={formik.handleChange}
+            />
+          </div> */}
 
-          <div></div>
+          {/* <div></div> */}
 
           <div className={styles["item"]}>
             <label htmlFor="newpass">New password </label>
-            <input type="password" id="newpass" />
+            <input
+              type="password"
+              id="newpass"
+              name="newPass"
+              minLength="3"
+              value={formik.values.newPass}
+              onChange={formik.handleChange}
+            />
           </div>
 
           <div className={styles["item"]}>
             <label htmlFor="repass">Repeat new password </label>
-            <input type="password" id="repass" />
+            <input
+              type="password"
+              id="repass"
+              name="rePass"
+              minLength="3"
+              value={formik.values.rePass}
+              onChange={formik.handleChange}
+            />
           </div>
 
           <hr />
@@ -137,10 +326,15 @@ export default function Profile() {
               type="button"
               className={styles["delete-btn"]}
               value="Delete account"
+              onClick={handleDeleteAccount}
             />
           </div>
 
-          <p>* Account cannot be restored</p>
+          <div className={styles["item"]}>
+            <p className={styles["warning"]}>
+              WARNING! * Account cannot be restored
+            </p>
+          </div>
         </div>
       </section>
     </form>

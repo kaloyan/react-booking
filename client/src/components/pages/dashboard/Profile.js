@@ -1,11 +1,23 @@
 import styles from "./Dashboard.module.css";
-import { useSelector } from "react-redux";
+// import { useSelector } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 import { NavLink } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { getAccount } from "../../../services/netReq";
 
 export default function Profile() {
-  const account = useSelector((state) => state.account);
+  // const account = useSelector((state) => state.account);
+  const [user, setUser] = useState({});
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await getAccount();
+      setUser(data);
+    };
+
+    fetchData();
+  }, []);
 
   return (
     <section className={styles["grid-container"]}>
@@ -20,12 +32,8 @@ export default function Profile() {
 
       <div className={styles["side"]}>
         <div>
-          {account.avatar ? (
-            <img
-              src={account.avatar}
-              alt="avatar"
-              className={styles["avatar"]}
-            />
+          {user.avatar ? (
+            <img src={user.avatar} alt="avatar" className={styles["avatar"]} />
           ) : (
             <FontAwesomeIcon icon={faUser} className={styles["avatar"]} />
           )}
@@ -35,49 +43,54 @@ export default function Profile() {
       <div className={styles["content"]}>
         <div className={styles["item"]}>
           <label>Username: </label>
-          <span type="text">{account.username}</span>
+          <span type="text">{user.username}</span>
         </div>
 
         <div className={styles["item"]}>
           <label>Email: </label>
-          <span type="email">{account.email}</span>
+          <span type="email">{user.email}</span>
         </div>
 
         <div className={styles["item"]}>
           <label>Phone number: </label>
-          <span>{account.phone || <em>Not specified</em>}</span>
+          <span>{user.phone || <em>Not specified</em>}</span>
         </div>
 
         <div className={styles["item"]}>
           <label>Address: </label>
-          <span>{account.address || <em>Not specified</em>}</span>
+          <span>{user.address || <em>Not specified</em>}</span>
         </div>
 
         <div className={styles["item"]}>
           <label>Gender: </label>
-          <span>{account.gender || <em>Not specified</em>}</span>
+          <span>{user.gender || <em>Not specified</em>}</span>
+        </div>
+
+        <div className={styles["item"]}>
+          <label>Birthday: </label>
+          <span>{user.birthday || <em>Not specified</em>}</span>
         </div>
 
         <hr />
 
-        {account.role == "admin" && (
+        {user.role === "admin" && (
           <div className={styles["item"]}>
             <label>Role: </label>
             <span>Administrator</span>
           </div>
         )}
 
-        {account.role == "user" && (
+        {user.role === "user" && (
           <div className={styles["item"]}>
             <label>My reservations: </label>
-            <span>{account.reservations}</span>
+            <span>{user.reservations}</span>
           </div>
         )}
 
-        {account.role == "owner" && (
+        {user.role === "owner" && (
           <div className={styles["item"]}>
             <label>My hotels: </label>
-            <span>{account.hotels}</span>
+            <span>{user.hotels}</span>
           </div>
         )}
       </div>
