@@ -1,4 +1,6 @@
 const User = require("../models/User.js");
+const bcrypt = require("bcrypt");
+const { v4: uuid } = require("uuid");
 
 const getUser = async (id) => {
   try {
@@ -19,12 +21,29 @@ const getAll = async () => {
 };
 
 const updateUser = async (id, data) => {
+
+  if (data.password) {
+  	const hashPass = await bcrypt.hash(password, 10);
+  	data.password = hashPass;
+  }
+
   try {
     const user = await User.findByIdAndUpdate(
       id,
       { $set: data },
       { new: true }
     );
+    
+    const mesg = await User.findByIdAndUpdate(
+    	id,
+    	{$push: {messages: {
+    		msg: `Your account was update successfull on ${new Date()}`,
+    		unread: true,
+    		id: uuid(),
+    		time: Date.now(),
+    	}}}
+    )
+    
     return user;
   } catch (err) {
     throw err;

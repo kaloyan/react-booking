@@ -33,7 +33,7 @@ const updateUser = async (req, res, next) => {
 
   try {
     // if not Admin and not account owner = throw error
-    if (!req.admin && req.user?.id != user._id) {
+    if (!req.admin && req.user?.id != userId) {
       throw {
         status: 403,
         message: "Access denied",
@@ -42,7 +42,8 @@ const updateUser = async (req, res, next) => {
 
     //!TODO prevent role escalation
 
-    const user = await userSrv.updateUser(userId, data);
+	const user = await userSrv.updateUser(userId, data);
+	
     res.json({
       status: "OK",
       message: `User ${user.username} updated successfull`,
@@ -57,7 +58,7 @@ const delUser = async (req, res, next) => {
 
   try {
     // if not Admin and not account owner = throw error
-    if (!req.admin && req.user?.id != user._id) {
+    if (!req.admin && req.user?.id != userId) {
       throw {
         status: 403,
         message: "Access denied",
