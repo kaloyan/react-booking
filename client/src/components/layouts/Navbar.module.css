@@ -24,15 +24,24 @@
 
 .nav-container {
   width: 100vw;
-  max-width: 1024px;
+  /* max-width: 1024px; */
+  margin: 0 5rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
 
-.logo {
-  /* color: white; */
+.brand {
+  font-size: 1.5rem;
   font-weight: bold;
+}
+
+.brand span {
+  margin: 0 1rem;
+}
+
+.brand svg {
+  font-size: 2rem;
 }
 
 .navItems {
@@ -44,7 +53,6 @@
 
 .navItems > li > a {
   display: block;
-  /* color: white; */
   text-decoration: none;
   margin-left: 1.5rem;
   padding: 0.5rem 1.2rem;
@@ -52,6 +60,5 @@
 }
 
 .activeLink {
-  /* border-bottom: 3px solid white; */
   border-bottom: 3px solid var(--color-primary);
 }

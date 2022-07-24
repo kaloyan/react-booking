@@ -41,3 +41,7 @@
 .info {
   background-color: rgba(108, 153, 242, 0.737);
 }
+
+.success {
+  background-color: rgba(138, 232, 121, 0.737);
+}

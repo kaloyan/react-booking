@@ -5,6 +5,8 @@ import { useEffect, useState } from "react";
 import { getAccount } from "../../services/netReq";
 import { setAccount } from "../../features/slices/accountSlice";
 import AccountTool from "../ui/AccountTool";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faBookAtlas } from "@fortawesome/free-solid-svg-icons";
 
 export default function Navbar() {
   const { username, email } = useSelector((state) => state.account);
@@ -44,11 +46,14 @@ export default function Navbar() {
   return (
     <div className={menuStyle}>
       <div className={styles["nav-container"]}>
-        <NavLink to={"/"}>
-          <span className={styles.logo}>Travel Agency</span>
-        </NavLink>
+        <div className={styles["brand"]}>
+          <NavLink to={"/"}>
+            <FontAwesomeIcon icon={faBookAtlas} />
+            <span className={styles["logo"]}>ReactBooking</span>
+          </NavLink>
+        </div>
 
-        <ul className={styles.navItems}>
+        <ul className={styles["navItems"]}>
           {username ? (
             <AccountTool username={username} email={email} />
           ) : (

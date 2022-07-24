@@ -7,8 +7,12 @@ export default function Modal(props) {
         <div>{props.message}</div>
 
         <div className={styles["controls"]}>
-          <button onClick={props.acceptHandler}>Yes</button>
-          <button onClick={props.closeHandler}>Cancel</button>
+          <button type="button" onClick={props.acceptHandler}>
+            Yes
+          </button>
+          <button type="button" onClick={props.closeHandler}>
+            Cancel
+          </button>
         </div>
       </div>
     </div>
