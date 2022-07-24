@@ -12,3 +12,7 @@ export const extractImageName = (path) => {
   // if cant find filename - return original path
   return result || path;
 };
+
+export const createBlobImage = (image) => {
+  return window.URL.createObjectURL(image);
+};

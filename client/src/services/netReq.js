@@ -32,6 +32,8 @@ const netReq = async (url, options = { method: "get", data: null }) => {
   }
 };
 
+// Account data
+
 export const login = (data) => {
   return netReq(urls.loginURL, { method: "post", data });
 };
@@ -47,6 +49,13 @@ export const doLogout = () => {
 export const register = (data) => {
   return netReq(urls.registerURL, { method: "post", data });
 };
+
+export const updateAccount = (id, data) => {
+  const url = urls.updateAccountURL + id;
+  return netReq(url, { method: "put", data });
+};
+
+//
 
 export const getItem = (itemId) => {
   const url = urls.itemURL + itemId;

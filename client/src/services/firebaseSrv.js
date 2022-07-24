@@ -19,8 +19,27 @@ const uploadImage = async (image, folder) => {
   return imageUrl;
 };
 
+const delImage = async (imgRef) => {
+  try {
+    await deleteObject(imgRef);
+    return true;
+  } catch (err) {
+    throw err;
+  }
+};
+
 export const uploadAvatar = (avatar) => {
   return uploadImage(avatar, "img/avatars");
+};
+
+export const delAvatar = async (avatar) => {
+  try {
+    const delRef = ref(storage, `img/avatars/${avatar}`);
+    await delImage(delRef);
+  } catch (err) {
+    // console.log(err);
+  }
+  return "Image deleted";
 };
 
 export const uploadDest = (image) => {
@@ -31,15 +50,6 @@ export const uploadDest = (image) => {
 export const uploadHotelImg = (image) => {
   const folder = "img/hotels";
   return uploadImage(image, folder);
-};
-
-const delImage = async (imgRef) => {
-  try {
-    await deleteObject(imgRef);
-    return true;
-  } catch (err) {
-    throw err;
-  }
 };
 
 export const delDestinationImg = async (imgName) => {
