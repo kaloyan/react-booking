@@ -33,7 +33,7 @@ const userSchema = mongoose.Schema(
       default: "",
       enum: ["", "male", "female"],
     },
-    
+
     birthday: {
       type: String,
       default: "",
@@ -65,17 +65,6 @@ const userSchema = mongoose.Schema(
           time: Date.now(),
         },
       ],
-    },
-
-    reservations: {
-      type: [Object],
-      default: [],
-    },
-
-    hotels: {
-      type: [mongoose.Types.ObjectId],
-      ref: "Hotel",
-      default: [],
     },
   },
   { timestamps: true }

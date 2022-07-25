@@ -12,6 +12,11 @@ const hotelSchema = new mongoose.Schema({
     required: [true, "Type is required"],
   },
 
+  country: {
+    type: String,
+    required: true,
+  },
+
   city: {
     type: String,
     required: [true, "Ciry is required"],
@@ -20,16 +25,6 @@ const hotelSchema = new mongoose.Schema({
   address: {
     type: String,
     required: [true, "Address is required"],
-  },
-
-//  distance: {
-//    type: String,
-//    required: [true, "Distance is required"],
-//  },
-  country: {
-  	type: String,
-  	required: true,
-  	enum: [""],
   },
 
   pictures: {
@@ -41,11 +36,6 @@ const hotelSchema = new mongoose.Schema({
     type: String,
     required: [true, "Description is required"],
   },
-
-//  title: {
-//    type: String,
-//    required: [true, "Title is required"],
-//  },
 
   rating: {
     type: Number,
@@ -60,6 +50,18 @@ const hotelSchema = new mongoose.Schema({
     default: [],
   },
 
+  reservations: {
+    type: [mongoose.Types.ObjectId],
+    ref: "Reservation",
+    default: [],
+  },
+
+  reviews: {
+    type: [mongoose.Types.ObjectId],
+    ref: "Review",
+    default: [],
+  },
+
   cheepestPrice: {
     type: Number,
     min: 1,
@@ -71,16 +73,10 @@ const hotelSchema = new mongoose.Schema({
     default: false,
   },
 
-  creator: {
+  owner: {
     type: mongoose.Types.ObjectId,
     ref: "User",
     required: true,
-  },
-
-  editAccess: {
-    type: [mongoose.Types.ObjectId],
-    ref: "User",
-    default: [],
   },
 });
 
