@@ -6,6 +6,7 @@ import {
   uploadBytes,
   getDownloadURL,
   deleteObject,
+  listAll,
 } from "firebase/storage";
 import { uuidv4 } from "@firebase/util";
 
@@ -19,9 +20,9 @@ const uploadImage = async (image, folder) => {
   return imageUrl;
 };
 
-const delImage = async (imgRef) => {
+const delImage = async (objRef) => {
   try {
-    await deleteObject(imgRef);
+    await deleteObject(objRef);
     return true;
   } catch (err) {
     throw err;
@@ -47,8 +48,8 @@ export const uploadDest = (image) => {
   return uploadImage(image, folder);
 };
 
-export const uploadHotelImg = (image) => {
-  const folder = "img/hotels";
+export const uploadHotelImg = (image, hotelId) => {
+  const folder = `img/hotels/${hotelId}/`;
   return uploadImage(image, folder);
 };
 
@@ -58,12 +59,22 @@ export const delDestinationImg = async (imgName) => {
   return "Image deleted";
 };
 
-export const delHotelImage = async (imgName) => {
-  try {
-    const delRef = ref(storage, `img/hotels/${imgName}`);
-    await delImage(delRef);
-  } catch (err) {
-    // console.log(err);
-  }
-  return "Image deleted";
+export const delHotelImages = async (hotelId) => {
+  const listRef = ref(storage, `img/hotels/${hotelId}`);
+
+  // Find all the prefixes and items.
+  listAll(listRef)
+    .then((res) => {
+      res.prefixes.forEach((folderRef) => {
+        // All the prefixes under listRef.
+        // You may call listAll() recursively on them.
+      });
+      res.items.forEach((itemRef) => {
+        // All the items under listRef.
+        delImage(itemRef);
+      });
+    })
+    .catch((error) => {
+      // Uh-oh, an error occurred!
+    });
 };

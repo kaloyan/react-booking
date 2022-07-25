@@ -1,4 +1,6 @@
 // Helper functions
+import { uploadHotelImg } from "../services/firebaseSrv";
+import { updateHotel } from "../services/netReq";
 
 export const extractImageName = (path) => {
   let result = null;
@@ -15,4 +17,17 @@ export const extractImageName = (path) => {
 
 export const createBlobImage = (image) => {
   return window.URL.createObjectURL(image);
+};
+
+export const uploadHotelImages = async (images, hotelId) => {
+  try {
+    await Promise.all(
+      images.map((image) => uploadHotelImg(image, hotelId))
+    ).then(async (imgUrls) => {
+      await updateHotel(hotelId, { pictures: imgUrls });
+      return imgUrls;
+    });
+  } catch (err) {
+    throw err;
+  }
 };

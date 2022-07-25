@@ -55,6 +55,11 @@ export const updateAccount = (id, data) => {
   return netReq(url, { method: "put", data });
 };
 
+export const getUserCounts = (userId) => {
+  const url = urls.countsURL + userId + "/counts";
+  return netReq(url);
+};
+
 //
 
 export const getItem = (itemId) => {
@@ -124,4 +129,9 @@ export const delHotel = (hotelId) => {
 export const getOneHotel = (hitelId) => {
   const url = urls.itemURL + hitelId;
   return netReq(url);
+};
+
+export const updateHotel = (hotelId, data) => {
+  const url = urls.itemURL + hotelId;
+  return netReq(url, { method: "put", data });
 };

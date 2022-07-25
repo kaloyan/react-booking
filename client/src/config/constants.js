@@ -9,3 +9,4 @@ export const logoutURL = `${BASE_URL}/auth/logout`;
 export const registerURL = `${BASE_URL}/auth/register`;
 export const itemURL = `${BASE_URL}/api/v1/hotels/`;
 export const destURL = `${BASE_URL}/api/v1/destinations/`;
+export const countsURL = `${BASE_URL}/api/v1/users/`;
