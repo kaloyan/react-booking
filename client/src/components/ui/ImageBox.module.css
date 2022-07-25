@@ -4,6 +4,7 @@
   border: 1px solid var(--text-very-dark);
   border-radius: 0.5rem;
   padding: 1rem;
+  cursor: pointer;
 }
 
 .photo-box {

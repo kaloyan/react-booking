@@ -1,5 +1,5 @@
 // Main application component
-
+import { lazy, Suspense } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 // Import all pages
@@ -8,13 +8,15 @@ import Hotel from "./components/pages/Hotel";
 import HotelsList from "./components/pages/HotelsList";
 import Login from "./components/pages/Login";
 import Register from "./components/pages/Register";
-import Dashboard from "./components/pages/dashboard/Dashboard";
 import NotFound from "./components/pages/NotFound";
 
 // Import compponenst
 import Navbar from "./components/layouts/Navbar";
 import Footer from "./components/layouts/Footer";
 import InfoBox from "./components/ui/InfoBox";
+
+// import Dashboard from "./components/pages/dashboard/Dashboard";
+const Dashboard = lazy(() => import("./components/pages/dashboard/Dashboard"));
 
 function App() {
   return (
@@ -26,11 +28,18 @@ function App() {
 
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/hotels" element={<HotelsList />} />
-          <Route path="/hotels/:id" element={<Hotel />} />
+          <Route path="/catalog" element={<HotelsList />} />
+          <Route path="/catalog/:id" element={<Hotel />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-          <Route path="/dashboard/*" element={<Dashboard />} />
+          <Route
+            path="/dashboard/*"
+            element={
+              <Suspense fallback={<span>Loading...</span>}>
+                <Dashboard />
+              </Suspense>
+            }
+          />
           <Route path="*" element={<NotFound />} />
         </Routes>
 

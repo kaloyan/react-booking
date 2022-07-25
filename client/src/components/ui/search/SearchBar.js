@@ -32,7 +32,7 @@ export default function SearchBar() {
   const searchHandler = (e) => {
     e.preventDefault();
     loadContent();
-    navigate("/hotels");
+    navigate("/catalog");
   };
 
   const toggleOpenSearch = (e) => {

@@ -1,12 +1,13 @@
 import styles from "./ImageBox.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCamera, faXmark } from "@fortawesome/free-solid-svg-icons";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { v4 as uuid } from "uuid";
 
 export default function ImageBox({ handleGetPictures }) {
   const [imgs, setImgs] = useState([]);
   const [selectedFiles, setSelectedFiles] = useState([]);
+  const filesRef = useRef(null);
 
   const handleChange = (e) => {
     const files = Array.from(e.target.files);
@@ -54,7 +55,11 @@ export default function ImageBox({ handleGetPictures }) {
             ))}
           </div>
         ) : (
-          <FontAwesomeIcon icon={faCamera} className={styles["image-select"]} />
+          <FontAwesomeIcon
+            icon={faCamera}
+            className={styles["image-select"]}
+            onClick={() => filesRef.current.click()}
+          />
         )}
       </div>
 
@@ -67,6 +72,7 @@ export default function ImageBox({ handleGetPictures }) {
           id="image-select"
           accept="image/*"
           multiple
+          ref={filesRef}
           onChange={handleChange}
         />
       </div>

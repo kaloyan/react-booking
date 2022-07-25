@@ -12,6 +12,7 @@ form {
   width: 100%;
   padding: 3rem 2rem;
   display: grid;
+  grid-template-columns: repeat(5, 1fr);
   /* background-color: rgba(223, 199, 245, 0.503); */
   grid-gap: 1rem;
   align-self: start;
@@ -86,7 +87,17 @@ form {
 }
 
 .item {
-  width: 50%;
+  grid-column: span 1;
+  margin: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.5rem;
+  font-size: 1.1rem;
+}
+
+.item-wide {
+  grid-column: span 2;
   margin: 1rem;
   display: flex;
   flex-direction: column;
@@ -97,10 +108,11 @@ form {
 
 .item > input,
 .item > select {
+  width: 90%;
   line-height: 2rem;
-  font-size: 1.5rem;
+  font-size: 1.3rem;
   padding: 0.5rem;
-  min-width: 350px;
+  min-width: 300px;
   border: none;
   background-color: white;
   border-bottom: 2px solid var(--text-very-dark);
@@ -112,8 +124,11 @@ form {
   border: none;
 }
 
-.item > textarea {
-  width: 100%;
+.item-wide > textarea {
+  width: 90%;
+  line-height: 2rem;
+  font-size: 1.3rem;
+  padding: 0.5rem;
 }
 
 .item > span {

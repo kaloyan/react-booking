@@ -30,7 +30,7 @@ export default function SearchItem({ data }) {
         <div className={styles.detailText}>
           <span className={styles.price}>${data.cheepestPrice}</span>
           <span className={styles.taxOps}>Includes taxes and fees</span>
-          <Link to={`/hotels/${data._id}`}>
+          <Link to={`/catalog/${data._id}`}>
             <button className={styles.checkBtn}>See availability</button>
           </Link>
         </div>

@@ -52,7 +52,7 @@ export default function Footer() {
         <ul className={styles["list"]}>
           <li className={styles["itemTtile"]}>Services</li>
           <li>
-            <Link to={"/hotels"}>affordable hotels</Link>
+            <Link to={"/catalog"}>affordable hotels</Link>
           </li>
           <li>
             <Link to={"/services/food-and-drink"}>food and drinks</Link>
