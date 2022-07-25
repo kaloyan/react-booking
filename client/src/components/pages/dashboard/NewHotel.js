@@ -4,11 +4,12 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
-import { uploadHotelImg } from "../../../services/firebaseSrv";
-import { createHotel } from "../../../services/netReq";
+import { uploadHotelImages } from "../../../utils/helpers";
+import { createHotel, updateHotel } from "../../../services/netReq";
 import { pushMessage } from "../../../features/slices/localSlice";
 import ImageBox from "../../ui/ImageBox";
 import MessageBox from "../../ui/MessageBox";
+import countries from "../../../assets/countries.json";
 
 export default function NewHotel() {
   const [pictures, setPictures] = useState([]);
@@ -19,14 +20,13 @@ export default function NewHotel() {
   const formik = useFormik({
     initialValues: {
       name: "",
-      title: "",
       type: "hotel",
       city: "",
       address: "",
-      distance: "",
+      country: "",
       pictures: [],
       description: "",
-      cheepestPrice: 1,
+      cheepestPrice: "",
       featured: false,
     },
 
@@ -45,21 +45,14 @@ export default function NewHotel() {
       setShowMessage(true);
 
       try {
-        Promise.all(pictures.map((x) => uploadHotelImg(x))).then(
-          async (imgUrls) => {
-            // console.log(imgUrls);
-            formik.values.pictures = imgUrls;
+        // first upload content to database and get the ID of the hotel
+        const newHotel = await createHotel(formik.values);
+        const hotelId = newHotel._id;
+        // next upload all images to firebase store and update image list on the database
+        await uploadHotelImages(pictures, hotelId);
 
-            // console.log(formik.values);
-
-            const response = await createHotel(formik.values);
-
-            // console.log(response);
-            setShowMessage(false);
-
-            navigate("../hotels");
-          }
-        );
+        setShowMessage(false);
+        navigate("../hotels");
       } catch (err) {
         setShowMessage(false);
 
@@ -113,32 +106,6 @@ export default function NewHotel() {
           </div>
 
           <div className={styles["item"]}>
-            <label>Title: </label>
-            <input
-              type="text"
-              placeholder="example: Spa & Wellness"
-              required
-              name="title"
-              value={formik.values.title}
-              onChange={formik.handleChange}
-            />
-          </div>
-
-          <div className={`${styles["item"]} ${styles["grid-col-span-2"]}`}>
-            <label>Description: </label>
-            <textarea
-              name="description"
-              id="description"
-              // cols="70"
-              rows="6"
-              required
-              placeholder="example: Best hotel in town"
-              value={formik.values.description}
-              onChange={formik.handleChange}
-            ></textarea>
-          </div>
-
-          <div className={styles["item"]}>
             <label>Type: </label>
             <select
               name="type"
@@ -156,10 +123,27 @@ export default function NewHotel() {
           </div>
 
           <div className={styles["item"]}>
+            <label>Country: </label>
+            <input
+              list="country"
+              name="country"
+              required
+              placeholder="example: Bulgaria"
+              value={formik.values.country}
+              onChange={formik.handleChange}
+            />
+            <datalist id="country">
+              {countries.map((x) => (
+                <option value={x.name} key={x.code} />
+              ))}
+            </datalist>
+          </div>
+
+          <div className={styles["item"]}>
             <label>City: </label>
             <input
               type="text"
-              placeholder="example: Paris"
+              placeholder="example: Sofia"
               required
               name="city"
               value={formik.values.city}
@@ -171,7 +155,7 @@ export default function NewHotel() {
             <label>Address: </label>
             <input
               type="text"
-              placeholder="example: Downing Street 10"
+              placeholder="example: bul. Dondukov 1"
               required
               name="address"
               value={formik.values.address}
@@ -180,27 +164,28 @@ export default function NewHotel() {
           </div>
 
           <div className={styles["item"]}>
-            <label>Distance: </label>
-            <input
-              type="text"
-              placeholder="example: 500m from airport"
-              required
-              name="distance"
-              value={formik.values.distance}
-              onChange={formik.handleChange}
-            />
-          </div>
-
-          <div className={styles["item"]}>
-            <label>Cheapest price: </label>
+            <label>Cheapest room price: </label>
             <input
               type="number"
-              placeholder="example: 500m from airport"
+              placeholder=""
               required
               name="cheepestPrice"
               value={formik.values.cheepestPrice}
               onChange={formik.handleChange}
             />
+          </div>
+
+          <div className={styles["item-wide"]}>
+            <label>Description: </label>
+            <textarea
+              name="description"
+              id="description"
+              rows="7"
+              required
+              placeholder="Please provide detailed description of the property"
+              value={formik.values.description}
+              onChange={formik.handleChange}
+            ></textarea>
           </div>
 
           <div className={styles["item"]}>

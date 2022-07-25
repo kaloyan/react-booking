@@ -1,11 +1,10 @@
 import styles from "./Dashboard.module.css";
-import { NavLink, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { getOwnHotels, delHotel } from "../../../services/netReq";
-import { delHotelImage } from "../../../services/firebaseSrv";
+import { delHotelImages } from "../../../services/firebaseSrv";
 import { pushMessage } from "../../../features/slices/localSlice";
-import { extractImageName } from "../../../utils/helpers";
 import Modal from "../../ui/Modal";
 import MessageBox from "../../ui/MessageBox";
 
@@ -37,15 +36,13 @@ export default function MyHotels() {
     setModal(null);
     setShowMessage(true);
 
-    const imageUrls = modal.item.pictures.map((x) => extractImageName(x));
-
     try {
-      Promise.all(imageUrls.map((x) => delHotelImage(x))).then(async (resp) => {
-        await delHotel(modal.item._id);
-        setShowMessage(false);
-        const linkId = modal.item._id;
-        navigate(`del/${linkId}`);
-      });
+      await delHotelImages(modal.item._id);
+      await delHotel(modal.item._id);
+
+      setShowMessage(false);
+      const linkId = modal.item._id;
+      navigate(`del/${linkId}`);
     } catch (err) {
       setShowMessage(false);
       console.log(err);
@@ -80,14 +77,14 @@ export default function MyHotels() {
         <h1>My Hotels</h1>
 
         <div>
-          <NavLink to={"new"} className={styles["action-btn"]}>
+          <Link to={"new"} className={styles["action-btn"]}>
             <span>Add New</span>
-          </NavLink>
+          </Link>
         </div>
       </div>
 
       {hotels.length == 0 && (
-        <div className={styles["empty-box"]}>No hotels yet :(</div>
+        <div className={styles["empty-box"]}>You dont have any hotels yet</div>
       )}
 
       <div className={styles["table"]}>
@@ -108,20 +105,17 @@ export default function MyHotels() {
             <div>{hotel.address}</div>
 
             <div>
-              <NavLink
-                to={`edit/${hotel._id}`}
-                className={styles["action-btn"]}
-              >
+              <Link to={`edit/${hotel._id}`} className={styles["action-btn"]}>
                 <span>Edit</span>
-              </NavLink>
+              </Link>
 
-              <NavLink
+              <Link
                 to={`del/${hotel._id}`}
                 onClick={(e) => handleModal(hotel._id, e)}
                 className={styles["action-btn"]}
               >
                 <span>Delete</span>
-              </NavLink>
+              </Link>
             </div>
           </div>
         ))}

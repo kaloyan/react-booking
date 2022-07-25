@@ -1,14 +1,14 @@
 import styles from "./Dashboard.module.css";
-// import { useSelector } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 import { NavLink } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { getAccount } from "../../../services/netReq";
+import { getAccount, getUserCounts } from "../../../services/netReq";
 
 export default function Profile() {
-  // const account = useSelector((state) => state.account);
   const [user, setUser] = useState({});
+  const [hotelsCount, setHotelsCount] = useState(0);
+  const [reservationsCount, setReservationsCount] = useState(0);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -18,6 +18,18 @@ export default function Profile() {
 
     fetchData();
   }, []);
+
+  useEffect(() => {
+    const fetchCount = async () => {
+      if (user?.role == "owner" || user?.role == "user") {
+        const response = await getUserCounts(user.id);
+        setHotelsCount(response.hotels);
+        setReservationsCount(response.reservations);
+      }
+    };
+
+    fetchCount();
+  }, [user]);
 
   return (
     <section className={styles["grid-container"]}>
@@ -83,14 +95,14 @@ export default function Profile() {
         {user.role === "user" && (
           <div className={styles["item"]}>
             <label>My reservations: </label>
-            <span>{user.reservations}</span>
+            <span>{reservationsCount}</span>
           </div>
         )}
 
         {user.role === "owner" && (
           <div className={styles["item"]}>
             <label>My hotels: </label>
-            <span>{user.hotels}</span>
+            <span>{hotelsCount}</span>
           </div>
         )}
       </div>
