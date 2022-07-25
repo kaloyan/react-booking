@@ -26,7 +26,7 @@ const getOwn = async (req, res, next) => {
 const create = async (req, res, next) => {
   const data = {
     ...req.body,
-    creator: req.user.id,
+    owner: req.user.id,
   };
 
   try {

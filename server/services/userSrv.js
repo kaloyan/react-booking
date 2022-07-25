@@ -1,4 +1,6 @@
 const User = require("../models/User.js");
+const Hotel = require("../models/Hotel.js");
+const Reservation = require("../models/Reservation");
 const bcrypt = require("bcrypt");
 const { v4: uuid } = require("uuid");
 
@@ -6,6 +8,19 @@ const getUser = async (id) => {
   try {
     const user = await User.findById(id).lean();
     return user;
+  } catch (err) {
+    throw err;
+  }
+};
+
+const getUserCounts = async (userId) => {
+  try {
+    const response = {};
+
+    response.hotels = await Hotel.countDocuments({ owner: userId });
+    response.reservations = await Reservation.countDocuments({ user: userId });
+
+    return response;
   } catch (err) {
     throw err;
   }
@@ -21,10 +36,9 @@ const getAll = async () => {
 };
 
 const updateUser = async (id, data) => {
-
   if (data.password) {
-  	const hashPass = await bcrypt.hash(password, 10);
-  	data.password = hashPass;
+    const hashPass = await bcrypt.hash(password, 10);
+    data.password = hashPass;
   }
 
   try {
@@ -33,17 +47,18 @@ const updateUser = async (id, data) => {
       { $set: data },
       { new: true }
     );
-    
-    const mesg = await User.findByIdAndUpdate(
-    	id,
-    	{$push: {messages: {
-    		msg: `Your account was update successfull on ${new Date()}`,
-    		unread: true,
-    		id: uuid(),
-    		time: Date.now(),
-    	}}}
-    )
-    
+
+    const mesg = await User.findByIdAndUpdate(id, {
+      $push: {
+        messages: {
+          msg: `Your account was update successfull on ${new Date()}`,
+          unread: true,
+          id: uuid(),
+          time: Date.now(),
+        },
+      },
+    });
+
     return user;
   } catch (err) {
     throw err;
@@ -59,4 +74,4 @@ const delUser = async (id) => {
   }
 };
 
-exports.userSrv = { getAll, getUser, updateUser, delUser };
+exports.userSrv = { getAll, getUser, getUserCounts, updateUser, delUser };

@@ -42,6 +42,7 @@ route.delete("/api/v1/rooms/:id", roomCtl.del, err);
 // users API routes
 route.get("/api/v1/users", guard.isAdmin, userCtl.getAll, err);
 route.get("/api/v1/users/:id", userCtl.getUser, err);
+route.get("/api/v1/users/:id/counts", userCtl.getUserCounts, err);
 route.put("/api/v1/users/:id", userCtl.updateUser, err);
 route.delete("/api/v1/users/:id", userCtl.delUser, err);
 

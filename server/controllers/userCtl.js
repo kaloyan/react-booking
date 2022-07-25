@@ -22,6 +22,11 @@ const getUser = async (req, res, next) => {
   }
 };
 
+const getUserCounts = async (req, res, next) => {
+  const response = await userSrv.getUserCounts(req.params.id);
+  res.json(response);
+};
+
 const getAll = async (req, res, next) => {
   const users = await userSrv.getAll();
   res.json(users);
@@ -42,8 +47,8 @@ const updateUser = async (req, res, next) => {
 
     //!TODO prevent role escalation
 
-	const user = await userSrv.updateUser(userId, data);
-	
+    const user = await userSrv.updateUser(userId, data);
+
     res.json({
       status: "OK",
       message: `User ${user.username} updated successfull`,
@@ -75,4 +80,4 @@ const delUser = async (req, res, next) => {
   }
 };
 
-exports.userCtl = { getUser, getAll, updateUser, delUser };
+exports.userCtl = { getUser, getUserCounts, getAll, updateUser, delUser };
