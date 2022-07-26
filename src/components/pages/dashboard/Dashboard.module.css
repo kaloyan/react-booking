@@ -13,7 +13,6 @@ form {
   padding: 3rem 2rem;
   display: grid;
   grid-template-columns: repeat(5, 1fr);
-  /* background-color: rgba(223, 199, 245, 0.503); */
   grid-gap: 1rem;
   align-self: start;
 }
@@ -26,13 +25,8 @@ form {
   align-items: center;
 }
 
-.header div {
-  margin-right: 2rem;
-}
-
 .side {
   grid-column: span 1;
-  /* background-color: rgba(0, 128, 0, 0.347); */
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -42,7 +36,6 @@ form {
 
 .content {
   grid-column: span 4;
-  /* background-color: rgba(0, 0, 255, 0.381); */
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-gap: 1rem;
@@ -55,12 +48,21 @@ form {
   align-self: center;
 }
 
-.table > div {
+.table > div,
+.table-head {
   display: grid;
-  grid-template-columns: 1fr 0.6fr 0.6fr 3fr 1fr;
-  justify-items: start;
+  grid-template-columns: repeat(7, 1fr);
+  justify-items: center;
   align-items: center;
   background-color: rgba(211, 211, 211, 0.308);
+}
+
+.table > div > div:first-child {
+  justify-self: start;
+}
+
+.table > div > div:last-child {
+  justify-self: end;
 }
 
 .table > div:nth-child(2n) {
@@ -73,6 +75,39 @@ form {
 
 .table > div > div:nth-child(1) {
   text-transform: capitalize;
+}
+
+.table-head {
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: var(--color-primary);
+  border: 1px solid var(--color-success);
+}
+
+.table-head > div {
+  width: 100%;
+  text-align: center;
+  background-color: white;
+}
+
+.table-head > div:first-child {
+  text-align: start;
+}
+
+.table-head > div:last-child {
+  text-align: end;
+}
+
+.table-span-1 {
+  grid-column: span 1;
+}
+
+.table-span-2 {
+  grid-column: span 2;
+}
+
+.table-span-3 {
+  grid-column: span 3;
 }
 
 .content span {
@@ -111,15 +146,9 @@ form {
   font-size: 1.3rem;
   padding: 0.5rem;
   min-width: 300px;
-  border: none;
   background-color: white;
-  border-bottom: 2px solid var(--text-very-dark);
-}
-
-.item > input:focus,
-.item > select:focus {
+  border: 2px solid var(--text-very-dark);
   border-radius: 0.2rem;
-  border: none;
 }
 
 .item-wide > textarea {
@@ -143,11 +172,10 @@ form {
   font-size: 1rem;
   color: var(--text-very-dark);
   border: 1px solid var(--text-very-dark);
-  /* border-radius: 0.5rem; */
-  /* padding: 0.3rem; */
+  border-radius: 0.5rem;
+  padding: 0.3rem;
   height: 160px;
   width: 160px;
-  box-shadow: 0 0 7px 0 rgba(0, 0, 0, 0.259);
 }
 
 .action-btn {
@@ -200,6 +228,49 @@ hr {
 
 .grid-col-span-2 {
   grid-column: span 2;
+}
+
+.grid-list {
+  grid-column: span 2;
+  margin: 2rem;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+}
+
+.grid-list li {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 3rem;
+  margin-bottom: 1rem;
+  font-size: 1.1rem;
+}
+
+.grid-list li button,
+.grid-list li a {
+  font-size: medium;
+  padding: 0.3rem;
+  text-transform: uppercase;
+  margin: 0.5rem;
+  background-color: white;
+  border: 1px solid var(--color-success);
+  color: var(--color-success);
+  /* font-weight: bold; */
+  cursor: pointer;
+}
+
+.grid-list li button:hover,
+.grid-list li a:hover {
+  color: white;
+  background-color: var(--color-success);
+}
+
+.grid-list li:first-child {
+  font-weight: bold;
+  font-size: 1.2rem;
+  border-bottom: 1px solid var(--text-dark);
+  margin-bottom: 1rem;
+  padding-bottom: 1rem;
 }
 
 input.delete-btn {

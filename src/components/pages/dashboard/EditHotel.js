@@ -1,18 +1,26 @@
 import styles from "./Dashboard.module.css";
-import { NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { useFormik } from "formik";
-import { getOneHotel, updateHotel } from "../../../services/netReq";
+import {
+  getOneHotel,
+  updateHotel,
+  deleteRoom,
+  updateRoom,
+} from "../../../services/netRequest";
 import { pushMessage } from "../../../features/slices/localSlice";
 import ImageBox from "../../ui/ImageBox";
 import MessageBox from "../../ui/MessageBox";
 import countries from "../../../assets/countries.json";
+import Modal from "../../ui/Modal";
 
 export default function EditHotel() {
+  const [hotel, setHotel] = useState({});
   const [pictures, setPictures] = useState([]);
   const [showMessage, setShowMessage] = useState(false);
+  const [modal, setModal] = useState(false);
 
   const dispatch = useDispatch();
   const { id } = useParams("id");
@@ -35,14 +43,14 @@ export default function EditHotel() {
 
       try {
         await updateHotel(id, {
-          name: formik.values.name,
-          type: formik.values.type,
-          city: formik.values.city,
-          address: formik.values.address,
-          country: formik.values.country,
-          description: formik.values.description,
-          cheepestPrice: Number(formik.values.cheepestPrice),
-          featured: formik.values.featured,
+          name: values.name,
+          type: values.type,
+          city: values.city,
+          address: values.address,
+          country: values.country,
+          description: values.description,
+          cheepestPrice: Number(values.cheepestPrice),
+          featured: values.featured,
         });
 
         setShowMessage(false);
@@ -65,6 +73,38 @@ export default function EditHotel() {
   const handleGetPictures = (files) => {
     // const files = Array.from(e.target.files);
     setPictures(files);
+  };
+
+  const handleModal = (e) => {
+    const item = hotel.rooms.filter((x) => x._id == e.target.value);
+    setModal(item[0]);
+  };
+
+  const handleClose = () => {
+    setModal(null);
+  };
+
+  const handleDelete = async () => {
+    try {
+      const response = await deleteRoom(modal._id);
+
+      if (response._id == modal._id) {
+        hotel.rooms = hotel.rooms.filter((x) => x._id !== modal._id);
+      } else {
+        throw "Server error";
+      }
+    } catch (err) {
+      setModal(null);
+
+      dispatch(
+        pushMessage({
+          text: err,
+          type: "error",
+        })
+      );
+    }
+
+    setModal(null);
   };
 
   useEffect(() => {
@@ -91,6 +131,7 @@ export default function EditHotel() {
           featured: hotel.featured,
         });
 
+        setHotel(hotel);
         setPictures(hotel.pictures);
       }
     };
@@ -102,14 +143,26 @@ export default function EditHotel() {
     <form onSubmit={formik.handleSubmit}>
       {showMessage && <MessageBox />}
 
+      {modal && (
+        <Modal
+          message={`Are you shure you want to delete room: ${modal.title}`}
+          closeHandler={handleClose}
+          acceptHandler={handleDelete}
+        />
+      )}
+
       <section className={styles["grid-container"]}>
         <div className={styles["header"]}>
-          <h1>Add New Hotel</h1>
+          <h1>Edit Hotel</h1>
 
           <div>
-            <NavLink to={"../hotels"} className={styles["action-btn"]}>
+            <Link to={"../hotels/rooms/new"} className={styles["action-btn"]}>
+              <span>New room</span>
+            </Link>
+
+            <Link to={"../hotels"} className={styles["action-btn"]}>
               <span>Cancel</span>
-            </NavLink>
+            </Link>
           </div>
         </div>
 
@@ -235,9 +288,43 @@ export default function EditHotel() {
             </select>
           </div>
 
-          <div></div>
+          <hr />
+
+          <div>
+            <h2>Hotel rooms:</h2>
+          </div>
+
+          <ul className={styles["grid-list"]}>
+            <li>
+              <div>Room title:</div>
+              <div>Price:</div>
+              <div>Max guests:</div>
+              <div>rooms:</div>
+              <div>Actions</div>
+            </li>
+            {hotel?.rooms?.map((room) => (
+              <li key={room._id} className={styles["grid-col-span-2"]}>
+                <div> {room.title} </div>
+                <div> ${room.price} </div>
+                <div> {room.maxPeople}</div>
+                <div> [{room.roomNumbers.join("; ")}]</div>
+
+                <div>
+                  <Link to={`../hotels/rooms/edit/${room._id}`}>Edit</Link>
+                  <button type="button" value={room._id} onClick={handleModal}>
+                    Delete
+                  </button>
+                </div>
+              </li>
+            ))}
+          </ul>
+
+          {hotel?.rooms?.lenght < 10 && (
+            <div className={styles["grid-col-span-2"]}>No rooms yet</div>
+          )}
 
           <div></div>
+
           <div className={styles["item"]}>
             <input type="submit" value="Save Changes" />
           </div>

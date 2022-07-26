@@ -1,26 +1,12 @@
 import styles from "./Dashboard.module.css";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { getOwnHotels } from "../../../services/netRequest";
+import { getOneRoom, updateRoom } from "../../../services/netRequest";
 import { useFormik } from "formik";
 import { useDispatch } from "react-redux";
-import { createRoom } from "../../../services/netRequest";
 import { pushMessage } from "../../../features/slices/localSlice";
 
 export default function NewRoom() {
-  const [hotels, setHotels] = useState([]);
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-
-  const newRoom = {
-    title: "",
-    description: "",
-    rooms: [],
-    price: "",
-    maxpeople: "",
-    hotel: "",
-  };
-
   const showMessage = (msg, type) => {
     dispatch(
       pushMessage({
@@ -31,14 +17,16 @@ export default function NewRoom() {
   };
 
   const formik = useFormik({
-    initialValues: { ...newRoom },
+    initialValues: {
+      title: "",
+      description: "",
+      rooms: [],
+      price: "",
+      maxpeople: "",
+      hotel: "",
+    },
 
     onSubmit: async (values) => {
-      if (values.hotel === "") {
-        showMessage("Please selet a hotel", "error");
-        return;
-      }
-
       let rooms = null;
 
       try {
@@ -60,8 +48,6 @@ export default function NewRoom() {
         }
       }
 
-      const hotelId = values.hotel;
-
       const data = {
         title: values.title,
         description: values.description,
@@ -70,35 +56,41 @@ export default function NewRoom() {
         roomNumbers: rooms,
       };
 
-      const response = await createRoom(hotelId, data);
-
-      if (response) {
-        formik.values.title = "";
-        formik.values.description = "";
-        formik.values.rooms = [];
-        formik.values.price = "";
-        formik.values.maxpeople = "";
-
-        showMessage("Room added successfull", "success");
-      } else {
-        showMessage("server error", "error");
-      }
+      await updateRoom(id, data);
+      navigate(-1);
     },
   });
 
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { id } = useParams();
+  const [roomId, setRoomId] = useState(id);
+  const [roomData, setRoomData] = useState({});
+
   useEffect(() => {
-    const fetchHotels = async () => {
-      const hotels = await getOwnHotels();
-      setHotels(hotels);
+    console.log("useEffect start");
+
+    const fetchRoom = async () => {
+      const response = await getOneRoom(roomId);
+
+      console.log(response);
+
+      setRoomData(response);
+
+      formik.values.title = response.title;
+      formik.values.description = response.description;
+      formik.values.price = response.price;
+      formik.values.maxpeople = response.maxPeople;
+      formik.values.rooms = response.roomNumbers.join(", ");
     };
 
-    fetchHotels();
-  }, []);
+    fetchRoom();
+  }, [roomId]);
 
   return (
     <form className={styles["grid-container"]} onSubmit={formik.handleSubmit}>
       <div className={styles["header"]}>
-        <h1>Add new rooms:</h1>
+        <h1>Edit Room</h1>
 
         <div>
           <Link
@@ -114,37 +106,6 @@ export default function NewRoom() {
       <div></div>
 
       <div className={styles["content"]}>
-        <div className={styles["item"]}>
-          <label htmlFor="hotel">Select hotel: </label>
-          <select
-            name="hotel"
-            id="hotel"
-            value={formik.values.hotel}
-            onChange={formik.handleChange}
-          >
-            <option value="">-- Please select hotel --</option>
-            {hotels?.map((x) => (
-              <option value={x._id} key={x._id}>
-                {x.name}
-              </option>
-            ))}
-          </select>
-        </div>
-
-        <div className={styles["item"]}>
-          <label htmlFor="price">Price: </label>
-          <input
-            type="number"
-            name="price"
-            id="price"
-            required
-            min={1}
-            placeholder="example: 50"
-            value={formik.values.price}
-            onChange={formik.handleChange}
-          />
-        </div>
-
         <div className={styles["item"]}>
           <label htmlFor="title">Room title: </label>
           <input
@@ -169,6 +130,20 @@ export default function NewRoom() {
             minLength={3}
             placeholder="example: 2 king size beds room"
             value={formik.values.description}
+            onChange={formik.handleChange}
+          />
+        </div>
+
+        <div className={styles["item"]}>
+          <label htmlFor="price">Price: </label>
+          <input
+            type="number"
+            name="price"
+            id="price"
+            required
+            min={1}
+            placeholder="example: 50"
+            value={formik.values.price}
             onChange={formik.handleChange}
           />
         </div>
@@ -202,13 +177,10 @@ export default function NewRoom() {
         </div>
 
         <div></div>
+        <div></div>
 
         <div className={styles["item"]}>
-          <input
-            type="submit"
-            className={styles["foo"]}
-            value="Save & Add new"
-          />
+          <input type="submit" className={styles["foo"]} value="Save changes" />
         </div>
       </div>
     </form>
