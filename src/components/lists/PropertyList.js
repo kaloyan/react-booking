@@ -1,6 +1,6 @@
 import styles from "./PropertyList.module.css";
 import { useEffect, useState } from "react";
-import { getPropertyList } from "../../services/netReq";
+import { getPropertyList } from "../../services/netRequest";
 
 export default function PropertyList() {
   const [data, setData] = useState([]);

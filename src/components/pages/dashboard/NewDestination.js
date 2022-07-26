@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCamera } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
 import { uploadDest } from "../../../services/firebaseSrv";
-import { createDestination } from "../../../services/netReq";
+import { createDestination } from "../../../services/netRequest";
 import { useNavigate } from "react-router-dom";
 
 export default function NewDestination() {

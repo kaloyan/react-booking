@@ -2,7 +2,7 @@ import styles from "./Dashboard.module.css";
 import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { getOwnHotels, delHotel } from "../../../services/netReq";
+import { getOwnHotels, delHotel } from "../../../services/netRequest";
 import { delHotelImages } from "../../../services/firebaseSrv";
 import { pushMessage } from "../../../features/slices/localSlice";
 import Modal from "../../ui/Modal";
@@ -87,7 +87,7 @@ export default function MyHotels() {
           </Link>
 
           {hotels?.length > 0 && (
-            <Link to={"newroom"} className={styles["action-btn"]}>
+            <Link to={"rooms/new"} className={styles["action-btn"]}>
               <span>
                 <FontAwesomeIcon icon={faPlus} />
                 New Room
@@ -102,11 +102,31 @@ export default function MyHotels() {
       )}
 
       <div className={styles["table"]}>
+        <div className={styles["table-head"]}>
+          <div className={styles["table-span-1"]}>
+            <span>Picture</span>
+          </div>
+
+          <div className={styles["table-span-2"]}>
+            <span>Hotel Name</span>
+          </div>
+
+          <div className={styles["table-span-1"]}>
+            <span>Rooms</span>
+          </div>
+
+          <div className={styles["table-span-1"]}>
+            <span>Reservations</span>
+          </div>
+
+          <div className={styles["table-span-2"]}>
+            <span>Actions</span>
+          </div>
+        </div>
+
         {hotels.map((hotel) => (
           <div key={hotel._id}>
-            <div>{hotel.name}</div>
-
-            <div>
+            <div className={styles["table-span-1"]}>
               <img
                 src={hotel.pictures[0]}
                 className={styles["thumb"]}
@@ -114,11 +134,24 @@ export default function MyHotels() {
               />
             </div>
 
-            <div>{hotel.city}</div>
+            <div className={styles["table-span-2"]}>{hotel.name}</div>
 
-            <div>{hotel.address}</div>
+            <div className={styles["table-span-1"]}>
+              {hotel.rooms.reduce((acc, x) => x.roomNumbers.length + acc, 0)}
+            </div>
 
-            <div>
+            <div className={styles["table-span-1"]}>
+              {hotel.reservations.length}
+            </div>
+
+            <div className={styles["table-span-2"]}>
+              <Link
+                to={`/catalog/${hotel._id}`}
+                className={styles["action-btn"]}
+              >
+                <span>View</span>
+              </Link>
+
               <Link to={`edit/${hotel._id}`} className={styles["action-btn"]}>
                 <span>Edit</span>
               </Link>

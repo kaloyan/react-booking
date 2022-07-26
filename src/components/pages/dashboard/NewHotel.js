@@ -5,7 +5,7 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import { uploadHotelImages } from "../../../utils/helpers";
-import { createHotel, updateHotel } from "../../../services/netReq";
+import { createHotel, updateHotel } from "../../../services/netRequest";
 import { pushMessage } from "../../../features/slices/localSlice";
 import ImageBox from "../../ui/ImageBox";
 import MessageBox from "../../ui/MessageBox";

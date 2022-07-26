@@ -1,6 +1,6 @@
 // Helper functions
 import { uploadHotelImg } from "../services/firebaseSrv";
-import { updateHotel } from "../services/netReq";
+import { updateHotel } from "../services/netRequest";
 
 export const extractImageName = (path) => {
   let result = null;

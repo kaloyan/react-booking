@@ -15,7 +15,6 @@ import Navbar from "./components/layouts/Navbar";
 import Footer from "./components/layouts/Footer";
 import InfoBox from "./components/ui/InfoBox";
 
-// import Dashboard from "./components/pages/dashboard/Dashboard";
 const Dashboard = lazy(() => import("./components/pages/dashboard/Dashboard"));
 
 function App() {

@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 import { NavLink } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { getAccount, getUserCounts } from "../../../services/netReq";
+import { getAccount, getUserCounts } from "../../../services/netRequest";
 
 export default function Profile() {
   const [user, setUser] = useState({});

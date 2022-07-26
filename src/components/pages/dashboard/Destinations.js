@@ -1,10 +1,10 @@
 import styles from "./Dashboard.module.css";
 import { useEffect, useState } from "react";
-import { NavLink, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
   getAllDestinations,
   deleteDestination,
-} from "../../../services/netReq";
+} from "../../../services/netRequest";
 import { delDestinationImg } from "../../../services/firebaseSrv";
 import Modal from "../../ui/Modal";
 import { extractImageName } from "../../../utils/helpers";
@@ -70,13 +70,35 @@ export default function Destinations() {
         <h1>Destinations</h1>
 
         <div>
-          <NavLink to={"new"} className={styles["action-btn"]}>
+          <Link to={"new"} className={styles["action-btn"]}>
             <span>Add New</span>
-          </NavLink>
+          </Link>
         </div>
       </div>
 
       <div className={styles["table"]}>
+        <div className={styles["table-head"]}>
+          <div className={styles["table-span-1"]}>
+            <span>Picture</span>
+          </div>
+
+          <div className={styles["table-span-1"]}>
+            <span>Destination</span>
+          </div>
+
+          <div className={styles["table-span-2"]}>
+            <span>Description</span>
+          </div>
+
+          <div className={styles["table-span-1"]}>
+            <span>Is Featured</span>
+          </div>
+
+          <div className={styles["table-span-2"]}>
+            <span>Actions</span>
+          </div>
+        </div>
+
         {!destinations ? (
           <div>No content</div>
         ) : (
@@ -84,31 +106,34 @@ export default function Destinations() {
             {destinations.map((x) => {
               return (
                 <div key={x._id}>
-                  <div>{x.name}</div>
-                  <div>
+                  <div className={styles["table-span-1"]}>
                     <img
                       src={x.image}
                       alt={x.name}
                       className={styles["thumb"]}
                     />
                   </div>
-                  <div>{x.featured ? "featured" : ""}</div>
-                  <div>{x.description}</div>
-                  <div>
-                    <NavLink
-                      to={`edit/${x._id}`}
-                      className={styles["action-btn"]}
-                    >
-                      <span>Edit</span>
-                    </NavLink>
 
-                    <NavLink
+                  <div className={styles["table-span-1"]}>{x.name}</div>
+
+                  <div className={styles["table-span-2"]}>{x.description}</div>
+
+                  <div className={styles["table-span-1"]}>
+                    {x.featured ? "featured" : ""}
+                  </div>
+
+                  <div className={styles["table-span-2"]}>
+                    <Link to={`edit/${x._id}`} className={styles["action-btn"]}>
+                      <span>Edit</span>
+                    </Link>
+
+                    <Link
                       to={`del/${x._id}`}
                       onClick={(e) => handleModal(x._id, e)}
                       className={styles["action-btn"]}
                     >
                       <span>Delete</span>
-                    </NavLink>
+                    </Link>
                   </div>
                 </div>
               );

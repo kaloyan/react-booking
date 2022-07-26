@@ -2,7 +2,7 @@ import styles from "./Navbar.module.css";
 import { NavLink } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
-import { getAccount } from "../../services/netReq";
+import { getAccount } from "../../services/netRequest";
 import { setAccount } from "../../features/slices/accountSlice";
 import AccountTool from "../ui/AccountTool";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";

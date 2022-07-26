@@ -1,5 +1,5 @@
 import styles from "./AccountTool.module.css";
-import { doLogout } from "../../services/netReq";
+import { doLogout } from "../../services/netRequest";
 import { logout } from "../../features/slices/accountSlice";
 import { useDispatch } from "react-redux";
 import { useState } from "react";

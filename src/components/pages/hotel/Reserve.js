@@ -1,6 +1,6 @@
 import styles from "./Reserve.module.css";
 import { useState, useEffect } from "react";
-import { getHotelRooms } from "../../../services/netReq";
+import { getHotelRooms } from "../../../services/netRequest";
 
 export default function Reserve({ close, hotelId }) {
   const [rooms, setRooms] = useState([]);

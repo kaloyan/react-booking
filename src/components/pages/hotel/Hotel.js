@@ -7,7 +7,7 @@ import Header from "../../layouts/Header";
 import ImageSlider from "../../ui/ImageSlider";
 import Subscription from "../../ui/Subscribtion";
 import Reserve from "./Reserve";
-import { getItem } from "../../../services/netReq";
+import { getItem } from "../../../services/netRequest";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {

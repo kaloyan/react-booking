@@ -1,9 +1,9 @@
 // Network Requests Service
 
 import axios from "axios";
-import * as urls from "../config/constants";
+import * as urls from "../config/apiUrls";
 
-const netReq = async (url, options = { method: "get", data: null }) => {
+const request = async (url, options = { method: "get", data: null }) => {
   let response = null;
 
   try {
@@ -35,110 +35,130 @@ const netReq = async (url, options = { method: "get", data: null }) => {
 // Account data
 
 export const login = (data) => {
-  return netReq(urls.loginURL, { method: "post", data });
+  return request(urls.loginURL, { method: "post", data });
 };
 
 export const getAccount = () => {
-  return netReq(urls.accountURL);
+  return request(urls.accountURL);
 };
 
 export const doLogout = () => {
-  return netReq(urls.logoutURL);
+  return request(urls.logoutURL);
 };
 
 export const register = (data) => {
-  return netReq(urls.registerURL, { method: "post", data });
+  return request(urls.registerURL, { method: "post", data });
 };
 
 export const updateAccount = (id, data) => {
   const url = urls.usersURL + id;
-  return netReq(url, { method: "put", data });
+  return request(url, { method: "put", data });
 };
 
 export const getUserCounts = (userId) => {
   const url = urls.usersURL + userId + "/counts";
-  return netReq(url);
+  return request(url);
 };
 
 //
 
 export const getItem = (itemId) => {
   const url = urls.itemURL + itemId;
-  return netReq(url);
+  return request(url);
 };
 
 export const countByCity = (cityArray) => {
   const url =
     urls.BASE_URL + "/api/v1/hotels/countByCity?cities=" + cityArray.join(",");
-  return netReq(url);
+  return request(url);
 };
 
 export const featuredHotels = () => {
   const url = urls.BASE_URL + "/api/v1/hotels?featured=true&limit=3";
-  return netReq(url);
+  return request(url);
 };
 
 export const getPropertyList = () => {
   const url = urls.BASE_URL + "/api/v1/hotels/countByType";
-  return netReq(url);
+  return request(url);
 };
 
 // Destinations
 
 export const createDestination = (data) => {
-  return netReq(urls.destURL, { method: "post", data });
+  return request(urls.destURL, { method: "post", data });
 };
 
 export const getAllDestinations = (data) => {
-  return netReq(urls.destURL);
+  return request(urls.destURL);
 };
 
 export const getDestination = (id) => {
   const url = urls.destURL + id;
-  return netReq(url);
+  return request(url);
 };
 
 export const editDestination = (id, data) => {
   const url = urls.destURL + "edit/" + id;
   // console.log("edit", url);
-  return netReq(url, { method: "put", data });
+  return request(url, { method: "put", data });
 };
 
 export const deleteDestination = (id) => {
   const url = urls.destURL + "del/" + id;
-  return netReq(url, { method: "delete" });
+  return request(url, { method: "delete" });
 };
 
 // Hotels
 
 export const createHotel = (data) => {
   const url = urls.itemURL;
-  return netReq(url, { method: "post", data });
+  return request(url, { method: "post", data });
 };
 
 export const getOwnHotels = () => {
   const url = urls.itemURL + "own";
-  return netReq(url);
+  return request(url);
 };
 
 export const delHotel = (hotelId) => {
   const url = urls.itemURL + hotelId;
-  return netReq(url, { method: "delete" });
+  return request(url, { method: "delete" });
 };
 
 export const getOneHotel = (hitelId) => {
   const url = urls.itemURL + hitelId;
-  return netReq(url);
+  return request(url);
 };
 
 export const updateHotel = (hotelId, data) => {
   const url = urls.itemURL + hotelId;
-  return netReq(url, { method: "put", data });
+  return request(url, { method: "put", data });
 };
 
 // Rooms
 
 export const getHotelRooms = (hotelId) => {
   const url = urls.roomsURL + hotelId;
-  return netReq(url);
+  return request(url);
+};
+
+export const getOneRoom = (roomId) => {
+  const url = urls.roomsURL + roomId;
+  return request(url);
+};
+
+export const createRoom = (hotelId, roomData) => {
+  const url = urls.roomsURL + hotelId;
+  return request(url, { method: "post", data: roomData });
+};
+
+export const deleteRoom = (roomId) => {
+  const url = urls.roomsURL + roomId;
+  return request(url, { method: "delete" });
+};
+
+export const updateRoom = (roomId, roomData) => {
+  const url = urls.roomsURL + roomId;
+  return request(url, { method: "put", data: roomData });
 };

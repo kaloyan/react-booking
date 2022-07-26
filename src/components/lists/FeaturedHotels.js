@@ -1,6 +1,6 @@
 import styles from "./FeaturedHotels.module.css";
 import { useEffect, useState } from "react";
-import { featuredHotels } from "../../services/netReq";
+import { featuredHotels } from "../../services/netRequest";
 
 export default function FeaturedHotels() {
   const [data, setData] = useState([]);

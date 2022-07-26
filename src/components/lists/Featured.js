@@ -1,6 +1,6 @@
 import styles from "./Featured.module.css";
 import { useState, useEffect } from "react";
-import { countByCity } from "../../services/netReq";
+import { countByCity } from "../../services/netRequest";
 
 export default function Featured() {
   const [data, setData] = useState([]);

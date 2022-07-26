@@ -1,5 +1,6 @@
-// Global application constants
+// Backend API URL constants
 
+// Change this URL to point your backend server
 export const BASE_URL = "http://localhost:3000";
 
 // auth urls

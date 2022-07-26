@@ -1,7 +1,7 @@
 import styles from "./Forms.module.css";
 
 import { useNavigate, Link } from "react-router-dom";
-import { login } from "../../services/netReq";
+import { login } from "../../services/netRequest";
 import { useDispatch } from "react-redux";
 import { setAccount } from "../../features/slices/accountSlice";
 import { useFormik } from "formik";

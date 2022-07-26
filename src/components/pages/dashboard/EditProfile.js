@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 import { uploadAvatar, delAvatar } from "../../../services/firebaseSrv";
-import { getAccount, updateAccount } from "../../../services/netReq";
+import { getAccount, updateAccount } from "../../../services/netRequest";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import { pushMessage } from "../../../features/slices/localSlice";
