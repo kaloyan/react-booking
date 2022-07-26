@@ -16,6 +16,7 @@ import MyReservations from "./MyReservations";
 import Destinations from "./Destinations";
 import NewDestination from "./NewDestination";
 import EditDestination from "./EditDestination";
+import NewRoom from "./NewRoom";
 
 export default function index() {
   return (
@@ -33,6 +34,7 @@ export default function index() {
           <Route path="reservations" element={<Reservations />} />
           <Route path="hotels" element={<MyHotels />} />
           <Route path="hotels/new" element={<NewHotel />} />
+          <Route path="hotels/newroom" element={<NewRoom />} />
           <Route path="hotels/edit/:id" element={<EditHotel />} />
           <Route
             path="hotels/del/:id"

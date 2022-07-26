@@ -1,5 +1,5 @@
 import styles from "./Dashboard.module.css";
-import { NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -82,9 +82,9 @@ export default function NewHotel() {
           <h1>Add New Hotel</h1>
 
           <div>
-            <NavLink to={"../hotels"} className={styles["action-btn"]}>
+            <Link to={"../hotels"} className={styles["action-btn"]}>
               <span>Cancel</span>
-            </NavLink>
+            </Link>
           </div>
         </div>
 

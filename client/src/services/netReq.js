@@ -51,12 +51,12 @@ export const register = (data) => {
 };
 
 export const updateAccount = (id, data) => {
-  const url = urls.updateAccountURL + id;
+  const url = urls.usersURL + id;
   return netReq(url, { method: "put", data });
 };
 
 export const getUserCounts = (userId) => {
-  const url = urls.countsURL + userId + "/counts";
+  const url = urls.usersURL + userId + "/counts";
   return netReq(url);
 };
 
@@ -134,4 +134,11 @@ export const getOneHotel = (hitelId) => {
 export const updateHotel = (hotelId, data) => {
   const url = urls.itemURL + hotelId;
   return netReq(url, { method: "put", data });
+};
+
+// Rooms
+
+export const getHotelRooms = (hotelId) => {
+  const url = urls.roomsURL + hotelId;
+  return netReq(url);
 };

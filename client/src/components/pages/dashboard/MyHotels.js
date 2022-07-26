@@ -7,6 +7,8 @@ import { delHotelImages } from "../../../services/firebaseSrv";
 import { pushMessage } from "../../../features/slices/localSlice";
 import Modal from "../../ui/Modal";
 import MessageBox from "../../ui/MessageBox";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
 
 export default function MyHotels() {
   const [hotels, setHotels] = useState([]);
@@ -78,8 +80,20 @@ export default function MyHotels() {
 
         <div>
           <Link to={"new"} className={styles["action-btn"]}>
-            <span>Add New</span>
+            <span>
+              <FontAwesomeIcon icon={faPlus} />
+              New hotel
+            </span>
           </Link>
+
+          {hotels?.length > 0 && (
+            <Link to={"newroom"} className={styles["action-btn"]}>
+              <span>
+                <FontAwesomeIcon icon={faPlus} />
+                New Room
+              </span>
+            </Link>
+          )}
         </div>
       </div>
 
