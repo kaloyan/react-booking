@@ -1,0 +1,16 @@
+.gallery {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  grid-column: span 3;
+}
+
+.img-wrapper {
+  width: 33%;
+}
+
+.hotel-image {
+  width: 100%;
+  object-fit: cover;
+  cursor: pointer;
+}

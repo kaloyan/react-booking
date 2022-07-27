@@ -1,19 +1,19 @@
 import styles from "./Hotel.module.css";
-
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-
+import { getItem } from "../../../services/netRequest";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faLocationDot } from "@fortawesome/free-solid-svg-icons";
+// import components
 import Header from "../../layouts/Header";
-import ImageSlider from "../../ui/ImageSlider";
 import Subscription from "../../ui/Subscribtion";
 import Reserve from "./Reserve";
-import { getItem } from "../../../services/netRequest";
-
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faCircleXmark,
-  faLocationDot,
-} from "@fortawesome/free-solid-svg-icons";
+import BookBox from "./BookBox";
+import MapBox from "./MapBox";
+import RoomsList from "./RoomsList";
+import ReviewBox from "./ReviewBox";
+import FavoritesBox from "./FavoritesBox";
+import PictureBox from "./PictureBox";
 
 export default function Hotel() {
   const { id } = useParams();
@@ -29,121 +29,75 @@ export default function Hotel() {
     getData();
   }, [id]);
 
-  const [openSlider, setOpenSlider] = useState(false);
-
-  const sliderHandler = (idx) => {
-    setOpenSlider(true);
-  };
-
-  const closeHandler = () => {
-    setOpenSlider(false);
-  };
-
-  const handleReserve = () => {
-    setShowReserve(true);
-  };
-
-  const handleCloseReserve = () => {
-    setShowReserve(false);
-  };
-
   return (
     <section>
-      {showReserve && <Reserve hotelId={id} close={handleCloseReserve} />}
+      {showReserve && (
+        <Reserve hotelId={id} close={() => setShowReserve(false)} />
+      )}
 
       <Header compact={true} />
 
-      {openSlider ? (
-        <div className={styles["backdrop"]}>
-          <FontAwesomeIcon
-            icon={faCircleXmark}
-            className={styles["close-btn"]}
-            onClick={closeHandler}
-          />
-          <ImageSlider images={data.pictures} />
-        </div>
-      ) : (
-        <>
-          <div className={styles["container"]}>
-            {!data ? (
-              <div>Loading please wait</div>
-            ) : (
-              <div>
-                <div className={styles["wrapper"]}>
-                  <h1 className={styles["title"]}>{data.name}</h1>
+      <div className={styles["container"]}>
+        {!data ? (
+          <div>Loading please wait</div>
+        ) : (
+          <div>
+            <div className={styles["wrapper"]}>
+              <h1 className={styles["title"]}>{data.name}</h1>
 
-                  <div className={styles["rating"]}> Rating: {data.rating}</div>
+              <div className={styles["rating"]}> Rating: {data.rating}</div>
 
-                  <div className={styles["address"]}>
-                    Location:
-                    <FontAwesomeIcon icon={faLocationDot} />
-                    <address>
-                      {data.address}, {data.city}, {data.country}
-                    </address>
-                  </div>
+              <div className={styles["address"]}>
+                Location:
+                <FontAwesomeIcon icon={faLocationDot} />
+                <address>
+                  {data.address}, {data.city}, {data.country}
+                </address>
+              </div>
 
-                  <div className={styles["favorite"]}>
-                    <button type="button">Add to favorited</button>
-                  </div>
+              <div className={styles["favorite"]}>
+                <FavoritesBox />
+              </div>
 
-                  <dd className={styles["highlight"]}>
-                    Book a stay over ${data.cheepestPrice} at this property and
-                    get a free airport taxi
-                  </dd>
+              <dd className={styles["highlight"]}>
+                Book a stay over ${data.cheepestPrice} at this property and get
+                a free airport taxi
+              </dd>
 
-                  <div className={styles["gallery"]}>
-                    {data.pictures?.map((image, idx) => (
-                      <div key={idx} className={styles["img-wrapper"]}>
-                        <img
-                          src={image}
-                          alt={data.name}
-                          className={styles["hotel-image"]}
-                          onClick={() => sliderHandler(idx)}
-                        />
-                      </div>
-                    ))}
-                  </div>
+              <PictureBox pictures={data.pictures} />
 
-                  <div className={styles["details-price"]}>
-                    <h1>Perfect for 5-night stay</h1>
+              <BookBox showReserve={setShowReserve} />
 
-                    <span>
-                      Top Location: Highly rated by recent guests (9.0)
-                    </span>
-
-                    <h2>
-                      <b>$520</b> (5 nights)
-                    </h2>
-
-                    <button type="button" onClick={handleReserve}>
-                      Reserve room Now!
-                    </button>
-                  </div>
-
-                  <div className={styles["details"]}>
-                    <div className={styles["details-text"]}>
-                      <article> {data.description}</article>
-                    </div>
-                  </div>
-
-                  <div className={styles["map"]}>map</div>
-
-                  <button
-                    className={styles["book-btn"]}
-                    onClick={handleReserve}
-                  >
-                    Reserve room Now!
-                  </button>
-
-                  <div className={styles["reviews"]}>reviews goes here</div>
+              <div className={styles["details"]}>
+                <div className={styles["details-text"]}>
+                  <article> {data.description}</article>
                 </div>
               </div>
-            )}
 
-            <Subscription />
+              <div className={styles["room-list"]}>
+                <RoomsList rooms={data.rooms} />
+              </div>
+
+              <div className={styles["map"]}>
+                <MapBox />
+              </div>
+
+              <button
+                className={styles["book-btn"]}
+                onClick={() => setShowReserve(true)}
+              >
+                Reserve room Now!
+              </button>
+
+              <div className={styles["reviews"]}>
+                <ReviewBox />
+              </div>
+            </div>
           </div>
-        </>
-      )}
+        )}
+
+        <Subscription />
+      </div>
     </section>
   );
 }
