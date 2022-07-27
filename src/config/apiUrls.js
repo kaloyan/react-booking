@@ -1,7 +1,7 @@
 // Backend API URL constants
 
-// Change this URL to point your backend server
-export const BASE_URL = "http://localhost:3000";
+// Set variable in .env file to point to your backend server
+export const BASE_URL = process.env.REACT_APP_BASE_URL;
 
 // auth urls
 export const loginURL = `${BASE_URL}/auth/login`;

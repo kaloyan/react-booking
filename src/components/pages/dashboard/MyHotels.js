@@ -97,10 +97,6 @@ export default function MyHotels() {
         </div>
       </div>
 
-      {hotels.length == 0 && (
-        <div className={styles["empty-box"]}>You dont have any hotels yet</div>
-      )}
-
       <div className={styles["table"]}>
         <div className={styles["table-head"]}>
           <div className={styles["table-span-1"]}>
@@ -167,6 +163,10 @@ export default function MyHotels() {
           </div>
         ))}
       </div>
+
+      {hotels.length == 0 && (
+        <div className={styles["empty-box"]}>You dont have any hotels yet</div>
+      )}
     </section>
   );
 }

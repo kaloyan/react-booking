@@ -1,16 +1,14 @@
 .gallery {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
+  grid-column: span 3;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.carousel {
   grid-column: span 3;
 }
 
-.img-wrapper {
-  width: 33%;
-}
-
-.hotel-image {
-  width: 100%;
-  object-fit: cover;
-  cursor: pointer;
+.carousel-small {
+  grid-column: span 3;
+  margin-top: 1rem;
 }
