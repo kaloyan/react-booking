@@ -7,7 +7,7 @@ import { faLocationDot } from "@fortawesome/free-solid-svg-icons";
 // import components
 import Header from "../../layouts/Header";
 import Subscription from "../../ui/Subscribtion";
-import Reserve from "./Reserve";
+import Reserve from "./reserve/Reserve";
 import BookBox from "./BookBox";
 import MapBox from "./MapBox";
 import RoomsList from "./RoomsList";
@@ -23,6 +23,7 @@ export default function Hotel() {
   useEffect(() => {
     const getData = async () => {
       const response = await getItem(id);
+      // console.log(response);
       setData(response);
     };
 
@@ -32,7 +33,11 @@ export default function Hotel() {
   return (
     <section>
       {showReserve && (
-        <Reserve hotelId={id} close={() => setShowReserve(false)} />
+        <Reserve
+          rooms={data.rooms}
+          close={() => setShowReserve(false)}
+          hotelId={id}
+        />
       )}
 
       <Header compact={true} />

@@ -20,3 +20,6 @@ export const destURL = `${BASE_URL}/api/v1/destinations/`;
 
 // rooms api urls
 export const roomsURL = `${BASE_URL}/api/v1/rooms/`;
+
+// reservations api urls
+export const reserveURL = `${BASE_URL}/api/v1/reservate/`;

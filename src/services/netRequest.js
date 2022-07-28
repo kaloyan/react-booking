@@ -162,3 +162,30 @@ export const updateRoom = (roomId, roomData) => {
   const url = urls.roomsURL + roomId;
   return request(url, { method: "put", data: roomData });
 };
+
+// Reservations
+
+export const createReservation = (data) => {
+  const url = urls.reserveURL;
+  return request(url, { method: "post", data });
+};
+
+export const getReservationsByHotelId = (hotelId) => {
+  const url = urls.reserveURL + "hotel/" + hotelId;
+  return request(url);
+};
+
+export const getReservationsByUserId = (userId) => {
+  const url = urls.reserveURL + "user/" + userId;
+  return request(url);
+};
+
+export const getReservationsByOwnerId = (ownerId) => {
+  const url = urls.reserveURL + "owner/" + ownerId;
+  return request(url);
+};
+
+export const deleteReservation = (reservationId) => {
+  const url = urls.reserveURL + reservationId;
+  return request(url), { method: "delete" };
+};
