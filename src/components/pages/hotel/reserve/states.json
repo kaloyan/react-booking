@@ -1,0 +1,20 @@
+[
+  {
+    "step1": "0",
+    "step2": "100%",
+    "step3": "100%",
+    "progress": ["33%", "active", "", ""]
+  },
+  {
+    "step1": "-100%",
+    "step2": "0",
+    "step3": "100%",
+    "progress": ["66%", "active", "active", ""]
+  },
+  {
+    "step1": "-100%",
+    "step2": "-100%",
+    "step3": "0",
+    "progress": ["100%", "active", "active", "active"]
+  }
+]
