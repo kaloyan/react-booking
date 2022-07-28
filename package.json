@@ -14,6 +14,7 @@
     "@testing-library/user-event": "^13.5.0",
     "axios": "^0.27.2",
     "bear-react-carousel": "^2.0.1",
+    "date-fns": "^2.29.1",
     "firebase": "^9.9.0",
     "formik": "^2.2.9",
     "react": "^18.2.0",

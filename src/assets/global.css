@@ -15,6 +15,7 @@
   --text-dark: rgb(193, 193, 193);
   --text-very-dark: rgb(125, 125, 125);
   --color-danger: rgb(230, 93, 93);
+  --backdrop-color: rgba(0, 0, 0, 0.75);
 }
 
 /* Browser resets */

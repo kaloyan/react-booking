@@ -1,0 +1,272 @@
+.backdrop {
+  height: 100vh;
+  width: 100vw;
+  background-color: var(--backdrop-color);
+  top: 0;
+  left: 0;
+  position: fixed;
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.content {
+  display: grid;
+  gap: 0.5rem;
+  width: fit-content;
+  padding: 0 2rem;
+  line-height: 1.3rem;
+}
+
+.room-item {
+  display: grid;
+  grid-template-columns: 4fr 1fr;
+  width: 100%;
+  gap: 2rem;
+  align-items: center;
+  padding: 0.7rem;
+  border-bottom: 1px solid var(--text-dark);
+}
+
+.bold {
+  font-weight: bold;
+  color: var(--color-primary-btn);
+}
+
+.selectors {
+  display: flex;
+  gap: 1rem;
+  justify-content: flex-start;
+  text-align: center;
+}
+
+.container {
+  width: 600px;
+  height: 650px;
+  margin: 8% auto;
+  background: white;
+  border-radius: 0.2rem;
+  position: relative;
+  box-shadow: 0 0 17px 0 rgba(0, 0, 0, 0.845);
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.form-container {
+  width: 100%;
+  height: 100%;
+  margin-top: 1rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.step {
+  width: 100%;
+  height: 100%;
+  margin: auto;
+  padding: 0 2rem;
+  position: absolute;
+  transition: 0.5s;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.form-container > form > input {
+  width: 100%;
+  padding: 10px 5px;
+  margin: 5px 0;
+  border: 0;
+  border-bottom: 1px solid #999;
+  outline: none;
+  background: transparent;
+}
+
+.form-container > form > h3 {
+  text-align: center;
+  color: #777;
+}
+
+.btn-box {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  align-items: center;
+  margin: 0 1rem 1.6rem 1rem;
+  height: fit-content;
+}
+
+.btn-box button {
+  width: fit-content;
+  min-width: 110px;
+  height: 2rem;
+  margin: 0 10px;
+  border: 0;
+  background: var(--color-primary-btn);
+  font-size: 1rem;
+  outline: none;
+  color: white;
+  cursor: pointer;
+}
+
+.btn-box button:disabled {
+  background: #999;
+  cursor: not-allowed;
+}
+
+button.cancel-btn {
+  color: var(--color-primary-btn);
+  background: white;
+  border: 2px solid var(--color-primary-btn);
+}
+
+button.cancel-btn:hover {
+  background: var(--color-primary-btn);
+  color: white;
+  border: 2px solid var(--color-primary-btn);
+}
+
+button.submin-btn {
+  background: var(--color-success);
+  font-size: 1.1rem;
+  padding: 0 0.3rem;
+}
+
+button.submin-btn svg {
+  margin: 0 0.2rem;
+}
+
+.step-row {
+  width: 100%;
+  height: 48px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  box-shadow: 0 -1px 5px -1px black;
+  position: relative;
+}
+
+.step-col {
+  width: 33%;
+  text-align: center;
+  color: #333;
+  position: relative;
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.step-col > span {
+  transition: 1s;
+}
+
+.step-col > span.active {
+  color: white;
+}
+
+.progress {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  background: var(--color-primary-btn);
+  transition: 1s;
+}
+
+.progress::after {
+  content: "";
+  height: 0;
+  width: 0;
+  border-top: 20px solid transparent;
+  border-bottom: 20px solid transparent;
+  position: absolute;
+  right: -20px;
+  top: 0;
+  border-left: 20px solid var(--color-primary-btn);
+}
+
+.step {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.step label {
+  font-size: 1.2rem;
+}
+
+.date-select {
+  display: flex;
+  margin-top: 2rem;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 3rem;
+}
+
+.date-select div {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+}
+
+.date-select input[type="date"] {
+  font-size: 1.8rem;
+  line-height: 1.8rem;
+}
+
+.info-box {
+  height: 900%;
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  font-size: 1.8rem;
+}
+
+.info-box h1 {
+  border-top: 2px solid var(--text-dark);
+  padding-top: 0.7rem;
+}
+
+.payment {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  font-size: 1.3rem;
+}
+
+.payment span {
+  display: flex;
+  align-items: center;
+  background-color: rgba(0, 200, 255, 0.075);
+  border-radius: 0.5rem;
+  padding: 0.5rem;
+}
+
+.payment span svg {
+  font-size: 2.5rem;
+  color: var(--color-primary-btn);
+}
+
+.payment span label {
+  margin: 1rem;
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.checkout-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  font-size: 1.2rem;
+  align-items: center;
+}
+
+.checkout-info span {
+  font-weight: bold;
+}
