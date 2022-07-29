@@ -60,6 +60,10 @@ export const getUserCounts = (userId) => {
   return request(url);
 };
 
+export const getAllUsers = () => {
+  return request(urls.usersUrl);
+};
+
 export const readMessage = (messageId) => {
   //todo
 };
@@ -180,6 +184,11 @@ export const getReservationsByUserId = (userId) => {
   return request(url);
 };
 
+export const getOneReservation = (reservationId) => {
+  const url = urls.reserveUrl + reservationId;
+  return request(url);
+};
+
 export const getReservationsByOwnerId = (ownerId) => {
   const url = urls.reserveUrl + "owner/" + ownerId;
   return request(url);
@@ -187,5 +196,5 @@ export const getReservationsByOwnerId = (ownerId) => {
 
 export const deleteReservation = (reservationId) => {
   const url = urls.reserveUrl + reservationId;
-  return request(url), { method: "delete" };
+  return request(url, { method: "delete" });
 };
