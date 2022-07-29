@@ -9,7 +9,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBookAtlas } from "@fortawesome/free-solid-svg-icons";
 
 export default function Navbar() {
-  const { username, email } = useSelector((state) => state.account);
+  const { username, email, avatar } = useSelector((state) => state.account);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -55,7 +55,7 @@ export default function Navbar() {
 
         <ul className={styles["navItems"]}>
           {username ? (
-            <AccountTool username={username} email={email} />
+            <AccountTool user={{ username, email, avatar }} />
           ) : (
             <>
               <li>

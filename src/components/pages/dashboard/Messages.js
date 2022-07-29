@@ -1,4 +1,3 @@
-// import styles from "./Forms.module.css";
 import styles from "./Dashboard.module.css";
 import { getAccount } from "../../../services/netRequest";
 import { useEffect, useState } from "react";
@@ -32,7 +31,6 @@ export default function Messages() {
   useEffect(() => {
     const getMessages = async () => {
       const response = await getAccount();
-      console.log(response);
       setMessages(response.messages);
     };
 
@@ -52,7 +50,7 @@ export default function Messages() {
       <div className={styles["header"]}>
         <div className={styles["bread-crump"]}>
           <FontAwesomeIcon icon={faEnvelope} />
-          <h1>Message Inbox</h1>
+          <h1>Message Inbox ({messages.length})</h1>
         </div>
       </div>
 
@@ -74,16 +72,6 @@ export default function Messages() {
             <span>Actions</span>
           </div>
         </div>
-
-        {/* if no message dispay info text */}
-        {messages.length == 0 && (
-          <div>
-            <div className={styles["empty-box"]}>
-              No messages
-              <FontAwesomeIcon icon={faCircleCheck} />
-            </div>
-          </div>
-        )}
 
         {/* content */}
         {messages.map((x) => {
@@ -124,6 +112,14 @@ export default function Messages() {
           );
         })}
       </div>
+
+      {/* if no message dispay info text */}
+      {messages.length == 0 && (
+        <div className={styles["empty-box"]}>
+          <FontAwesomeIcon icon={faCircleCheck} />
+          No messages
+        </div>
+      )}
     </section>
   );
 }

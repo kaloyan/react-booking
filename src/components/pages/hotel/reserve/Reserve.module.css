@@ -11,6 +11,20 @@
   align-items: center;
 }
 
+.container {
+  width: 600px;
+  height: 650px;
+  margin: 8% auto;
+  background: white;
+  border-radius: 0.2rem;
+  position: relative;
+  box-shadow: 0 0 17px 0 rgba(0, 0, 0, 0.845);
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
 .content {
   display: grid;
   gap: 0.5rem;
@@ -39,20 +53,6 @@
   gap: 1rem;
   justify-content: flex-start;
   text-align: center;
-}
-
-.container {
-  width: 600px;
-  height: 650px;
-  margin: 8% auto;
-  background: white;
-  border-radius: 0.2rem;
-  position: relative;
-  box-shadow: 0 0 17px 0 rgba(0, 0, 0, 0.845);
-  overflow-x: hidden;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
 }
 
 .form-container {

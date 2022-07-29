@@ -9,7 +9,7 @@ export default function Toolbar() {
       <ul className={styles["menu"]}>
         <li>
           <NavLink to={"profile"} className={setActive}>
-            Account
+            Profile
           </NavLink>
         </li>
         <li>

@@ -20,11 +20,13 @@ form {
 .header {
   grid-column: span 5;
   padding: 2rem;
+  margin-bottom: 0.5rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
   background-color: var(--color-bg);
   color: var(--color-primary);
+  box-shadow: 0 0 12px 0 rgba(0, 0, 0, 0.169);
 }
 
 .bread-crump {
@@ -82,14 +84,6 @@ form {
   background: var(--color-bg-prim);
 }
 
-.table-head > div:first-child {
-  text-align: start;
-}
-
-.table > div > div:first-child {
-  justify-self: start;
-}
-
 .table > div:nth-child(2n) {
   background-color: white;
 }
@@ -121,13 +115,6 @@ form {
 .table-span-tiny svg {
   color: var(--color-primary);
   margin: auto;
-}
-
-.empty-box {
-  grid-column: span 7;
-  padding: 2rem;
-  width: 100%;
-  text-align: center;
 }
 
 .content span {
@@ -275,7 +262,6 @@ hr {
   background-color: white;
   border: 1px solid var(--color-primary);
   color: var(--color-primary);
-  /* font-weight: bold; */
   cursor: pointer;
 }
 
@@ -325,15 +311,22 @@ input[type="submit"] {
 .thumb {
   height: 50px;
   width: 50px;
+  font-size: 2.5rem;
 }
 
 .empty-box {
+  width: 100%;
+  grid-column: span 7;
   font-size: 2rem;
   padding: 3rem 0;
   background-color: var(--color-bg);
   color: var(--text-very-dark);
   text-align: center;
   grid-column: span 5;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
 }
 
 .warning {

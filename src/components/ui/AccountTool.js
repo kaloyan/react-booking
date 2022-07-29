@@ -7,7 +7,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCaretDown, faUser } from "@fortawesome/free-solid-svg-icons";
 
-export default function AccountTool(props) {
+export default function AccountTool({ user }) {
   const [openMenu, setOpenMenu] = useState(false);
 
   const dispatch = useDispatch();
@@ -26,8 +26,13 @@ export default function AccountTool(props) {
         onBlur={() => setOpenMenu(false)}
         className={styles["dropbtn"]}
       >
-        <FontAwesomeIcon icon={faUser} className={styles["avatar"]} />
-        {props.username}
+        {user.avatar ? (
+          <img src={user.avatar} alt="avatar" className={styles["thumb"]} />
+        ) : (
+          <FontAwesomeIcon icon={faUser} className={styles["avatar"]} />
+        )}
+
+        {user.username}
         <FontAwesomeIcon icon={faCaretDown} className={styles["icon"]} />
       </button>
       <div
@@ -35,7 +40,7 @@ export default function AccountTool(props) {
           openMenu && styles["show"]
         }`}
       >
-        <span> {props.email}</span>
+        <span> {user.email}</span>
         <Link
           to={"/dashboard"}
           onMouseDown={() => navigate("/dashboard/profile")}

@@ -31,7 +31,13 @@ export default function index() {
           <Route path="profile" element={<Profile />} />
           <Route path="profile/edit" element={<EditProfile />} />
           <Route path="users" element={<UsersList />} />
+
           <Route path="reservations" element={<Reservations />} />
+          <Route
+            path="reservations/remove"
+            element={<Navigate to={"../reservations"} replace={true} />}
+          />
+
           <Route path="hotels" element={<MyHotels />} />
           <Route path="hotels/new" element={<NewHotel />} />
           <Route path="hotels/rooms/new" element={<NewRoom />} />
@@ -41,6 +47,7 @@ export default function index() {
             path="hotels/del/:id"
             element={<Navigate to={"../hotels"} replace={true} />}
           />
+
           <Route path="destinations" element={<Destinations />} />
           <Route path="destinations/new" element={<NewDestination />} />
           <Route path="destinations/edit/:id" element={<EditDestination />} />
@@ -48,6 +55,7 @@ export default function index() {
             path="destinations/del/:id"
             element={<Navigate to={"../destinations"} replace={true} />}
           />
+
           <Route path="my-reservations" element={<MyReservations />} />
         </Routes>
       </div>
