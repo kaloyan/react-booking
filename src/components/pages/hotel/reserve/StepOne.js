@@ -1,6 +1,8 @@
 import { useRef } from "react";
 import { format, intervalToDuration, compareAsc, add } from "date-fns";
 import styles from "./Reserve.module.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCalendarDays } from "@fortawesome/free-solid-svg-icons";
 
 export default function StepOne({ state, formik }) {
   const arriveRef = useRef(null);
@@ -46,7 +48,10 @@ export default function StepOne({ state, formik }) {
 
   return (
     <div className={styles["step"]} style={{ left: state }}>
-      <h3>Select Dates:</h3>
+      <div className={styles["header"]}>
+        <FontAwesomeIcon icon={faCalendarDays} />
+        <span>Select dates</span>
+      </div>
 
       <div className={styles["date-select"]}>
         <div>

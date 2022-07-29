@@ -35,36 +35,89 @@ const request = async (url, options = { method: "get", data: null }) => {
 // Account data
 
 export const login = (data) => {
-  return request(urls.loginURL, { method: "post", data });
+  return request(urls.loginUrl, { method: "post", data });
 };
 
 export const getAccount = () => {
-  return request(urls.accountURL);
+  return request(urls.accountUrl);
 };
 
 export const doLogout = () => {
-  return request(urls.logoutURL);
+  return request(urls.logoutUrl);
 };
 
 export const register = (data) => {
-  return request(urls.registerURL, { method: "post", data });
+  return request(urls.registerUrl, { method: "post", data });
 };
 
 export const updateAccount = (id, data) => {
-  const url = urls.usersURL + id;
+  const url = urls.usersUrl + id;
   return request(url, { method: "put", data });
 };
 
 export const getUserCounts = (userId) => {
-  const url = urls.usersURL + userId + "/counts";
+  const url = urls.usersUrl + userId + "/counts";
   return request(url);
 };
 
-//
+export const readMessage = (messageId) => {
+  //todo
+};
 
-export const getItem = (itemId) => {
-  const url = urls.itemURL + itemId;
+export const deleteMessage = (messageId) => {
+  //todo
+};
+
+// Destinations
+
+export const createDestination = (data) => {
+  return request(urls.destinationsUrl, { method: "post", data });
+};
+
+export const getAllDestinations = (data) => {
+  return request(urls.destinationsUrl);
+};
+
+export const getDestination = (id) => {
+  const url = urls.destinationsUrl + id;
   return request(url);
+};
+
+export const editDestination = (id, data) => {
+  const url = urls.destinationsUrl + "edit/" + id;
+  return request(url, { method: "put", data });
+};
+
+export const deleteDestination = (id) => {
+  const url = urls.destinationsUrl + "del/" + id;
+  return request(url, { method: "delete" });
+};
+
+// Hotels
+
+export const createHotel = (data) => {
+  const url = urls.hotelsUrl;
+  return request(url, { method: "post", data });
+};
+
+export const getOwnHotels = () => {
+  const url = urls.hotelsUrl + "own";
+  return request(url);
+};
+
+export const delHotel = (hotelId) => {
+  const url = urls.hotelsUrl + hotelId;
+  return request(url, { method: "delete" });
+};
+
+export const getOneHotel = (hitelId) => {
+  const url = urls.hotelsUrl + hitelId;
+  return request(url);
+};
+
+export const updateHotel = (hotelId, data) => {
+  const url = urls.hotelsUrl + hotelId;
+  return request(url, { method: "put", data });
 };
 
 export const countByCity = (cityArray) => {
@@ -83,109 +136,56 @@ export const getPropertyList = () => {
   return request(url);
 };
 
-// Destinations
-
-export const createDestination = (data) => {
-  return request(urls.destURL, { method: "post", data });
-};
-
-export const getAllDestinations = (data) => {
-  return request(urls.destURL);
-};
-
-export const getDestination = (id) => {
-  const url = urls.destURL + id;
-  return request(url);
-};
-
-export const editDestination = (id, data) => {
-  const url = urls.destURL + "edit/" + id;
-  // console.log("edit", url);
-  return request(url, { method: "put", data });
-};
-
-export const deleteDestination = (id) => {
-  const url = urls.destURL + "del/" + id;
-  return request(url, { method: "delete" });
-};
-
-// Hotels
-
-export const createHotel = (data) => {
-  const url = urls.itemURL;
-  return request(url, { method: "post", data });
-};
-
-export const getOwnHotels = () => {
-  const url = urls.itemURL + "own";
-  return request(url);
-};
-
-export const delHotel = (hotelId) => {
-  const url = urls.itemURL + hotelId;
-  return request(url, { method: "delete" });
-};
-
-export const getOneHotel = (hitelId) => {
-  const url = urls.itemURL + hitelId;
-  return request(url);
-};
-
-export const updateHotel = (hotelId, data) => {
-  const url = urls.itemURL + hotelId;
-  return request(url, { method: "put", data });
-};
-
 // Rooms
 
 export const getHotelRooms = (hotelId) => {
-  const url = urls.roomsURL + hotelId;
+  const url = urls.roomsUrl + hotelId;
   return request(url);
 };
 
 export const getOneRoom = (roomId) => {
-  const url = urls.roomsURL + roomId;
+  const url = urls.roomsUrl + roomId;
   return request(url);
 };
 
 export const createRoom = (hotelId, roomData) => {
-  const url = urls.roomsURL + hotelId;
+  const url = urls.roomsUrl + hotelId;
   return request(url, { method: "post", data: roomData });
 };
 
 export const deleteRoom = (roomId) => {
-  const url = urls.roomsURL + roomId;
+  const url = urls.roomsUrl + roomId;
   return request(url, { method: "delete" });
 };
 
 export const updateRoom = (roomId, roomData) => {
-  const url = urls.roomsURL + roomId;
+  const url = urls.roomsUrl + roomId;
   return request(url, { method: "put", data: roomData });
 };
 
 // Reservations
 
 export const createReservation = (data) => {
-  const url = urls.reserveURL;
+  const url = urls.reserveUrl;
   return request(url, { method: "post", data });
 };
 
 export const getReservationsByHotelId = (hotelId) => {
-  const url = urls.reserveURL + "hotel/" + hotelId;
+  const url = urls.reserveUrl + "hotel/" + hotelId;
   return request(url);
 };
 
 export const getReservationsByUserId = (userId) => {
-  const url = urls.reserveURL + "user/" + userId;
+  const url = urls.reserveUrl + "user/" + userId;
   return request(url);
 };
 
 export const getReservationsByOwnerId = (ownerId) => {
-  const url = urls.reserveURL + "owner/" + ownerId;
+  const url = urls.reserveUrl + "owner/" + ownerId;
   return request(url);
 };
 
 export const deleteReservation = (reservationId) => {
-  const url = urls.reserveURL + reservationId;
+  const url = urls.reserveUrl + reservationId;
   return request(url), { method: "delete" };
 };

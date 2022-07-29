@@ -5,11 +5,14 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import { uploadHotelImages } from "../../../utils/helpers";
-import { createHotel, updateHotel } from "../../../services/netRequest";
+import { createHotel } from "../../../services/netRequest";
 import { pushMessage } from "../../../features/slices/localSlice";
 import ImageBox from "../../ui/ImageBox";
 import MessageBox from "../../ui/MessageBox";
 import countries from "../../../assets/countries.json";
+
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faHotel } from "@fortawesome/free-solid-svg-icons";
 
 export default function NewHotel() {
   const [pictures, setPictures] = useState([]);
@@ -79,7 +82,10 @@ export default function NewHotel() {
 
       <section className={styles["grid-container"]}>
         <div className={styles["header"]}>
-          <h1>Add New Hotel</h1>
+          <div className={styles["bread-crump"]}>
+            <FontAwesomeIcon icon={faHotel} />
+            <h1>Add New Hotel</h1>
+          </div>
 
           <div>
             <Link to={"../hotels"} className={styles["action-btn"]}>

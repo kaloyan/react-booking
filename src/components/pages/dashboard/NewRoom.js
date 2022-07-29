@@ -6,6 +6,8 @@ import { useFormik } from "formik";
 import { useDispatch } from "react-redux";
 import { createRoom } from "../../../services/netRequest";
 import { pushMessage } from "../../../features/slices/localSlice";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faBed } from "@fortawesome/free-solid-svg-icons";
 
 export default function NewRoom() {
   const [hotels, setHotels] = useState([]);
@@ -98,7 +100,10 @@ export default function NewRoom() {
   return (
     <form className={styles["grid-container"]} onSubmit={formik.handleSubmit}>
       <div className={styles["header"]}>
-        <h1>Add new rooms:</h1>
+        <div className={styles["bread-crump"]}>
+          <FontAwesomeIcon icon={faBed} />
+          <h1>Add new rooms</h1>
+        </div>
 
         <div>
           <Link

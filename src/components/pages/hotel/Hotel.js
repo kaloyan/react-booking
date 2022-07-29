@@ -1,7 +1,7 @@
 import styles from "./Hotel.module.css";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { getItem } from "../../../services/netRequest";
+import { getOneHotel } from "../../../services/netRequest";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLocationDot } from "@fortawesome/free-solid-svg-icons";
 // import components
@@ -22,7 +22,7 @@ export default function Hotel() {
 
   useEffect(() => {
     const getData = async () => {
-      const response = await getItem(id);
+      const response = await getOneHotel(id);
       // console.log(response);
       setData(response);
     };

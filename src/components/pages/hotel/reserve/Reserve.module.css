@@ -85,9 +85,14 @@
   background: transparent;
 }
 
-.form-container > form > h3 {
+.step .header {
   text-align: center;
-  color: #777;
+  color: var(--color-primary-btn);
+  font-size: 1.5rem;
+  display: flex;
+  gap: 1.5rem;
+  justify-content: center;
+  align-items: center;
 }
 
 .btn-box {

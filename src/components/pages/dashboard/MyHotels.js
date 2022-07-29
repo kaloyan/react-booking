@@ -8,7 +8,7 @@ import { pushMessage } from "../../../features/slices/localSlice";
 import Modal from "../../ui/Modal";
 import MessageBox from "../../ui/MessageBox";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { faPlus, faHotel } from "@fortawesome/free-solid-svg-icons";
 
 export default function MyHotels() {
   const [hotels, setHotels] = useState([]);
@@ -76,7 +76,10 @@ export default function MyHotels() {
       {showMessage && <MessageBox />}
 
       <div className={styles["header"]}>
-        <h1>My Hotels</h1>
+        <div className={styles["bread-crump"]}>
+          <FontAwesomeIcon icon={faHotel} />
+          <h1>My Hotels</h1>
+        </div>
 
         <div>
           <Link to={"new"} className={styles["action-btn"]}>

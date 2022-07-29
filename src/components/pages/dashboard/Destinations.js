@@ -8,6 +8,8 @@ import {
 import { delDestinationImg } from "../../../services/firebaseSrv";
 import Modal from "../../ui/Modal";
 import { extractImageName } from "../../../utils/helpers";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faMapLocationDot } from "@fortawesome/free-solid-svg-icons";
 
 export default function Destinations() {
   const [destinations, setDestinations] = useState([]);
@@ -39,11 +41,7 @@ export default function Destinations() {
     return;
   };
 
-  const cloaseDlg = () => {
-    setModal(null);
-  };
-
-  const doDelete = async () => {
+  const handleDelete = async () => {
     try {
       await deleteDestination(modal.item._id);
       await delDestinationImg(modal.imageName);
@@ -61,13 +59,16 @@ export default function Destinations() {
       {modal && (
         <Modal
           message={`Are you shure you want to delete: ${modal.item.name} ?`}
-          closeHandler={cloaseDlg}
-          acceptHandler={doDelete}
+          closeHandler={() => setModal(null)}
+          acceptHandler={handleDelete}
         />
       )}
 
       <div className={styles["header"]}>
-        <h1>Destinations</h1>
+        <div className={styles["bread-crump"]}>
+          <FontAwesomeIcon icon={faMapLocationDot} />
+          <h1>Destinations</h1>
+        </div>
 
         <div>
           <Link to={"new"} className={styles["action-btn"]}>

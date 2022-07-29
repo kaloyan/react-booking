@@ -1,7 +1,7 @@
 import styles from "./Dashboard.module.css";
 import { NavLink } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCamera } from "@fortawesome/free-solid-svg-icons";
+import { faCamera, faMapPin } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
 import { uploadDest } from "../../../services/firebaseSrv";
 import { createDestination } from "../../../services/netRequest";
@@ -47,7 +47,10 @@ export default function NewDestination() {
     <form onSubmit={handleSubmit}>
       <section className={styles["grid-container"]}>
         <div className={styles["header"]}>
-          <h1>New Destination</h1>
+          <div className={styles["bread-crump"]}>
+            <FontAwesomeIcon icon={faMapPin} />
+            <h1>New Destination</h1>
+          </div>
 
           <div>
             <NavLink to={"../destinations"} className={styles["action-btn"]}>

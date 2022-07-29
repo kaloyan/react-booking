@@ -5,6 +5,8 @@ import { getOneRoom, updateRoom } from "../../../services/netRequest";
 import { useFormik } from "formik";
 import { useDispatch } from "react-redux";
 import { pushMessage } from "../../../features/slices/localSlice";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faBed } from "@fortawesome/free-solid-svg-icons";
 
 export default function NewRoom() {
   const showMessage = (msg, type) => {
@@ -90,7 +92,10 @@ export default function NewRoom() {
   return (
     <form className={styles["grid-container"]} onSubmit={formik.handleSubmit}>
       <div className={styles["header"]}>
-        <h1>Edit Room</h1>
+        <div className={styles["bread-crump"]}>
+          <FontAwesomeIcon icon={faBed} />
+          <h1>Edit Room</h1>
+        </div>
 
         <div>
           <Link

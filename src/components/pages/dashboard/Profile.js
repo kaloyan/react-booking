@@ -1,6 +1,6 @@
 import styles from "./Dashboard.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUser } from "@fortawesome/free-solid-svg-icons";
+import { faUser, faIdCard } from "@fortawesome/free-solid-svg-icons";
 import { NavLink } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { getAccount, getUserCounts } from "../../../services/netRequest";
@@ -34,7 +34,11 @@ export default function Profile() {
   return (
     <section className={styles["grid-container"]}>
       <div className={styles["header"]}>
-        <h1>My Profile</h1>
+        <div className={styles["bread-crump"]}>
+          <FontAwesomeIcon icon={faIdCard} />
+          <h1>My Profile</h1>
+        </div>
+
         <div>
           <NavLink to={"edit"} className={styles["action-btn"]}>
             <span>Edit</span>

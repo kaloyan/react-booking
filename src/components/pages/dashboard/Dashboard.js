@@ -11,7 +11,6 @@ import Reservations from "./Reservations";
 import MyHotels from "./MyHotels";
 import NewHotel from "./NewHotel";
 import EditHotel from "./EditHotel";
-import AddHotel from "./AddHotel";
 import MyReservations from "./MyReservations";
 import Destinations from "./Destinations";
 import NewDestination from "./NewDestination";
@@ -42,7 +41,6 @@ export default function index() {
             path="hotels/del/:id"
             element={<Navigate to={"../hotels"} replace={true} />}
           />
-          <Route path="add-hotel" element={<AddHotel />} />
           <Route path="destinations" element={<Destinations />} />
           <Route path="destinations/new" element={<NewDestination />} />
           <Route path="destinations/edit/:id" element={<EditDestination />} />

@@ -1,11 +1,15 @@
 import styles from "./Reserve.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCcPaypal, faCcVisa } from "@fortawesome/free-brands-svg-icons";
+import { faCartPlus } from "@fortawesome/free-solid-svg-icons";
 
 export default function StepThree({ formik, state, totalPrice }) {
   return (
     <div className={styles["step"]} style={{ left: state }}>
-      <h3>Checkout</h3>
+      <div className={styles["header"]}>
+        <FontAwesomeIcon icon={faCartPlus} />
+        <span>Checkout</span>
+      </div>
 
       <div className={styles["info-box"]}>
         <div className={styles["checkout-info"]}>

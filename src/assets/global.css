@@ -5,6 +5,7 @@
 
 * {
   --color-bg: rgb(239, 240, 243);
+  --color-bg-prim: rgba(198, 238, 252, 0.098);
   --color-primary: rgb(0, 98, 188);
   --color-primary-btn: rgb(20, 122, 237);
   --color-gary: rgb(121, 121, 121);

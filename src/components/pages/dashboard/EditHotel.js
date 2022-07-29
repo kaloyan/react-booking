@@ -16,6 +16,9 @@ import MessageBox from "../../ui/MessageBox";
 import countries from "../../../assets/countries.json";
 import Modal from "../../ui/Modal";
 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faHotel } from "@fortawesome/free-solid-svg-icons";
+
 export default function EditHotel() {
   const [hotel, setHotel] = useState({});
   const [pictures, setPictures] = useState([]);
@@ -153,7 +156,11 @@ export default function EditHotel() {
 
       <section className={styles["grid-container"]}>
         <div className={styles["header"]}>
-          <h1>Edit Hotel</h1>
+          <div className={styles["bread-crump"]}>
+            <FontAwesomeIcon icon={faHotel} />
+
+            <h1>Edit Hotel</h1>
+          </div>
 
           <div>
             <Link to={"../hotels/rooms/new"} className={styles["action-btn"]}>

@@ -1,4 +1,6 @@
 import styles from "./Reserve.module.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faBed } from "@fortawesome/free-solid-svg-icons";
 
 export default function StepTwo({ state, formik, rooms }) {
   const validateSelect = (e) => {
@@ -11,7 +13,10 @@ export default function StepTwo({ state, formik, rooms }) {
 
   return (
     <div className={styles["step"]} style={{ left: state }}>
-      <h3>Select your rooms:</h3>
+      <div className={styles["header"]}>
+        <FontAwesomeIcon icon={faBed} />
+        <span>Select your rooms</span>
+      </div>
 
       <div className={styles["content"]}>
         {rooms?.map((x) => (

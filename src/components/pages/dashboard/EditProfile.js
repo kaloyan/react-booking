@@ -2,7 +2,11 @@ import styles from "./Dashboard.module.css";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUser } from "@fortawesome/free-solid-svg-icons";
+import {
+  faUser,
+  faUserEdit,
+  faUserPen,
+} from "@fortawesome/free-solid-svg-icons";
 import { uploadAvatar, delAvatar } from "../../../services/firebaseSrv";
 import { getAccount, updateAccount } from "../../../services/netRequest";
 import { NavLink, useNavigate } from "react-router-dom";
@@ -173,7 +177,10 @@ export default function Profile() {
 
       <section className={styles["grid-container"]}>
         <div className={styles["header"]}>
-          <h1>Edit Profile</h1>
+          <div className={styles["bread-crump"]}>
+            <FontAwesomeIcon icon={faUserEdit} />
+            <h1>Edit Profile</h1>
+          </div>
 
           <div>
             <NavLink to={"../profile"} className={styles["action-btn"]}>
