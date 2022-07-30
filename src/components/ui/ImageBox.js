@@ -4,10 +4,14 @@ import { faCamera, faXmark } from "@fortawesome/free-solid-svg-icons";
 import { useEffect, useState, useRef } from "react";
 import { v4 as uuid } from "uuid";
 
-export default function ImageBox({ handleGetPictures }) {
+export default function ImageBox({ handleGetPictures, pictures }) {
   const [imgs, setImgs] = useState([]);
   const [selectedFiles, setSelectedFiles] = useState([]);
   const filesRef = useRef(null);
+
+  useEffect(() => {
+    handleGetPictures(selectedFiles);
+  }, [selectedFiles]);
 
   const handleChange = (e) => {
     const files = Array.from(e.target.files);
@@ -29,16 +33,8 @@ export default function ImageBox({ handleGetPictures }) {
     setImgs(imgs.filter((x) => x.id !== id));
   };
 
-  useEffect(() => {
-    handleGetPictures(selectedFiles);
-  }, [selectedFiles]);
-
-  // useEffect(() => {
-  //   setImgs(images);
-  // }, [images]);
-
   return (
-    <div>
+    <div className={styles["container"]}>
       <div>
         {imgs.length > 0 ? (
           <div className={styles["photo-box"]}>
@@ -51,6 +47,14 @@ export default function ImageBox({ handleGetPictures }) {
                 >
                   <FontAwesomeIcon icon={faXmark} />
                 </button>
+              </div>
+            ))}
+          </div>
+        ) : pictures?.length > 0 ? (
+          <div className={styles["photo-box"]}>
+            {pictures.map((x, idx) => (
+              <div key={idx} className={styles["image-box"]}>
+                <img src={x} className={styles["thumb"]} alt="photo" />
               </div>
             ))}
           </div>

@@ -108,6 +108,13 @@ form {
   grid-column: span 3;
 }
 
+.table-span-4 {
+  width: 100%;
+  text-align: left;
+  grid-column: span 4;
+  display: flex;
+}
+
 .table-span-tiny {
   grid-column: span 0.3;
 }
@@ -332,11 +339,4 @@ input[type="submit"] {
 .warning {
   color: rgb(250, 107, 107);
   font-size: 1.2rem;
-}
-
-.long-mgs {
-  width: 100%;
-  text-align: left;
-  grid-column: span 3;
-  display: flex;
 }

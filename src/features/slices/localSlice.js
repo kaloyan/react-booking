@@ -4,6 +4,7 @@ import { v4 as uuid } from "uuid";
 const initialState = {
   favorites: [],
   messages: [],
+  showSpinner: false,
 };
 
 export const localSlice = createSlice({
@@ -45,6 +46,10 @@ export const localSlice = createSlice({
     removeMessage: (state, action) => {
       state.messages = state.messages.filter((x) => x.id !== action.payload);
     },
+
+    setSpinner: (state, action) => {
+      state.spinner = action.payload;
+    },
   },
 });
 
@@ -54,6 +59,7 @@ export const {
   removeFavorite,
   pushMessage,
   removeMessage,
+  setSpinner,
 } = localSlice.actions;
 
 export default localSlice.reducer;
