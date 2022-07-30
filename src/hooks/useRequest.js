@@ -16,7 +16,7 @@ export const useRequest = (module, handle) => {
   useEffect(() => {
     if (!request) return;
 
-    const beginRequest = true;
+    let beginRequest = true;
 
     setTimeout(() => {
       if (beginRequest) {
@@ -37,22 +37,18 @@ export const useRequest = (module, handle) => {
           };
         } else {
           dispatch(setResponse({ handle, data: response }));
+          resolve(true);
         }
       })
       .catch((err) => {
         dispatch(pushMessage({ text: err.error, type: "error" }));
-        // clean
+      })
+      .finally(() => {
         setRequest(null);
         beginRequest = false;
         reject(false);
         dispatch(setSpinner(false));
       });
-
-    setRequest(null);
-    beginRequest = false;
-    resolve(true);
-    dispatch(setSpinner(false));
-    // }
   }, [request]);
 
   const slice = {};
