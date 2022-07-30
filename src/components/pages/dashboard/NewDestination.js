@@ -2,19 +2,45 @@ import styles from "./Dashboard.module.css";
 import { NavLink } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCamera, faMapPin } from "@fortawesome/free-solid-svg-icons";
-import { useState } from "react";
+import { useState, useId } from "react";
 import { uploadDest } from "../../../services/firebaseSrv";
-import { createDestination } from "../../../services/netRequest";
 import { useNavigate } from "react-router-dom";
+import { useRequest } from "../../../hooks/useRequest";
+import { useFormik } from "formik";
 
 export default function NewDestination() {
   const [picture, setPicture] = useState([]);
   const [img, setImg] = useState("");
-  const [name, setName] = useState("");
-  const [featured, setFeatured] = useState(false);
-  const [description, setDescription] = useState("");
+
+  const handle = useId();
+  const destinations = useRequest("destinations", handle);
 
   const navigate = useNavigate();
+
+  const formik = useFormik({
+    initialValues: {
+      img: "",
+      name: "",
+      featured: false,
+      description: "",
+    },
+
+    onSubmit: async (values) => {
+      const pictureUrl = await uploadDest(picture);
+
+      const data = {
+        name: values.name,
+        image: pictureUrl,
+        description: values.description,
+        featured: values.featured,
+      };
+
+      destinations.create(data).then(() => {
+        destinations.cleaner();
+        navigate("../destinations");
+      });
+    },
+  });
 
   const handleGetPictures = (e) => {
     const files = Array.from(e.target.files);
@@ -24,27 +50,8 @@ export default function NewDestination() {
     setImg(window.URL.createObjectURL(e.target.files[0]));
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    //!TODO - show loading component
-
-    const pictureUrl = await uploadDest(picture);
-    // const pictureUrl = picture.name;
-
-    const response = await createDestination({
-      name,
-      image: pictureUrl,
-      description,
-      featured: featured,
-    });
-
-    // console.log(response);
-    navigate("../destinations");
-  };
-
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={formik.handleSubmit}>
       <section className={styles["grid-container"]}>
         <div className={styles["header"]}>
           <div className={styles["bread-crump"]}>
@@ -63,9 +70,7 @@ export default function NewDestination() {
           <div>
             {img ? (
               <div className={styles["photo-box"]}>
-                {/* {imgs.map((x) => ( */}
                 <img src={img} className={styles["single"]} alt="photo" />
-                {/* ))} */}
               </div>
             ) : (
               <FontAwesomeIcon icon={faCamera} className={styles["avatar"]} />
@@ -91,10 +96,11 @@ export default function NewDestination() {
             <label>Destination name: </label>
             <input
               type="text"
+              name="name"
               placeholder="example: London"
               required
-              value={name}
-              onChange={(e) => setName(e.target.value)}
+              value={formik.values.name}
+              onChange={formik.handleChange}
             />
           </div>
 
@@ -102,10 +108,11 @@ export default function NewDestination() {
             <label>Description: </label>
             <input
               type="text"
+              name="description"
               placeholder="example: Bring your umbrella"
               required
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
+              value={formik.values.description}
+              onChange={formik.handleChange}
             />
           </div>
 
@@ -115,8 +122,8 @@ export default function NewDestination() {
               name="featured"
               id="featured"
               required
-              value={featured}
-              onChange={(e) => setFeatured(e.target.value)}
+              value={formik.values.featured}
+              onChange={formik.handleChange}
             >
               <option value={false}>No</option>
               <option value={true}>Yes</option>

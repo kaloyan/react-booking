@@ -1,73 +1,54 @@
 import styles from "./Dashboard.module.css";
-import { useEffect, useState } from "react";
+
+import { useEffect, useState, useId } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import {
-  getAllDestinations,
-  deleteDestination,
-} from "../../../services/netRequest";
-import { delDestinationImg } from "../../../services/firebaseSrv";
-import Modal from "../../ui/Modal";
-import { extractImageName } from "../../../utils/helpers";
+import { useSelector } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMapLocationDot } from "@fortawesome/free-solid-svg-icons";
+import { useRequest } from "../../../hooks/useRequest";
+import DialogBox from "../../ui/DialogBox";
 
 export default function Destinations() {
-  const [destinations, setDestinations] = useState([]);
-  const [modal, setModal] = useState(null);
-
+  const [item, setItem] = useState(null);
   const navigate = useNavigate();
 
+  const handle = useId();
+  const destinations = useRequest("destinations", handle);
+  const data = useSelector((state) => state.responses[handle]);
+
   useEffect(() => {
-    const fetchDestinations = async () => {
-      const response = await getAllDestinations();
+    destinations.all();
 
-      setDestinations(response);
-    };
-
-    fetchDestinations();
+    return () => destinations.cleaner();
   }, []);
 
   const handleModal = async (id, e) => {
     e.preventDefault();
 
-    const item = destinations.filter((x) => x._id === id);
-    const imgName = extractImageName(item[0].image);
+    const item = data.filter((x) => x._id === id);
 
-    setModal({
-      item: item[0],
-      imageName: imgName,
-    });
+    setItem(item[0]);
 
     return;
   };
 
-  const handleDelete = async () => {
-    try {
-      await deleteDestination(modal.item._id);
-      await delDestinationImg(modal.imageName);
-
-      const linkId = modal.item._id;
-      setModal(null);
-      navigate(`del/${linkId}`);
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
   return (
     <section className={styles["grid-container"]}>
-      {modal && (
-        <Modal
-          message={`Are you shure you want to delete: ${modal.item.name} ?`}
-          closeHandler={() => setModal(null)}
-          acceptHandler={handleDelete}
+      {item && (
+        <DialogBox
+          message={`DialogBox: Are you shure you want to delete: ${item.name} ?`}
+          accept={() => navigate(`del/${item._id}`)}
+          cancel={() => setItem(null)}
+          module={"destinations"}
+          item={item}
+          action="delete"
         />
       )}
 
       <div className={styles["header"]}>
         <div className={styles["bread-crump"]}>
           <FontAwesomeIcon icon={faMapLocationDot} />
-          <h1>Destinations</h1>
+          <h1>Destinations ({data?.length})</h1>
         </div>
 
         <div>
@@ -100,48 +81,42 @@ export default function Destinations() {
           </div>
         </div>
 
-        {!destinations ? (
-          <div>No content</div>
-        ) : (
-          <>
-            {destinations.map((x) => {
-              return (
-                <div key={x._id}>
-                  <div className={styles["table-span-1"]}>
-                    <img
-                      src={x.image}
-                      alt={x.name}
-                      className={styles["thumb"]}
-                    />
-                  </div>
+        {data?.map((x) => {
+          return (
+            <div key={x._id}>
+              <div className={styles["table-span-1"]}>
+                <img src={x.image} alt={x.name} className={styles["thumb"]} />
+              </div>
 
-                  <div className={styles["table-span-1"]}>{x.name}</div>
+              <div className={styles["table-span-1"]}>{x.name}</div>
 
-                  <div className={styles["table-span-2"]}>{x.description}</div>
+              <div className={styles["table-span-2"]}>{x.description}</div>
 
-                  <div className={styles["table-span-1"]}>
-                    {x.featured ? "featured" : ""}
-                  </div>
+              <div className={styles["table-span-1"]}>
+                {x.featured ? "featured" : ""}
+              </div>
 
-                  <div className={styles["table-span-2"]}>
-                    <Link to={`edit/${x._id}`} className={styles["action-btn"]}>
-                      <span>Edit</span>
-                    </Link>
+              <div className={styles["table-span-2"]}>
+                <Link to={`edit/${x._id}`} className={styles["action-btn"]}>
+                  <span>Edit</span>
+                </Link>
 
-                    <Link
-                      to={`del/${x._id}`}
-                      onClick={(e) => handleModal(x._id, e)}
-                      className={styles["action-btn"]}
-                    >
-                      <span>Delete</span>
-                    </Link>
-                  </div>
-                </div>
-              );
-            })}
-          </>
-        )}
+                <Link
+                  to={`del/${x._id}`}
+                  onClick={(e) => handleModal(x._id, e)}
+                  className={styles["action-btn"]}
+                >
+                  <span>Delete</span>
+                </Link>
+              </div>
+            </div>
+          );
+        })}
       </div>
+
+      {data?.length == 0 && (
+        <div className={styles["empty-box"]}>No destinations</div>
+      )}
     </section>
   );
 }

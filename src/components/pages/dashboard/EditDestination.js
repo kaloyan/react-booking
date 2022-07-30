@@ -1,66 +1,81 @@
 import styles from "./Dashboard.module.css";
+
 import { NavLink, useParams } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCamera, faLocationDot } from "@fortawesome/free-solid-svg-icons";
+import { faLocationDot } from "@fortawesome/free-solid-svg-icons";
 import { useEffect, useState } from "react";
-import { uploadDest } from "../../../services/firebaseSrv";
-import { editDestination, getDestination } from "../../../services/netRequest";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { useFormik } from "formik";
+import { useRequest } from "../../../hooks/useRequest";
+import { useId } from "react";
+
+import ImageBox from "../../ui/ImageBox";
 
 export default function EditDestination() {
   const [picture, setPicture] = useState([]);
-
-  const [img, setImg] = useState("");
-  const [name, setName] = useState("");
-  const [featured, setFeatured] = useState(false);
-  const [description, setDescription] = useState("");
-
   const { id } = useParams("id");
+
+  const handle = useId();
+  const destinations = useRequest("destinations", handle);
+  const data = useSelector((state) => state.responses[handle]);
+
+  useEffect(() => {
+    if (id) {
+      destinations.get(id);
+    }
+
+    return () => destinations.cleaner();
+  }, []);
+
+  const formik = useFormik({
+    initialValues: {
+      name: "",
+      img: "",
+      featured: false,
+      description: "",
+    },
+
+    onSubmit: (values) => {
+      // console.log(values);
+      // console.log(picture);
+
+      //   const pictureUrl = await uploadDest(picture);
+      //   const pictureUrl = picture.name;
+
+      const newData = {
+        name: values.name,
+        // image: pictureUrl,
+        description: values.description,
+        featured: values.featured,
+      };
+
+      destinations.update(id, newData).then(() => {
+        navigate("../destinations");
+      });
+    },
+  });
+
+  useEffect(() => {
+    if (data) {
+      formik.setValues({
+        name: data.name,
+        img: data.image,
+        featured: data.featured,
+        description: data.description,
+      });
+    }
+  }, [data]);
 
   const navigate = useNavigate();
 
-  const handleGetPictures = (e) => {
-    const files = Array.from(e.target.files);
+  const handleGetPictures = (files) => {
+    // const files = Array.from(e.target.files);
     setPicture(files[0]);
-
-    // setImgs(files.map((x) => window.URL.createObjectURL(x)));
-    setImg(window.URL.createObjectURL(e.target.files[0]));
-  };
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const data = await getDestination(id);
-
-      setImg(data[0].image);
-      setName(data[0].name);
-      setDescription(data[0].description);
-      setFeatured(data[0].featured);
-    };
-
-    fetchData();
-  }, []);
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    //!TODO - show loading component
-
-    const pictureUrl = await uploadDest(picture);
-    // const pictureUrl = picture.name;
-
-    const response = await editDestination({
-      name,
-      image: pictureUrl,
-      description,
-      featured: featured,
-    });
-
-    console.log(response);
-    navigate("../destinations");
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={formik.handleSubmit}>
       <section className={styles["grid-container"]}>
         <div className={styles["header"]}>
           <div className={styles["bread-crump"]}>
@@ -76,30 +91,10 @@ export default function EditDestination() {
         </div>
 
         <div className={styles["side"]}>
-          <div>
-            {img ? (
-              <div className={styles["photo-box"]}>
-                {/* {imgs.map((x) => ( */}
-                <img src={img} className={styles["single"]} alt="photo" />
-                {/* ))} */}
-              </div>
-            ) : (
-              <FontAwesomeIcon icon={faCamera} className={styles["avatar"]} />
-            )}
-          </div>
-
-          <div>
-            <label htmlFor="avatar" className={styles["file-upload"]}>
-              Select photo
-            </label>
-            <input
-              type="file"
-              id="avatar"
-              accept="image/*"
-              required
-              onChange={handleGetPictures}
-            />
-          </div>
+          <ImageBox
+            handleGetPictures={handleGetPictures}
+            pictures={[formik.values.img]}
+          />
         </div>
 
         <div className={styles["content"]}>
@@ -107,10 +102,11 @@ export default function EditDestination() {
             <label>Destination name: </label>
             <input
               type="text"
+              name="name"
               placeholder="example: London"
               required
-              value={name}
-              onChange={(e) => setName(e.target.value)}
+              value={formik.values.name}
+              onChange={formik.handleChange}
             />
           </div>
 
@@ -118,10 +114,11 @@ export default function EditDestination() {
             <label>Description: </label>
             <input
               type="text"
+              name="description"
               placeholder="example: Bring your umbrella"
               required
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
+              value={formik.values.description}
+              onChange={formik.handleChange}
             />
           </div>
 
@@ -131,8 +128,8 @@ export default function EditDestination() {
               name="featured"
               id="featured"
               required
-              value={featured}
-              onChange={(e) => setFeatured(e.target.value)}
+              value={formik.values.featured}
+              onChange={formik.handleChange}
             >
               <option value={false}>No</option>
               <option value={true}>Yes</option>
@@ -143,7 +140,7 @@ export default function EditDestination() {
 
           <div></div>
           <div className={styles["item"]}>
-            <input type="submit" value="Create Destination" />
+            <input type="submit" value="Save changes" />
           </div>
         </div>
       </section>
