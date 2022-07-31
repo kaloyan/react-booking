@@ -1,14 +1,16 @@
-import styles from "./Forms.module.css";
-
-import { Link, useNavigate } from "react-router-dom";
-import { register } from "../../services/netRequest";
-import { useDispatch } from "react-redux";
+import { useNavigate, Link } from "react-router-dom";
 import { useFormik } from "formik";
-import { setAccount } from "../../features/slices/accountSlice";
-import { pushMessage } from "../../features/slices/localSlice";
+
+import styles from "./Forms.module.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faUserPlus } from "@fortawesome/free-solid-svg-icons";
+
+import { useRequest } from "../../hooks/useRequest";
+import { registerSchema } from "../../schemas";
 
 export default function Login() {
-  const dispatch = useDispatch();
+  const handle = "account";
+  const user = useRequest("user", handle);
   const navigate = useNavigate();
 
   const formik = useFormik({
@@ -19,116 +21,111 @@ export default function Login() {
       email: "",
       role: "user",
     },
+
     onSubmit: async (values) => {
-      if (values.password !== values.repass) {
-        dispatch(
-          pushMessage({
-            text: "Passwords don't match",
-            type: "error",
-          })
-        );
-        return;
-      }
-
-      try {
-        const response = await register({
+      user
+        .register({
           username: values.username,
-          password: values.password,
           email: values.email,
-          role: values.role,
+          password: values.password,
           rePass: values.repass,
+          role: values.role,
+        })
+        .then((success) => {
+          if (success) {
+            navigate("/");
+          }
         });
-
-        if (response?.status == "OK") {
-          dispatch(setAccount(response));
-          navigate("/dashboard/messages");
-        } else {
-          dispatch(
-            pushMessage({
-              text: response.response?.data?.message,
-              type: "error",
-            })
-          );
-        }
-      } catch (err) {
-        dispatch(
-          pushMessage({
-            text: err,
-            type: "error",
-          })
-        );
-      }
     },
+
+    validationSchema: registerSchema,
   });
+
+  const getClass = (element) => {
+    return formik.errors[element] && formik.touched[element]
+      ? styles["input-error"]
+      : "";
+  };
+
+  const getError = (element) => {
+    return (
+      formik.errors[element] &&
+      formik.touched[element] && (
+        <span className={styles["error-message"]}>
+          {formik.errors[element]}
+        </span>
+      )
+    );
+  };
 
   return (
     <div className={styles["container"]}>
       <div className={styles["wrapper"]}>
-        <h1 className={styles["title"]}>Register</h1>
+        <h1 className={styles["header"]}>
+          <FontAwesomeIcon icon={faUserPlus} />
+          <span>Register</span>
+        </h1>
 
         <form onSubmit={formik.handleSubmit} className={styles["form"]}>
           <label htmlFor="username" className={styles["label"]}>
             Username
           </label>
           <input
-            className={styles["input"]}
             type="text"
             name="username"
             id="username"
             placeholder="John Doe"
-            required
-            minLength={3}
-            maxLength={20}
             value={formik.values.username}
             onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            className={getClass("username")}
           />
+          {getError("username")}
 
           <label htmlFor="email" className={styles["label"]}>
             Email
           </label>
           <input
-            className={styles["input"]}
-            type="email"
             name="email"
             id="email"
-            placeholder="john@example.com"
-            required
+            placeholder="john.doe@example.com"
             value={formik.values.email}
             onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            className={getClass("email")}
           />
+          {getError("email")}
 
           <label htmlFor="password" className={styles["label"]}>
             Password
           </label>
           <input
-            className={styles["input"]}
             type="password"
             name="password"
             id="password"
-            required
-            minLength={3}
-            placeholder="must be at least 3 characters long"
             value={formik.values.password}
             onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            className={getClass("password")}
           />
+          {getError("password")}
 
           <label htmlFor="repass" className={styles["label"]}>
             Retype password
           </label>
           <input
-            className={styles["input"]}
             type="password"
             name="repass"
             id="repass"
-            required
-            minLength={3}
-            placeholder="type same password again"
             value={formik.values.repass}
             onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            className={getClass("repass")}
           />
+          {getError("repass")}
 
           <label htmlFor="role" className={styles["label"]}>
-            Register as:{" "}
+            Register as:
           </label>
           <select
             name="role"
@@ -137,7 +134,7 @@ export default function Login() {
             value={formik.values.role}
             onChange={formik.handleChange}
           >
-            <option value="user">Traveler</option>
+            <option value="user">Tourist</option>
             <option value="owner">Hotel owner</option>
           </select>
 
@@ -146,9 +143,10 @@ export default function Login() {
             name="submit"
             value="Register"
             className={styles["submit"]}
+            disabled={formik.isSubmitting}
           />
 
-          <div className={styles["infoBox"]}>
+          <div className={styles["info-box"]}>
             Already have account? <Link to={"/login"}>Login here</Link>
           </div>
         </form>

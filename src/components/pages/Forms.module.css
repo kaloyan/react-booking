@@ -1,10 +1,11 @@
 .container {
-  height: 90vh;
+  height: fit-content;
+  min-height: 60vh;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  margin: 2rem auto;
+  margin: 4rem auto;
 }
 
 .wrapper {
@@ -37,7 +38,8 @@ input:focus {
   gap: 0.5rem;
 }
 
-.form input {
+.form input,
+.form select {
   height: 2.5rem;
   padding: 0.5rem;
   font-size: 1rem;
@@ -70,8 +72,9 @@ input:focus {
   margin-top: 0.6rem;
 }
 
-.submit {
+.form input.submit {
   border: none;
+  height: fit-content;
   font-size: 1.2rem;
   padding: 1rem;
   background-color: var(--color-primary-btn);

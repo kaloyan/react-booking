@@ -11,6 +11,7 @@ import { loginSchema } from "../../schemas";
 export default function Login() {
   const handle = "account";
   const user = useRequest("user", handle);
+  const navigate = useNavigate();
 
   const formik = useFormik({
     initialValues: {
@@ -28,8 +29,6 @@ export default function Login() {
 
     validationSchema: loginSchema,
   });
-
-  const navigate = useNavigate();
 
   const getClass = (element) => {
     return formik.errors[element] && formik.touched[element]
