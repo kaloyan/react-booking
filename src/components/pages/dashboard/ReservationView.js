@@ -1,55 +1,37 @@
+import { useState, useEffect, useId } from "react";
+import { useSelector } from "react-redux";
+
 import styles from "./ReservationView.module.css";
-import { useState, useEffect } from "react";
-import {
-  getOneReservation,
-  deleteReservation,
-} from "../../../services/netRequest";
-import { useDispatch } from "react-redux";
-import { pushMessage } from "../../../features/slices/localSlice";
-import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
+import { useRequest } from "../../../hooks/useRequest";
 
 export default function ReservationView({ resId, closeHandler }) {
-  const [reservation, setReservation] = useState(null);
-  const [confirmDel, setConfermDel] = useState(false);
-
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-
-  const handleRemove = async () => {
-    try {
-      // console.log(resId);
-      await deleteReservation(reservation._id);
-      closeHandler();
-      navigate("remove");
-    } catch (err) {
-      console.log(err);
-      dispatch(
-        pushMessage({
-          text: err,
-          type: "error",
-        })
-      );
-    }
-  };
+  const handle = useId();
+  const reservations = useRequest("reservations", handle);
+  const data = useSelector((state) => state.responses[handle]);
 
   useEffect(() => {
-    const getOne = async () => {
-      const response = await getOneReservation(resId);
-      setReservation(response);
-    };
+    reservations.get(resId);
+    return () => reservations.cleaner();
+  }, []);
 
-    if (resId) {
-      getOne();
-    }
-  }, [resId]);
+  const [confirmDel, setConfermDel] = useState(false);
+
+  const handleRemove = async () => {
+    reservations.delete(data._id).then((success) => {
+      if (success) {
+        reservations.cleaner();
+        closeHandler();
+      }
+    });
+  };
 
   return (
     <div className={styles["backdrop"]}>
       <section className={styles["container"]}>
         <div className={styles["content"]}>
-          {reservation && (
+          {data && (
             <>
               <div className={styles["header"]}>
                 <h1>Reservation Info</h1>
@@ -58,17 +40,17 @@ export default function ReservationView({ resId, closeHandler }) {
               <div className={styles["block"]}>
                 <div className={styles["row"]}>
                   <em>Hotel</em>
-                  <span>{reservation.hotel.name}</span>
-                  <img src={reservation.hotel.image} alt="<no image>" />
+                  <span>{data?.hotel?.name}</span>
+                  <img src={data?.hotel?.image} alt="<no image>" />
                 </div>
               </div>
 
               <div className={styles["block"]}>
                 <div className={styles["row"]}>
                   <em>Guest</em>
-                  <span>{reservation.guest.name}</span>
-                  {reservation.guest.image ? (
-                    <img src={reservation.guest.image} alt="<no image>" />
+                  <span>{data?.guest?.name}</span>
+                  {data?.guest?.image ? (
+                    <img src={data?.guest?.image} alt="<no image>" />
                   ) : (
                     <FontAwesomeIcon icon={faUser} />
                   )}
@@ -80,8 +62,8 @@ export default function ReservationView({ resId, closeHandler }) {
                   <div>
                     <em htmlFor="">email: </em>
                     <span>
-                      <a href={`mailto:${reservation.guest.email}`}>
-                        {reservation.guest.email || "<not set>"}
+                      <a href={`mailto:${data?.guest?.email}`}>
+                        {data?.guest?.email || "<not set>"}
                       </a>
                     </span>
                   </div>
@@ -93,8 +75,8 @@ export default function ReservationView({ resId, closeHandler }) {
                   <div>
                     <em htmlFor="">phone: </em>
                     <span>
-                      <a href={`tel:${reservation.guest.phone}`}>
-                        {reservation.guest.phone || "<not set>"}
+                      <a href={`tel:${data?.guest?.phone}`}>
+                        {data?.guest?.phone || "<not set>"}
                       </a>
                     </span>
                   </div>
@@ -104,27 +86,27 @@ export default function ReservationView({ resId, closeHandler }) {
               <div className={styles["block"]}>
                 <div className={styles["row"]}>
                   <em htmlFor="">Arrives at:</em>
-                  <span>{reservation.arrive}</span>
+                  <span>{data?.arrive}</span>
                 </div>
 
                 <div className={styles["row"]}>
                   <em htmlFor="">Leaves at:</em>
-                  <span>{reservation.leave}</span>
+                  <span>{data?.leave}</span>
                 </div>
 
                 <div className={styles["row"]}>
                   <em htmlFor="">Reserved rooms:</em>
-                  <span>{reservation.rooms.join(", ")}</span>
+                  <span>{data?.rooms?.join(", ")}</span>
                 </div>
 
                 <div className={styles["row"]}>
                   <em htmlFor="">Payd price:</em>
-                  <span>${reservation.price}</span>
+                  <span>${data?.price}</span>
                 </div>
 
                 <div className={styles["row"]}>
                   <em htmlFor="">Comment:</em>
-                  <span>{reservation.comment}</span>
+                  <span>{data?.comment}</span>
                 </div>
               </div>
             </>
