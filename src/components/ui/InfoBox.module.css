@@ -35,13 +35,13 @@
 }
 
 .error {
-  background-color: rgba(242, 108, 108, 0.737);
+  background-color: rgb(242, 108, 108);
 }
 
 .info {
-  background-color: rgba(108, 153, 242, 0.737);
+  background-color: rgb(108, 153, 242);
 }
 
 .success {
-  background-color: rgba(138, 232, 121, 0.737);
+  background-color: rgb(138, 232, 121);
 }

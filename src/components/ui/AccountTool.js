@@ -1,22 +1,30 @@
-import styles from "./AccountTool.module.css";
-import { doLogout } from "../../services/netRequest";
-import { logout } from "../../features/slices/accountSlice";
-import { useDispatch } from "react-redux";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+
+import styles from "./AccountTool.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCaretDown, faUser } from "@fortawesome/free-solid-svg-icons";
+import { useRequest } from "../../hooks/useRequest";
 
-export default function AccountTool({ user }) {
+export default function AccountTool() {
   const [openMenu, setOpenMenu] = useState(false);
 
-  const dispatch = useDispatch();
+  const handle = "account";
+  const user = useRequest("user", handle);
+  const data = useSelector((state) => state.responses[handle]);
+
   const navigate = useNavigate();
 
+  useEffect(() => {
+    user.get();
+  }, []);
+
   const handleLogout = async (e) => {
-    await doLogout();
-    dispatch(logout());
-    navigate("/");
+    user.logout().then(() => {
+      user.cleaner();
+      navigate("/");
+    });
   };
 
   return (
@@ -26,13 +34,13 @@ export default function AccountTool({ user }) {
         onBlur={() => setOpenMenu(false)}
         className={styles["dropbtn"]}
       >
-        {user.avatar ? (
-          <img src={user.avatar} alt="avatar" className={styles["thumb"]} />
+        {data?.avatar ? (
+          <img src={data?.avatar} alt="avatar" className={styles["thumb"]} />
         ) : (
           <FontAwesomeIcon icon={faUser} className={styles["avatar"]} />
         )}
 
-        {user.username}
+        {data?.username}
         <FontAwesomeIcon icon={faCaretDown} className={styles["icon"]} />
       </button>
       <div
@@ -40,7 +48,7 @@ export default function AccountTool({ user }) {
           openMenu && styles["show"]
         }`}
       >
-        <span> {user.email}</span>
+        <span> {data?.email}</span>
         <Link
           to={"/dashboard"}
           onMouseDown={() => navigate("/dashboard/profile")}

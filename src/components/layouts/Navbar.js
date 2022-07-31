@@ -1,32 +1,18 @@
-import styles from "./Navbar.module.css";
 import { NavLink } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
-import { getAccount } from "../../services/netRequest";
-import { setAccount } from "../../features/slices/accountSlice";
+
+import styles from "./Navbar.module.css";
 import AccountTool from "../ui/AccountTool";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBookAtlas } from "@fortawesome/free-solid-svg-icons";
 
 export default function Navbar() {
-  const { username, email, avatar } = useSelector((state) => state.account);
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    const checkAcount = async () => {
-      const response = await getAccount();
-      dispatch(setAccount(response));
-    };
-
-    checkAcount();
-  }, []);
-
-  const setActive = ({ isActive }) => (isActive ? styles.activeLink : "");
-
   const [menuStyle, setMenuStyle] = useState(styles["navbar"]);
+  const data = useSelector((state) => state.responses["account"]);
 
   useEffect(() => {
-    const handleScroll = (event) => {
+    const handleScroll = () => {
       if (window.scrollY < 106) {
         setMenuStyle(styles["navbar"]);
       } else if (window.scrollY < 500) {
@@ -43,6 +29,8 @@ export default function Navbar() {
     };
   }, []);
 
+  const setActive = ({ isActive }) => (isActive ? styles["active-link"] : "");
+
   return (
     <div className={menuStyle}>
       <div className={styles["nav-container"]}>
@@ -53,9 +41,9 @@ export default function Navbar() {
           </NavLink>
         </div>
 
-        <ul className={styles["navItems"]}>
-          {username ? (
-            <AccountTool user={{ username, email, avatar }} />
+        <ul className={styles["nav-items"]}>
+          {data?.username ? (
+            <AccountTool />
           ) : (
             <>
               <li>
