@@ -6,12 +6,18 @@ import styles from "./Navbar.module.css";
 import AccountTool from "../ui/AccountTool";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBookAtlas } from "@fortawesome/free-solid-svg-icons";
+import { useRequest } from "../../hooks/useRequest";
 
 export default function Navbar() {
   const [menuStyle, setMenuStyle] = useState(styles["navbar"]);
-  const data = useSelector((state) => state.responses["account"]);
+
+  const handle = "account";
+  const user = useRequest("user", handle);
+  const data = useSelector((state) => state.responses[handle]);
 
   useEffect(() => {
+    user.get();
+
     const handleScroll = () => {
       if (window.scrollY < 106) {
         setMenuStyle(styles["navbar"]);

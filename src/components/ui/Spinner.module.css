@@ -1,0 +1,23 @@
+.backdrop {
+  top: 20vh;
+  left: calc(50vw - 175px);
+  position: fixed;
+  background: rgba(0, 0, 0, 0.433);
+  z-index: 1001;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 2rem;
+}
+
+.spinner {
+  width: 350px;
+  height: fit-content;
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: #90effa;
+  display: flex;
+  gap: 2rem;
+  padding: 1rem;
+  background: transparent;
+}

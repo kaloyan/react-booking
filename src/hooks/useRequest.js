@@ -3,15 +3,15 @@
 import { useState, useEffect } from "react";
 import * as netRequests from "../services/netRequest";
 import { useDispatch } from "react-redux";
-import { setSpinner } from "../features/slices/localSlice";
 import { setResponse, delResponse } from "../features/slices/responsesSlice";
-import { pushMessage } from "../features/slices/localSlice";
+import { pushMessage, setSpinner } from "../features/slices/localSlice";
 
 const delay = 500;
 
 export const useRequest = (module, handle) => {
   const [request, setRequest] = useState(null);
   const dispatch = useDispatch();
+  // const { showSpinner } = useSelector((state) => state.local);
 
   useEffect(() => {
     if (!request) return;

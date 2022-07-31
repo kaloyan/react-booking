@@ -14,6 +14,7 @@ import NotFound from "./components/pages/NotFound";
 import Navbar from "./components/layouts/Navbar";
 import Footer from "./components/layouts/Footer";
 import InfoBox from "./components/ui/InfoBox";
+import Spinner from "./components/ui/Spinner";
 
 const Dashboard = lazy(() => import("./components/pages/dashboard/Dashboard"));
 
@@ -24,6 +25,7 @@ function App() {
         <Navbar />
 
         <InfoBox />
+        <Spinner />
 
         <Routes>
           <Route path="/" element={<Home />} />
