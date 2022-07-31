@@ -1,21 +1,28 @@
-import styles from "./Dashboard.module.css";
-import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faUser,
-  faUserEdit,
-  faUserPen,
-} from "@fortawesome/free-solid-svg-icons";
-import { uploadAvatar, delAvatar } from "../../../services/firebaseSrv";
-import { getAccount, updateAccount } from "../../../services/netRequest";
+import { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
-import { pushMessage } from "../../../features/slices/localSlice";
-import { createBlobImage, extractImageName } from "../../../utils/helpers";
+
+import styles from "./Dashboard.module.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faUser, faUserEdit } from "@fortawesome/free-solid-svg-icons";
+
 import Modal from "../../ui/Modal";
+import { createBlobImage, extractImageName } from "../../../utils/helpers";
+import { uploadAvatar, delAvatar } from "../../../services/firebaseSrv";
+import { useRequest } from "../../../hooks/useRequest";
+import { pushMessage } from "../../../features/slices/localSlice";
+import { formSchema } from "../../../schemas/index";
 
 export default function Profile() {
+  const handle = "account";
+  const user = useRequest("user", handle);
+  const data = useSelector((state) => state.responses[handle]);
+
+  useEffect(() => {
+    user.get();
+  }, []);
+
   const [userId, setUserId] = useState("");
   const [avatar, setAvatar] = useState("");
   const [newAvatar, setNewAvatar] = useState("");
@@ -38,47 +45,55 @@ export default function Profile() {
       rePass: "",
     },
 
-    onSubmit: async (values) => {
-      // console.log(values);
-
-      if (
-        formik.values.newPass !== "" &&
-        formik.values.newPass !== formik.values.repPass
-      ) {
-        dispatch(
-          pushMessage({
-            text: "Passwords dont match",
-            type: "error",
-          })
-        );
+    onSubmit: async (values, actions) => {
+      if (values.newPass !== "" && values.newPass !== values.repPass) {
+        dispatch(pushMessage({ text: "Passwords dont match", type: "error" }));
         return;
       }
 
-      if (formik.values.avatar !== newAvatar) {
-        if (formik.values.avatar !== "") {
+      if (values.avatar !== newAvatar) {
+        if (values.avatar !== "") {
           try {
-            const avatarHandle = extractImageName(formik.values.avatar);
+            const avatarHandle = extractImageName(values.avatar);
             await delAvatar(avatarHandle);
           } catch (err) {
-            dispatch(
-              pushMessage({
-                text: err,
-                type: "error",
-              })
-            );
+            dispatch(pushMessage({ text: err, type: "error" }));
           }
         }
 
         const image = await uploadAvatar(newAvatar);
         // console.log(image);
-        formik.values.avatar = image;
+        values.avatar = image;
 
         updateProfile();
       } else {
         updateProfile();
       }
     },
+
+    validationSchema: formSchema,
   });
+
+  useEffect(() => {
+    if (data) {
+      formik.setValues({
+        username: data.username,
+        email: data.email,
+        phone: data.phone,
+        address: data.address,
+        gender: data.gender,
+        avatar: data.avatar,
+        birthday: data.birthday,
+        oldPass: "",
+        newPass: "",
+        rePass: "",
+      });
+
+      setUserId(data.id);
+      setAvatar(data.avatar);
+      setNewAvatar(data.avatar);
+    }
+  }, [data]);
 
   const updateProfile = async () => {
     const content = {
@@ -97,40 +112,31 @@ export default function Profile() {
     }
 
     try {
-      const response = await updateAccount(userId, content);
-
-      if (response?.status === "OK") {
-        dispatch(
-          pushMessage({
-            text: response.message,
-            type: "success",
-          })
-        );
-      }
-
-      navigate("../profile");
+      user.update(userId, content).then((response) => {
+        if (response) {
+          dispatch(
+            pushMessage({
+              text: "Your account is updated successfully",
+              type: "success",
+            })
+          );
+          navigate("../profile");
+        }
+      });
     } catch (err) {
-      dispatch(
-        pushMessage({
-          text: err,
-          type: "error",
-        })
-      );
+      dispatch(pushMessage({ text: err, type: "error" }));
     }
   };
 
   const handleDeleteAccount = (e) => {
-    // console.log("delete account");
     setModal(`Are you shure you want to delete account ${formik.values.email}`);
   };
 
-  const closeHandler = () => {
-    setModal(null);
-  };
-
   const acceptHandler = () => {
-    console.log("account will be deleted!");
+    const msg = "Your account will be deleted in 7 days!";
+    dispatch(pushMessage({ text: msg, type: "info" }));
     setModal(null);
+    navigate("../profile");
   };
 
   const handleChangeAvatar = (e) => {
@@ -140,37 +146,12 @@ export default function Profile() {
     setAvatar(img);
   };
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const data = await getAccount();
-
-      formik.setValues({
-        username: data.username,
-        email: data.email,
-        phone: data.phone,
-        address: data.address,
-        gender: data.gender,
-        avatar: data.avatar,
-        birthday: data.birthday,
-        oldPass: "",
-        newPass: "",
-        rePass: "",
-      });
-
-      setUserId(data.id);
-      setAvatar(data.avatar);
-      setNewAvatar(data.avatar);
-    };
-
-    fetchData();
-  }, []);
-
   return (
     <form onSubmit={formik.handleSubmit}>
       {modal && (
         <Modal
           message={modal}
-          closeHandler={closeHandler}
+          closeHandler={() => setModal(null)}
           acceptHandler={acceptHandler}
         />
       )}
@@ -280,19 +261,6 @@ export default function Profile() {
           <h4>Change password</h4>
 
           <div></div>
-
-          {/* <div className={`${styles["item"]}`}>
-            <label htmlFor="oldpass">Current password </label>
-            <input
-              type="password"
-              id="oldpass"
-              name="oldPass"
-              value={formik.values.oldPass}
-              onChange={formik.handleChange}
-            />
-          </div> */}
-
-          {/* <div></div> */}
 
           <div className={styles["item"]}>
             <label htmlFor="newpass">New password </label>

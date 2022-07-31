@@ -1,9 +1,9 @@
-import styles from "./Dashboard.module.css";
-
-import { useEffect, useState, useId } from "react";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import Modal from "../../ui/Modal";
 import { Link } from "react-router-dom";
+
+import styles from "./Dashboard.module.css";
+import Modal from "../../ui/Modal";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEnvelope, faCircleCheck } from "@fortawesome/free-solid-svg-icons";
 import { useRequest } from "../../../hooks/useRequest";
@@ -11,14 +11,12 @@ import { useRequest } from "../../../hooks/useRequest";
 export default function Messages() {
   const [modal, setModal] = useState(null);
 
-  const handle = useId();
+  const handle = "account";
   const user = useRequest("user", handle);
   const data = useSelector((state) => state.responses[handle]);
 
   useEffect(() => {
     user.get();
-
-    return () => user.cleaner();
   }, []);
 
   const handleDelete = async (input) => {
