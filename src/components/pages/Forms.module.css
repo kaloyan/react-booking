@@ -4,47 +4,75 @@
   align-items: center;
   justify-content: center;
   flex-direction: column;
+  margin: 2rem auto;
 }
 
 .wrapper {
   background-color: white;
-  box-shadow: 0px 0 6px 1px rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 0 12px 0 rgba(0, 0, 0, 0.103);
   padding: 0.7rem 4rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-.title {
+.header {
   margin: 1rem;
+  color: var(--color-primary);
+}
+
+.header span {
+  margin: 0 2rem;
+}
+
+textarea:focus,
+input:focus {
+  outline: none;
 }
 
 .form {
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: 0.5rem;
 }
 
-.input {
+.form input {
   height: 2.5rem;
   padding: 0.5rem;
   font-size: 1rem;
   width: 300px;
   border-radius: 0.3rem;
-}
-
-.input:invalid {
   border: 2px solid var(--color-primary-btn);
 }
 
-.input:valid {
-  border: 1px solid gray;
+.form input.input-error,
+.form input.input-error:focus {
+  border: 2px solid var(--color-danger);
 }
 
-.label {
+.error-message {
+  color: var(--color-danger);
+  align-self: flex-start;
+  padding-left: 1.5rem;
+}
+
+.error-message::before {
+  content: "*";
+  padding: 0.5rem;
+}
+
+.form .label {
+  width: 100%;
+  align-self: flex-start;
+  padding: 0 1.5rem;
   margin: 0;
   margin-top: 0.6rem;
 }
 
 .submit {
   border: none;
+  font-size: 1.2rem;
   padding: 1rem;
   background-color: var(--color-primary-btn);
   color: white;
@@ -54,16 +82,13 @@
   margin: 1rem;
 }
 
-.submit:disabled {
-  background-color: rgba(20, 134, 215, 0.55);
+.form input.submit:disabled {
+  background-color: rgba(96, 96, 96, 0.55);
   cursor: not-allowed;
+  border: none;
 }
 
-.errorBox {
-  color: red;
-}
-
-.infoBox {
+.info-box {
   margin: 1rem;
   font-size: 0.9rem;
   color: gray;

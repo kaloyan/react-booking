@@ -1,94 +1,100 @@
-import styles from "./Forms.module.css";
-
 import { useNavigate, Link } from "react-router-dom";
-import { login } from "../../services/netRequest";
-import { useDispatch } from "react-redux";
-import { setAccount } from "../../features/slices/accountSlice";
 import { useFormik } from "formik";
-import { pushMessage } from "../../features/slices/localSlice";
+
+import styles from "./Forms.module.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faRightToBracket } from "@fortawesome/free-solid-svg-icons";
+
+import { useRequest } from "../../hooks/useRequest";
+import { loginSchema } from "../../schemas";
 
 export default function Login() {
+  const handle = "account";
+  const user = useRequest("user", handle);
+
   const formik = useFormik({
     initialValues: {
       email: "",
       password: "",
-      error: "",
     },
-    onSubmit: async (values) => {
-      try {
-        const response = await login({
-          email: values.email,
-          password: values.password,
-        });
 
-        if (response?.status == "OK") {
-          values.error = "";
-          dispatch(setAccount(response));
+    onSubmit: async (values, actions) => {
+      user.login(values).then((success) => {
+        if (success) {
           navigate("/");
-        } else {
-          dispatch(
-            pushMessage({
-              text: response.response?.data?.message,
-              type: "error",
-            })
-          );
         }
-      } catch (err) {
-        dispatch(
-          pushMessage({
-            text: err,
-            type: "error",
-          })
-        );
-      }
+      });
     },
+
+    validationSchema: loginSchema,
   });
 
-  const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const getClass = (element) => {
+    return formik.errors[element] && formik.touched[element]
+      ? styles["input-error"]
+      : "";
+  };
+
+  const getError = (element) => {
+    return (
+      formik.errors[element] &&
+      formik.touched[element] && (
+        <span className={styles["error-message"]}>
+          {formik.errors[element]}
+        </span>
+      )
+    );
+  };
 
   return (
     <div className={styles["container"]}>
       <div className={styles["wrapper"]}>
-        <h1 className={styles["title"]}>Sign in</h1>
+        <h1 className={styles["header"]}>
+          <FontAwesomeIcon icon={faRightToBracket} />
+          <span>Sign in</span>
+        </h1>
 
         <form onSubmit={formik.handleSubmit} className={styles["form"]}>
           <label htmlFor="email" className={styles["label"]}>
             Email address:
           </label>
           <input
-            className={styles["input"]}
-            type="email"
             name="email"
             id="email"
-            placeholder="john@example.com"
-            required
+            placeholder="Example: john.doe@example.com"
             value={formik.values.email}
             onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            className={getClass("email")}
           />
+          {getError("email")}
 
           <label htmlFor="password" className={styles["label"]}>
             Your password:
           </label>
           <input
-            className={styles["input"]}
             type="password"
             name="password"
             id="password"
+            placeholder="Enter your password"
             value={formik.values.password}
-            required
-            minLength={3}
             onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            className={getClass("password")}
           />
+          {getError("password")}
 
           <input
             type="submit"
             name="submit"
             value="Login"
+            disabled={formik.isSubmitting}
             className={styles["submit"]}
           />
 
-          <div className={styles["infoBox"]}>
+          <div className={styles["info-box"]}>
             Dont't have account? <Link to={"/register"}>Register here</Link>
           </div>
         </form>
