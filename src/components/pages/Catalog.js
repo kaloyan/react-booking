@@ -1,4 +1,4 @@
-import styles from "./HotelsList.module.css";
+import styles from "./Catalog.module.css";
 
 import { useSelector } from "react-redux";
 
@@ -7,7 +7,7 @@ import SearchBar from "../ui/search/SearchBar";
 import SearchItem from "../ui/SearchItem";
 import Info from "../ui/Info";
 
-export default function HotelsList() {
+export default function Catalog() {
   const { results } = useSelector((state) => state.filter);
 
   return (

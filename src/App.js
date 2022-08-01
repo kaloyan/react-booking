@@ -5,7 +5,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 // Import all pages
 import Home from "./components/pages/Home";
 import Hotel from "./components/pages/hotel/Hotel";
-import HotelsList from "./components/pages/HotelsList";
+import Catalog from "./components/pages/Catalog";
 import Login from "./components/pages/Login";
 import Register from "./components/pages/Register";
 import NotFound from "./components/pages/NotFound";
@@ -29,14 +29,14 @@ function App() {
 
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/catalog" element={<HotelsList />} />
+          <Route path="/catalog" element={<Catalog />} />
           <Route path="/catalog/:id" element={<Hotel />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route
             path="/dashboard/*"
             element={
-              <Suspense fallback={<span>Loading...</span>}>
+              <Suspense fallback={<Spinner show={true} />}>
                 <Dashboard />
               </Suspense>
             }

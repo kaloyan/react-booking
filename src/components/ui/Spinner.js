@@ -2,12 +2,12 @@ import styles from "./Spinner.module.css";
 import { MoonLoader } from "react-spinners";
 import { useSelector } from "react-redux";
 
-export default function Spinner() {
+export default function Spinner({ show }) {
   const { showSpinner } = useSelector((state) => state.local);
 
   return (
     <>
-      {showSpinner && (
+      {(showSpinner || show) && (
         <>
           <div className={styles["backdrop"]}>
             <div className={styles["spinner"]}>

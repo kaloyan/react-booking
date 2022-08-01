@@ -11,7 +11,6 @@ const delay = 500;
 export const useRequest = (module, handle) => {
   const [request, setRequest] = useState(null);
   const dispatch = useDispatch();
-  // const { showSpinner } = useSelector((state) => state.local);
 
   useEffect(() => {
     if (!request) return;
@@ -42,11 +41,11 @@ export const useRequest = (module, handle) => {
       })
       .catch((err) => {
         dispatch(pushMessage({ text: err.error, type: "error" }));
+        reject(false);
       })
       .finally(() => {
         setRequest(null);
         beginRequest = false;
-        reject(false);
         dispatch(setSpinner(false));
       });
   }, [request]);

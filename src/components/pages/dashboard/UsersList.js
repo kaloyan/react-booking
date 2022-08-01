@@ -1,14 +1,34 @@
+import { useEffect, useState, useId } from "react";
+import { useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+
 import styles from "./Dashboard.module.css";
-import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import { getAllUsers } from "../../../services/netRequest";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUsers, faUser } from "@fortawesome/free-solid-svg-icons";
-import Modal from "../../ui/Modal";
+// import Modal from "../../ui/Modal";
+import { useRequest } from "../../../hooks/useRequest";
 
 export default function UsersList() {
-  const [users, setUsers] = useState([]);
+  const handle = useId();
+  const user = useRequest("user", handle);
+  const data = useSelector((state) => state.responses[handle]);
+
+  // const [users, setUsers] = useState([]);
   const [modal, setModal] = useState(null);
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    user.all().then((result) => {
+      if (!result) {
+        //!FIXME
+        console.log("redirect");
+        navigate("/404");
+      }
+
+      return () => user.cleaner();
+    });
+  }, []);
 
   const handleDelete = async () => {
     //todo
@@ -17,7 +37,7 @@ export default function UsersList() {
   const handleModal = async (id, e) => {
     e.preventDefault();
 
-    const item = users.filter((x) => x._id === id);
+    const item = data.filter((x) => x._id === id);
     // const imgName = extractImageName(item[0].image);
 
     setModal({
@@ -27,15 +47,6 @@ export default function UsersList() {
 
     return;
   };
-
-  useEffect(() => {
-    const getUsers = async () => {
-      const response = await getAllUsers();
-      setUsers(response);
-    };
-
-    getUsers();
-  }, []);
 
   return (
     <div className={styles["grid-container"]}>
@@ -71,7 +82,7 @@ export default function UsersList() {
         </div>
 
         {/* Content */}
-        {users.map((x) => {
+        {data?.map((x) => {
           return (
             <div key={x._id}>
               <div className={styles["table-span-tiny"]}>
