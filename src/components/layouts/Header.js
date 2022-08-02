@@ -1,4 +1,9 @@
+import { NavLink } from "react-router-dom";
+import { useSelector } from "react-redux";
+
 import styles from "./Header.module.css";
+import SearchBar from "../ui/search/SearchBar";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faBed,
@@ -6,12 +11,9 @@ import {
   faPlane,
   faTaxi,
 } from "@fortawesome/free-solid-svg-icons";
-import { NavLink } from "react-router-dom";
-import SearchBar from "../ui/search/SearchBar";
-import { useSelector } from "react-redux";
 
 export default function Header(props) {
-  const { username } = useSelector((state) => state.account);
+  const { account } = useSelector((state) => state.responses);
 
   return (
     <div className={styles.header}>
@@ -54,7 +56,7 @@ export default function Header(props) {
               more with a free booking account.
             </p>
 
-            {!username && (
+            {!account?.username && (
               <NavLink to={"/register"} className={styles.headerLink}>
                 Sign in / Register
               </NavLink>

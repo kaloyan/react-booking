@@ -1,8 +1,9 @@
 .container {
   position: fixed;
-  top: 4rem;
-  right: 3rem;
+  top: 5rem;
+  right: 2.8rem;
   background-color: transparent;
+  z-index: 1100;
 }
 
 .wrapper > div {
