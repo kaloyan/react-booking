@@ -1,14 +1,22 @@
-import styles from "./Catalog.module.css";
-
+import { useEffect } from "react";
 import { useSelector } from "react-redux";
+import { useLocation } from "react-router-dom";
 
+import styles from "./Catalog.module.css";
 import Header from "../layouts/Header";
 import SearchBar from "../ui/search/SearchBar";
 import SearchItem from "../ui/SearchItem";
-import Info from "../ui/Info";
+import Paginator from "./Paginator";
+import { useCatalog } from "../../hooks/useCatalog";
 
 export default function Catalog() {
-  const { results } = useSelector((state) => state.filter);
+  const location = useLocation();
+  const data = useSelector((state) => state.responses["catalog"]);
+  const catalog = useCatalog();
+
+  useEffect(() => {
+    catalog.query();
+  }, [location.search]);
 
   return (
     <>
@@ -16,21 +24,25 @@ export default function Catalog() {
         <SearchBar />
       </Header>
 
-      <div className={styles.listContainer}>
-        <div className={styles.wrapper}>
-          <div className={styles.results}>
-            {results.status == "loading" ? (
-              <Info content={"Loading please wait"} />
-            ) : (
-              <>
-                {results.items.map((item) => (
-                  <SearchItem key={item._id} data={item} />
-                ))}
-              </>
-            )}
+      <Paginator
+        totalItems={data?.total}
+        count={data?.items?.length}
+        slice={data?.slice}
+      >
+        <div className={styles.listContainer}>
+          <div className={styles.wrapper}>
+            <div className={styles.results}>
+              {data?.items?.length > 0 && (
+                <>
+                  {data?.items.map((item) => (
+                    <SearchItem key={item._id} data={item} />
+                  ))}
+                </>
+              )}
+            </div>
           </div>
         </div>
-      </div>
+      </Paginator>
     </>
   );
 }
