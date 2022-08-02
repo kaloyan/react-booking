@@ -5,6 +5,14 @@ const initialState = {
   favorites: [],
   messages: [],
   showSpinner: false,
+  filters: {
+    destination: "",
+    minRating: "",
+    properyType: "",
+    maxPrice: "",
+    limit: 8,
+    offset: 0,
+  },
 };
 
 export const localSlice = createSlice({
@@ -48,7 +56,11 @@ export const localSlice = createSlice({
     },
 
     setSpinner: (state, action) => {
-      state.spinner = action.payload;
+      state.showSpinner = action.payload;
+    },
+
+    setFilters: (state, action) => {
+      state.filters = action.payload;
     },
   },
 });
@@ -60,6 +72,7 @@ export const {
   pushMessage,
   removeMessage,
   setSpinner,
+  setFilters,
 } = localSlice.actions;
 
 export default localSlice.reducer;
