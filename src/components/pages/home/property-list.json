@@ -1,0 +1,31 @@
+[
+  {
+    "name": "Hotels",
+    "image": "https://firebasestorage.googleapis.com/v0/b/reactbooking-app.appspot.com/o/img%2Fproperties%2Fhotel-min.jpg?alt=media&token=bb38513f-edb8-4e0d-bc8f-8e773d41a459",
+    "type": "hotel"
+  },
+
+  {
+    "name": "Apartments",
+    "image": "https://firebasestorage.googleapis.com/v0/b/reactbooking-app.appspot.com/o/img%2Fproperties%2Fapartment-min.jpg?alt=media&token=87e78a3c-f363-484d-a509-fcd8ce7d4f95",
+    "type": "apartment"
+  },
+
+  {
+    "name": "Resorts",
+    "image": "https://firebasestorage.googleapis.com/v0/b/reactbooking-app.appspot.com/o/img%2Fproperties%2Fresort-min.jpg?alt=media&token=f8682565-4112-41e7-a183-ad561a70b88c",
+    "type": "resort"
+  },
+
+  {
+    "name": "Villas",
+    "image": "https://firebasestorage.googleapis.com/v0/b/reactbooking-app.appspot.com/o/img%2Fproperties%2Fvilla-min.jpg?alt=media&token=170bebe4-7f64-45e1-b652-dab685217e8f",
+    "type": "villa"
+  },
+
+  {
+    "name": "Cabins",
+    "image": "https://firebasestorage.googleapis.com/v0/b/reactbooking-app.appspot.com/o/img%2Fproperties%2Fcabin-min.jpg?alt=media&token=26589c32-6aaf-47b2-8466-dea1517230dd",
+    "type": "cabin"
+  }
+]

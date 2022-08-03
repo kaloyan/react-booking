@@ -1,0 +1,44 @@
+.featured {
+  width: 100%;
+  max-width: 1280px;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  gap: 1.5rem;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.header {
+  color: var(--text-very-dark);
+  width: 100%;
+  text-align: left;
+  max-width: 980px;
+  inset: 2px;
+}
+
+.card-container {
+  width: 100%;
+  max-width: 1024px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.tagline {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.tagline hr {
+  width: 50%;
+  background: transparent;
+  height: 2px;
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.115);
+  color: white;
+}
+
+.tagline a {
+  font-size: 1.1rem;
+}
