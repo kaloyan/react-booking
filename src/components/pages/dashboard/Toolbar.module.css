@@ -9,7 +9,9 @@
   flex-direction: column;
   gap: 1rem;
   width: fit-content;
-  margin: 1rem;
+  margin: 1.5rem 0;
+  font-size: 1.2rem;
+  box-shadow: 0px 0 12px 0 rgba(0, 0, 0, 0.103);
 }
 
 .menu li a {
@@ -24,16 +26,5 @@
 .menu li a.activeLink {
   border-bottom: 3px solid var(--color-primary-btn);
   font-weight: bold;
+  color: var(--color-primary);
 }
-
-/* .menu li a.activeLink::before {
-  content: "[";
-  padding-right: 1rem;
-  color: var(--color-primary-btn);
-}
-
-.menu li a.activeLink::after {
-  content: "]";
-  padding-left: 1rem;
-  color: var(--color-primary-btn);
-} */
