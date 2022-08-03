@@ -3,7 +3,7 @@ import { lazy, Suspense } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 // Import all pages
-import Home from "./components/pages/Home";
+import Home from "./components/pages/home/Home";
 import Hotel from "./components/pages/hotel/Hotel";
 import Catalog from "./components/pages/Catalog";
 import Login from "./components/pages/Login";
