@@ -1,10 +1,15 @@
-import { useRef } from "react";
+import { useRef, useContext } from "react";
+import { ReservationContext } from "./ReservationContext";
 import { format, intervalToDuration, compareAsc, add } from "date-fns";
+
 import styles from "./Reserve.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCalendarDays } from "@fortawesome/free-solid-svg-icons";
 
-export default function StepOne({ state, formik }) {
+export default function StepOne() {
+  const { formState, formik } = useContext(ReservationContext);
+  const state = formState.step1;
+
   const arriveRef = useRef(null);
   const leaveRef = useRef(null);
 
@@ -26,7 +31,6 @@ export default function StepOne({ state, formik }) {
         new Date(leaveRef.current.value)
       );
 
-      // console.log(result);
       if (result > -1) {
         formik.values.leave = "";
         leaveRef.current.value = "";

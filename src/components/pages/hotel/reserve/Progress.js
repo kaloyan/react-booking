@@ -1,6 +1,11 @@
+import { useContext } from "react";
+import { ReservationContext } from "./ReservationContext";
 import styles from "./Reserve.module.css";
 
-export default function Progress({ state }) {
+export default function Progress() {
+  const { formState } = useContext(ReservationContext);
+  const state = formState.progress;
+
   return (
     <div className={styles["step-row"]}>
       <div className={styles["progress"]} style={{ width: state[0] }}></div>

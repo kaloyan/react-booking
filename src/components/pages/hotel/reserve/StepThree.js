@@ -1,9 +1,15 @@
+import { useContext } from "react";
+import { ReservationContext } from "./ReservationContext";
+
 import styles from "./Reserve.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCcPaypal, faCcVisa } from "@fortawesome/free-brands-svg-icons";
 import { faCartPlus } from "@fortawesome/free-solid-svg-icons";
 
-export default function StepThree({ formik, state, totalPrice }) {
+export default function StepThree() {
+  const { formState, formik, totalPrice } = useContext(ReservationContext);
+  const state = formState.step3;
+
   return (
     <div className={styles["step"]} style={{ left: state }}>
       <div className={styles["header"]}>

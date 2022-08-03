@@ -1,15 +1,13 @@
+import { useContext } from "react";
+import { ReservationContext } from "./ReservationContext";
+
 import styles from "./Reserve.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBed } from "@fortawesome/free-solid-svg-icons";
 
-export default function StepTwo({ state, formik, rooms }) {
-  const validateSelect = (e) => {
-    //!TODO - validate input
-
-    // console.log(e.target.value);
-
-    formik.handleChange(e);
-  };
+export default function StepTwo() {
+  const { formState, formik, rooms } = useContext(ReservationContext);
+  const state = formState.step2;
 
   return (
     <div className={styles["step"]} style={{ left: state }}>
@@ -25,7 +23,7 @@ export default function StepTwo({ state, formik, rooms }) {
               <div className={styles["bold"]}>{x.title}</div>
               <div>{x.description}</div>
               <div>
-                Max people:{" "}
+                Max people:
                 <span className={styles["bold"]}>{x.maxPeople}</span>
               </div>
               <div>
@@ -42,7 +40,7 @@ export default function StepTwo({ state, formik, rooms }) {
                     data-room={x._id}
                     name="rooms"
                     value={r}
-                    onChange={validateSelect}
+                    onChange={formik.handleChange}
                   />
                 </div>
               ))}
