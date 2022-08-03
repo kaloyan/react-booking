@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserPlus } from "@fortawesome/free-solid-svg-icons";
 
 import { useRequest } from "../../hooks/useRequest";
+import { useValidator } from "./hooks/useValidator";
 import { registerSchema } from "../../schemas";
 
 export default function Login() {
@@ -41,22 +42,7 @@ export default function Login() {
     validationSchema: registerSchema,
   });
 
-  const getClass = (element) => {
-    return formik.errors[element] && formik.touched[element]
-      ? styles["input-error"]
-      : "";
-  };
-
-  const getError = (element) => {
-    return (
-      formik.errors[element] &&
-      formik.touched[element] && (
-        <span className={styles["error-message"]}>
-          {formik.errors[element]}
-        </span>
-      )
-    );
-  };
+  const { getError, getClass } = useValidator(formik);
 
   return (
     <div className={styles["container"]}>

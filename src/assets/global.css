@@ -42,3 +42,20 @@ a {
 a:visited {
   color: var(--color-primary);
 }
+
+.error-message {
+  color: var(--color-danger) !important;
+  align-self: flex-start !important;
+  padding-left: 1.5rem;
+  font-size: 1rem !important;
+}
+
+.error-message::before {
+  content: "*";
+  padding: 0.5rem;
+}
+
+.input-error,
+.input-error:focus {
+  border: 2px solid var(--color-danger) !important;
+}

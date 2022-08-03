@@ -48,22 +48,6 @@ input:focus {
   border: 2px solid var(--color-primary-btn);
 }
 
-.form input.input-error,
-.form input.input-error:focus {
-  border: 2px solid var(--color-danger);
-}
-
-.error-message {
-  color: var(--color-danger);
-  align-self: flex-start;
-  padding-left: 1.5rem;
-}
-
-.error-message::before {
-  content: "*";
-  padding: 0.5rem;
-}
-
 .form .label {
   width: 100%;
   align-self: flex-start;
