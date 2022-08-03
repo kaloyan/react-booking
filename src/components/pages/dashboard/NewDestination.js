@@ -1,16 +1,16 @@
 import styles from "./Dashboard.module.css";
 import { NavLink } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCamera, faMapPin } from "@fortawesome/free-solid-svg-icons";
+import { faMapPin } from "@fortawesome/free-solid-svg-icons";
 import { useState, useId } from "react";
 import { uploadDest } from "../../../services/firebaseSrv";
 import { useNavigate } from "react-router-dom";
 import { useRequest } from "../../../hooks/useRequest";
 import { useFormik } from "formik";
+import ImageSelect from "../../ui/ImageSelect";
 
 export default function NewDestination() {
   const [picture, setPicture] = useState([]);
-  const [img, setImg] = useState("");
 
   const handle = useId();
   const destinations = useRequest("destinations", handle);
@@ -42,14 +42,6 @@ export default function NewDestination() {
     },
   });
 
-  const handleGetPictures = (e) => {
-    const files = Array.from(e.target.files);
-    setPicture(files[0]);
-
-    // setImgs(files.map((x) => window.URL.createObjectURL(x)));
-    setImg(window.URL.createObjectURL(e.target.files[0]));
-  };
-
   return (
     <form onSubmit={formik.handleSubmit}>
       <section className={styles["grid-container"]}>
@@ -67,28 +59,10 @@ export default function NewDestination() {
         </div>
 
         <div className={styles["side"]}>
-          <div>
-            {img ? (
-              <div className={styles["photo-box"]}>
-                <img src={img} className={styles["single"]} alt="photo" />
-              </div>
-            ) : (
-              <FontAwesomeIcon icon={faCamera} className={styles["avatar"]} />
-            )}
-          </div>
-
-          <div>
-            <label htmlFor="avatar" className={styles["file-upload"]}>
-              Select photo
-            </label>
-            <input
-              type="file"
-              id="avatar"
-              accept="image/*"
-              required
-              onChange={handleGetPictures}
-            />
-          </div>
+          <ImageSelect
+            handleGetPictures={(files) => setPicture(files[0])}
+            single={true}
+          />
         </div>
 
         <div className={styles["content"]}>

@@ -1,32 +1,32 @@
-import styles from "./Dashboard.module.css";
 import { Link } from "react-router-dom";
-import { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useState, useEffect, useId } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { useFormik } from "formik";
-import {
-  getOneHotel,
-  updateHotel,
-  deleteRoom,
-  updateRoom,
-} from "../../../services/netRequest";
+
 import { pushMessage } from "../../../features/slices/localSlice";
-import ImageBox from "../../ui/ImageBox";
-import MessageBox from "../../ui/MessageBox";
+import ImageSelect from "../../ui/ImageSelect";
 import countries from "../../../assets/countries.json";
 import Modal from "../../ui/Modal";
+import { useRequest } from "../../../hooks/useRequest";
+import { useValidator } from "../hooks/useValidator";
+import { hotelSchema } from "../../../schemas";
 
+import styles from "./Dashboard.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHotel } from "@fortawesome/free-solid-svg-icons";
 
 export default function EditHotel() {
-  const [hotel, setHotel] = useState({});
-  const [pictures, setPictures] = useState([]);
-  const [showMessage, setShowMessage] = useState(false);
-  const [modal, setModal] = useState(false);
+  const handle = useId();
+  const catalog = useRequest("catalog", handle);
+  const data = useSelector((state) => state.responses[handle]);
+  const imageService = useRequest("imageServices", "imagesUpload");
+  const rooms = useRequest("rooms", handle + "rooms");
 
   const dispatch = useDispatch();
   const { id } = useParams("id");
+  const [modal, setModal] = useState(false);
+  const [pictures, setPictures] = useState([]);
 
   const formik = useFormik({
     initialValues: {
@@ -41,115 +41,76 @@ export default function EditHotel() {
       featured: false,
     },
 
-    onSubmit: async (values) => {
-      setShowMessage(true);
+    validationSchema: hotelSchema,
 
-      try {
-        await updateHotel(id, {
-          name: values.name,
-          type: values.type,
-          city: values.city,
-          address: values.address,
-          country: values.country,
-          description: values.description,
-          cheepestPrice: Number(values.cheepestPrice),
-          featured: values.featured,
-        });
+    onSubmit: (values) => {
+      catalog.update(id, values).then(() => {
+        if (pictures.length > 0) {
+          imageService.upload(pictures, id).then((res) => {
+            dispatch(
+              pushMessage({
+                text: "Hotel created successfully",
+                type: "success",
+              })
+            );
 
-        setShowMessage(false);
-        navigate("../hotels");
-      } catch (err) {
-        setShowMessage(false);
-
-        dispatch(
-          pushMessage({
-            text: err,
-            type: "error",
-          })
-        );
-      }
+            navigate("../hotels");
+          });
+        }
+      });
     },
   });
 
   const navigate = useNavigate();
+  const { getError, getClass } = useValidator(formik);
 
-  const handleGetPictures = (files) => {
-    // const files = Array.from(e.target.files);
-    setPictures(files);
-  };
+  useEffect(() => {
+    if (id) {
+      catalog.get(id);
+    }
+
+    return () => {
+      catalog.cleaner();
+      imageService.cleaner();
+      rooms.cleaner();
+    };
+  }, [id]);
+
+  useEffect(() => {
+    if (data) {
+      formik.setValues({
+        name: data.name,
+        type: data.type,
+        city: data.city,
+        address: data.address,
+        country: data.country,
+        pictures: data.pictures,
+        description: data.description,
+        cheepestPrice: data.cheepestPrice,
+        featured: data.featured,
+      });
+    }
+  }, [data]);
 
   const handleModal = (e) => {
-    const item = hotel.rooms.filter((x) => x._id == e.target.value);
+    const item = data.rooms.filter((x) => x._id == e.target.value);
     setModal(item[0]);
   };
 
-  const handleClose = () => {
-    setModal(null);
-  };
-
   const handleDelete = async () => {
-    try {
-      const response = await deleteRoom(modal._id);
-
-      if (response._id == modal._id) {
-        hotel.rooms = hotel.rooms.filter((x) => x._id !== modal._id);
-      } else {
-        throw "Server error";
-      }
-    } catch (err) {
-      setModal(null);
-
-      dispatch(
-        pushMessage({
-          text: err,
-          type: "error",
-        })
-      );
-    }
-
     setModal(null);
+
+    rooms.delete(modal._id).then(() => {
+      catalog.get(id);
+    });
   };
-
-  useEffect(() => {
-    const fetchHotel = async () => {
-      const hotel = await getOneHotel(id);
-
-      if (hotel?.response?.status == 400) {
-        dispatch(
-          pushMessage({
-            text: "Server error",
-            type: "error",
-          })
-        );
-      } else {
-        formik.setValues({
-          name: hotel.name,
-          type: hotel.type,
-          city: hotel.city,
-          address: hotel.address,
-          country: hotel.country,
-          pictures: hotel.pictures,
-          description: hotel.description,
-          cheepestPrice: hotel.cheepestPrice,
-          featured: hotel.featured,
-        });
-
-        setHotel(hotel);
-        setPictures(hotel.pictures);
-      }
-    };
-
-    fetchHotel();
-  }, [id]);
 
   return (
     <form onSubmit={formik.handleSubmit}>
-      {showMessage && <MessageBox />}
-
       {modal && (
         <Modal
           message={`Are you shure you want to delete room: ${modal.title}`}
-          closeHandler={handleClose}
+          closeHandler={() => setModal(null)}
           acceptHandler={handleDelete}
         />
       )}
@@ -174,15 +135,10 @@ export default function EditHotel() {
         </div>
 
         <div className={styles["side"]}>
-          {/* <ImageBox handleGetPictures={handleGetPictures} /> */}
-          <div>
-            <button type="button">Change pictures</button>
-          </div>
-          <div>
-            {pictures.map((x, idx) => (
-              <img src={x} alt="image" key={idx} className={styles["thumb"]} />
-            ))}
-          </div>
+          <ImageSelect
+            handleGetPictures={(files) => setPictures(files)}
+            pictures={data?.pictures}
+          />
         </div>
 
         <div className={styles["content"]}>
@@ -192,10 +148,12 @@ export default function EditHotel() {
               type="text"
               placeholder="example: Hilton"
               name="name"
-              required
               value={formik.values.name}
+              onBlur={formik.handleBlur}
               onChange={formik.handleChange}
+              className={getClass("name")}
             />
+            {getError("name")}
           </div>
 
           <div className={styles["item"]}>
@@ -220,11 +178,14 @@ export default function EditHotel() {
             <input
               list="country"
               name="country"
-              required
               placeholder="example: Bulgaria"
               value={formik.values.country}
+              onBlur={formik.handleBlur}
               onChange={formik.handleChange}
+              className={getClass("country")}
             />
+            {getError("country")}
+
             <datalist id="country">
               {countries.map((x) => (
                 <option value={x.name} key={x.code} />
@@ -237,11 +198,13 @@ export default function EditHotel() {
             <input
               type="text"
               placeholder="example: Sofia"
-              required
               name="city"
               value={formik.values.city}
+              onBlur={formik.handleBlur}
               onChange={formik.handleChange}
+              className={getClass("city")}
             />
+            {getError("city")}
           </div>
 
           <div className={styles["item"]}>
@@ -249,11 +212,13 @@ export default function EditHotel() {
             <input
               type="text"
               placeholder="example: bul. Dondukov 1"
-              required
               name="address"
               value={formik.values.address}
+              onBlur={formik.handleBlur}
               onChange={formik.handleChange}
+              className={getClass("address")}
             />
+            {getError("address")}
           </div>
 
           <div className={styles["item"]}>
@@ -261,11 +226,13 @@ export default function EditHotel() {
             <input
               type="number"
               placeholder=""
-              required
               name="cheepestPrice"
               value={formik.values.cheepestPrice}
+              onBlur={formik.handleBlur}
               onChange={formik.handleChange}
+              className={getClass("cheepestPrice")}
             />
+            {getError("cheepestPrice")}
           </div>
 
           <div className={styles["item-wide"]}>
@@ -274,11 +241,13 @@ export default function EditHotel() {
               name="description"
               id="description"
               rows="7"
-              required
               placeholder="Please provide detailed description of the property"
               value={formik.values.description}
+              onBlur={formik.handleBlur}
               onChange={formik.handleChange}
+              className={getClass("description")}
             ></textarea>
+            {getError("description")}
           </div>
 
           <div className={styles["item"]}>
@@ -297,37 +266,47 @@ export default function EditHotel() {
 
           <hr />
 
-          <div>
-            <h2>Hotel rooms:</h2>
-          </div>
+          {data?.rooms?.length > 0 && (
+            <>
+              <div>
+                <h2>Hotel rooms:</h2>
+              </div>
 
-          <ul className={styles["grid-list"]}>
-            <li>
-              <div>Room title:</div>
-              <div>Price:</div>
-              <div>Max guests:</div>
-              <div>rooms:</div>
-              <div>Actions</div>
-            </li>
-            {hotel?.rooms?.map((room) => (
-              <li key={room._id} className={styles["grid-col-span-2"]}>
-                <div> {room.title} </div>
-                <div> ${room.price} </div>
-                <div> {room.maxPeople}</div>
-                <div> [{room.roomNumbers.join("; ")}]</div>
+              <ul className={styles["grid-list"]}>
+                <li>
+                  <div>Room title:</div>
+                  <div>Price:</div>
+                  <div>Max guests:</div>
+                  <div>rooms:</div>
+                  <div>Actions</div>
+                </li>
+                {data.rooms.map((room) => (
+                  <li key={room._id} className={styles["grid-col-span-2"]}>
+                    <div> {room.title} </div>
+                    <div> ${room.price} </div>
+                    <div> {room.maxPeople}</div>
+                    <div>[{room.roomNumbers.join("; ")}]</div>
 
-                <div>
-                  <Link to={`../hotels/rooms/edit/${room._id}`}>Edit</Link>
-                  <button type="button" value={room._id} onClick={handleModal}>
-                    Delete
-                  </button>
-                </div>
-              </li>
-            ))}
-          </ul>
+                    <div>
+                      <Link to={`../hotels/rooms/edit/${room._id}`}>Edit</Link>
+                      <button
+                        type="button"
+                        value={room._id}
+                        onClick={handleModal}
+                      >
+                        Delete
+                      </button>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            </>
+          )}
 
-          {hotel?.rooms?.lenght < 10 && (
-            <div className={styles["grid-col-span-2"]}>No rooms yet</div>
+          {data?.rooms?.length < 1 && (
+            <div className={styles["item"]}>
+              <h1>No rooms yet</h1>
+            </div>
           )}
 
           <div></div>

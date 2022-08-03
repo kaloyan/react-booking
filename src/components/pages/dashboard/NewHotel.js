@@ -1,24 +1,26 @@
-import styles from "./Dashboard.module.css";
-import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useState, useId, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
-import { uploadHotelImages } from "../../../utils/helpers";
-import { createHotel } from "../../../services/netRequest";
-import { pushMessage } from "../../../features/slices/localSlice";
-import ImageBox from "../../ui/ImageBox";
-import MessageBox from "../../ui/MessageBox";
-import countries from "../../../assets/countries.json";
 
+import styles from "./Dashboard.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHotel } from "@fortawesome/free-solid-svg-icons";
 
-export default function NewHotel() {
-  const [pictures, setPictures] = useState([]);
-  const [showMessage, setShowMessage] = useState(false);
+import ImageSelect from "../../ui/ImageSelect";
+import { pushMessage } from "../../../features/slices/localSlice";
+import countries from "../../../assets/countries.json";
+import { useRequest } from "../../../hooks/useRequest";
+import { useValidator } from "../hooks/useValidator";
+import { hotelSchema } from "../../../schemas";
 
+export default function NewHotel() {
+  const handle = useId();
+  const catalog = useRequest("catalog", handle);
+  const imageService = useRequest("imageServices", "imagesUpload");
+  const [pictures, setPictures] = useState([]);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const formik = useFormik({
     initialValues: {
@@ -33,53 +35,49 @@ export default function NewHotel() {
       featured: false,
     },
 
-    onSubmit: async (values) => {
-      if (pictures.length < 1) {
+    validationSchema: hotelSchema,
+
+    onSubmit: (values) => {
+      if (pictures.length === 0) {
         dispatch(
-          pushMessage({
-            text: "Please select some images",
-            type: "info",
-          })
+          pushMessage({ text: "Please select some images", type: "info" })
         );
 
         return;
       }
 
-      setShowMessage(true);
+      catalog.create(values).then((res) => {
+        if (res) {
+          const hotelId = res._id;
 
-      try {
-        // first upload content to database and get the ID of the hotel
-        const newHotel = await createHotel(formik.values);
-        const hotelId = newHotel._id;
-        // next upload all images to firebase store and update image list on the database
-        await uploadHotelImages(pictures, hotelId);
+          if (hotelId) {
+            imageService.upload(pictures, hotelId).then((res) => {
+              dispatch(
+                pushMessage({
+                  text: "Hotel created successfully",
+                  type: "success",
+                })
+              );
 
-        setShowMessage(false);
-        navigate("../hotels");
-      } catch (err) {
-        setShowMessage(false);
-
-        dispatch(
-          pushMessage({
-            text: err,
-            type: "error",
-          })
-        );
-      }
+              navigate("../hotels");
+            });
+          }
+        }
+      });
     },
   });
 
-  const navigate = useNavigate();
+  const { getError, getClass } = useValidator(formik);
 
-  const handleGetPictures = (files) => {
-    // const files = Array.from(e.target.files);
-    setPictures(files);
-  };
+  useEffect(() => {
+    return () => {
+      catalog.cleaner();
+      imageService.cleaner();
+    };
+  }, []);
 
   return (
     <form onSubmit={formik.handleSubmit}>
-      {showMessage && <MessageBox />}
-
       <section className={styles["grid-container"]}>
         <div className={styles["header"]}>
           <div className={styles["bread-crump"]}>
@@ -95,7 +93,7 @@ export default function NewHotel() {
         </div>
 
         <div className={styles["side"]}>
-          <ImageBox handleGetPictures={handleGetPictures} />
+          <ImageSelect handleGetPictures={(files) => setPictures(files)} />
         </div>
 
         <div className={styles["content"]}>
@@ -105,10 +103,12 @@ export default function NewHotel() {
               type="text"
               placeholder="example: Hilton"
               name="name"
-              required
               value={formik.values.name}
+              onBlur={formik.handleBlur}
               onChange={formik.handleChange}
+              className={getClass("name")}
             />
+            {getError("name")}
           </div>
 
           <div className={styles["item"]}>
@@ -116,7 +116,6 @@ export default function NewHotel() {
             <select
               name="type"
               id="featured"
-              required
               value={formik.values.type}
               onChange={formik.handleChange}
             >
@@ -133,11 +132,14 @@ export default function NewHotel() {
             <input
               list="country"
               name="country"
-              required
               placeholder="example: Bulgaria"
               value={formik.values.country}
+              onBlur={formik.handleBlur}
               onChange={formik.handleChange}
+              className={getClass("country")}
             />
+            {getError("country")}
+
             <datalist id="country">
               {countries.map((x) => (
                 <option value={x.name} key={x.code} />
@@ -150,11 +152,13 @@ export default function NewHotel() {
             <input
               type="text"
               placeholder="example: Sofia"
-              required
               name="city"
               value={formik.values.city}
+              onBlur={formik.handleBlur}
               onChange={formik.handleChange}
+              className={getClass("city")}
             />
+            {getError("city")}
           </div>
 
           <div className={styles["item"]}>
@@ -162,11 +166,13 @@ export default function NewHotel() {
             <input
               type="text"
               placeholder="example: bul. Dondukov 1"
-              required
               name="address"
               value={formik.values.address}
+              onBlur={formik.handleBlur}
               onChange={formik.handleChange}
+              className={getClass("address")}
             />
+            {getError("address")}
           </div>
 
           <div className={styles["item"]}>
@@ -174,11 +180,13 @@ export default function NewHotel() {
             <input
               type="number"
               placeholder=""
-              required
               name="cheepestPrice"
               value={formik.values.cheepestPrice}
+              onBlur={formik.handleBlur}
               onChange={formik.handleChange}
+              className={getClass("cheepestPrice")}
             />
+            {getError("cheepestPrice")}
           </div>
 
           <div className={styles["item-wide"]}>
@@ -187,11 +195,13 @@ export default function NewHotel() {
               name="description"
               id="description"
               rows="7"
-              required
               placeholder="Please provide detailed description of the property"
               value={formik.values.description}
+              onBlur={formik.handleBlur}
               onChange={formik.handleChange}
+              className={getClass("description")}
             ></textarea>
+            {getError("description")}
           </div>
 
           <div className={styles["item"]}>
@@ -199,7 +209,6 @@ export default function NewHotel() {
             <select
               name="featured"
               id="featured"
-              required
               value={formik.values.featured}
               onChange={formik.handleChange}
             >

@@ -10,7 +10,7 @@ import { useFormik } from "formik";
 import { useRequest } from "../../../hooks/useRequest";
 import { useId } from "react";
 
-import ImageBox from "../../ui/ImageBox";
+import ImageSelect from "../../ui/ImageSelect";
 
 export default function EditDestination() {
   const [picture, setPicture] = useState([]);
@@ -91,7 +91,7 @@ export default function EditDestination() {
         </div>
 
         <div className={styles["side"]}>
-          <ImageBox
+          <ImageSelect
             handleGetPictures={handleGetPictures}
             pictures={[formik.values.img]}
           />
