@@ -36,7 +36,7 @@ export const useRequest = (module, handle) => {
           };
         } else {
           dispatch(setResponse({ handle, data: response }));
-          resolve(true);
+          resolve(response);
         }
       })
       .catch((err) => {
@@ -51,6 +51,7 @@ export const useRequest = (module, handle) => {
   }, [request]);
 
   const slice = {};
+  slice.cleaner = () => dispatch(delResponse(handle));
 
   for (const func of Object.keys(netRequests[module])) {
     slice[func] = (...params) => {
@@ -59,8 +60,6 @@ export const useRequest = (module, handle) => {
       });
     };
   }
-
-  slice.cleaner = () => dispatch(delResponse(handle));
 
   return slice;
 };
