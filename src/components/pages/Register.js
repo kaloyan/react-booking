@@ -8,6 +8,7 @@ import { faUserPlus } from "@fortawesome/free-solid-svg-icons";
 import { useRequest } from "../../hooks/useRequest";
 import { useValidator } from "./hooks/useValidator";
 import { registerSchema } from "../../schemas";
+import { storageTool } from "../../utils/helpers";
 
 export default function Login() {
   const handle = "account";
@@ -32,8 +33,9 @@ export default function Login() {
           rePass: values.repass,
           role: values.role,
         })
-        .then((success) => {
-          if (success) {
+        .then((res) => {
+          if (res) {
+            storageTool.set("role", res.role);
             navigate("/");
           }
         });

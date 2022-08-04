@@ -6,6 +6,7 @@ import styles from "./AccountTool.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCaretDown, faUser } from "@fortawesome/free-solid-svg-icons";
 import { useRequest } from "../../hooks/useRequest";
+import { storageTool } from "../../utils/helpers";
 
 export default function AccountTool() {
   const [openMenu, setOpenMenu] = useState(false);
@@ -23,6 +24,7 @@ export default function AccountTool() {
   const handleLogout = async (e) => {
     user.logout().then(() => {
       user.cleaner();
+      storageTool.remove("role");
       navigate("/");
     });
   };

@@ -16,3 +16,24 @@ export const extractImageName = (path) => {
 export const createBlobImage = (image) => {
   return window.URL.createObjectURL(image);
 };
+
+export const storageTool = {
+  get: (key) => {
+    const value = localStorage.getItem(key);
+
+    if (value) {
+      return JSON.parse(value);
+    } else {
+      return false;
+    }
+  },
+
+  set: (key, value) => {
+    localStorage.setItem(key, JSON.stringify(value));
+  },
+
+  remove: (key) => {
+    localStorage.removeItem(key);
+    return true;
+  },
+};

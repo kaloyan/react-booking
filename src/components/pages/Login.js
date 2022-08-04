@@ -7,6 +7,7 @@ import { faRightToBracket } from "@fortawesome/free-solid-svg-icons";
 
 import { useRequest } from "../../hooks/useRequest";
 import { useValidator } from "./hooks/useValidator";
+import { storageTool } from "../../utils/helpers";
 import { loginSchema } from "../../schemas";
 
 export default function Login() {
@@ -20,9 +21,10 @@ export default function Login() {
       password: "",
     },
 
-    onSubmit: async (values, actions) => {
-      user.login(values).then((success) => {
-        if (success) {
+    onSubmit: async (values) => {
+      user.login(values).then((res) => {
+        if (res) {
+          storageTool.set("role", res.role);
           navigate("/");
         }
       });
