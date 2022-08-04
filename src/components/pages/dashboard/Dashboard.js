@@ -17,6 +17,8 @@ import NewDestination from "./NewDestination";
 import EditDestination from "./EditDestination";
 import NewRoom from "./NewRoom";
 import EditRoom from "./EditRoom";
+import ViewProfile from "./ViewProfile";
+import { AdminGuard } from "../../RouteGuards";
 
 export default function index() {
   return (
@@ -30,7 +32,19 @@ export default function index() {
           <Route path="messages" element={<Messages />} />
           <Route path="profile" element={<Profile />} />
           <Route path="profile/edit" element={<EditProfile />} />
-          <Route path="users" element={<UsersList />} />
+
+          <Route element={<AdminGuard />}>
+            <Route path="users" element={<UsersList />} />
+            <Route path="users/view/:id" element={<ViewProfile />} />
+
+            <Route path="destinations" element={<Destinations />} />
+            <Route path="destinations/new" element={<NewDestination />} />
+            <Route path="destinations/edit/:id" element={<EditDestination />} />
+            <Route
+              path="destinations/del/:id"
+              element={<Navigate to={"../destinations"} replace={true} />}
+            />
+          </Route>
 
           <Route path="reservations" element={<Reservations />} />
           <Route
@@ -46,14 +60,6 @@ export default function index() {
           <Route
             path="hotels/del/:id"
             element={<Navigate to={"../hotels"} replace={true} />}
-          />
-
-          <Route path="destinations" element={<Destinations />} />
-          <Route path="destinations/new" element={<NewDestination />} />
-          <Route path="destinations/edit/:id" element={<EditDestination />} />
-          <Route
-            path="destinations/del/:id"
-            element={<Navigate to={"../destinations"} replace={true} />}
           />
 
           <Route path="my-reservations" element={<MyReservations />} />

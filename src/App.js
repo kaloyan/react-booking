@@ -9,6 +9,8 @@ import Catalog from "./components/pages/catalog/Catalog";
 import Login from "./components/pages/Login";
 import Register from "./components/pages/Register";
 import NotFound from "./components/pages/NotFound";
+import Error from "./components/pages/Error";
+import NoAccess from "./components/pages/NoAccess";
 
 // Import compponenst
 import Navbar from "./components/layouts/Navbar";
@@ -46,6 +48,9 @@ function App() {
               }
             />
           </Route>
+
+          <Route path="/error" element={<Error />} />
+          <Route path="/denied" element={<NoAccess />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
 

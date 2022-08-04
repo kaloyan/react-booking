@@ -106,7 +106,6 @@ hr {
 }
 
 table {
-  /* border: 1px solid red; */
   width: 100%;
   padding: 1rem;
 }
@@ -192,7 +191,3 @@ table button.delete-btn:hover {
 .action-btn:hover > span {
   color: white;
 }
-
-/* .form div {
-  border: 1px solid red;
-} */

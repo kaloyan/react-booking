@@ -3,11 +3,11 @@ import { useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
 
 import styles from "./Catalog.module.css";
-import Header from "../layouts/Header";
-import SearchBar from "../ui/search/SearchBar";
-import SearchItem from "../ui/SearchItem";
-import Paginator from "./Paginator";
-import { useCatalog } from "../../hooks/useCatalog";
+import Header from "../../layouts/Header";
+import SearchBar from "../../ui/search/SearchBar";
+import SearchItem from "./CatalogItem";
+import Paginator from "../Paginator";
+import { useCatalog } from "../../../hooks/useCatalog";
 
 export default function Catalog() {
   const location = useLocation();
@@ -15,6 +15,8 @@ export default function Catalog() {
   const catalog = useCatalog();
 
   useEffect(() => {
+    window.scrollTo(0, 0);
+    document.title = `ReactBooking - Catalog`;
     catalog.query();
   }, [location.search]);
 

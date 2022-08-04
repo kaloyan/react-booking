@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
-import styles from "./SearchItem.module.css";
+import styles from "./CatalogItem.module.css";
 
-export default function SearchItem({ data }) {
+export default function CatalogItem({ data }) {
   return (
     <div className={styles.item}>
       <img src={data.pictures[0]} alt={data.name} className={styles.image} />

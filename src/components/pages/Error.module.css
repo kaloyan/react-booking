@@ -1,0 +1,46 @@
+.container {
+  width: 100%;
+  min-height: 70vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.container > div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 2rem;
+}
+
+.error-message {
+  font-size: 6rem;
+  width: 700px;
+  font-weight: bold;
+  color: var(--text-dark);
+}
+
+.container span {
+  color: var(--text-very-dark);
+  font-size: 2rem;
+  font-style: italic;
+}
+
+.container svg {
+  color: var(--text-dark);
+  font-size: 8rem;
+  margin-bottom: 5rem;
+}
+
+.container input[type="button"] {
+  padding: 1.5rem;
+  font-size: 1.5rem;
+  font-weight: bold;
+  border: none;
+  background: var(--color-primary-btn);
+  color: white;
+  cursor: pointer;
+  margin-bottom: 3rem;
+}

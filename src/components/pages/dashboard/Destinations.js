@@ -85,7 +85,7 @@ export default function Destinations() {
           return (
             <div key={x._id}>
               <div className={styles["table-span-1"]}>
-                <img src={x.image} alt={x.name} className={styles["thumb"]} />
+                <img src={x.image} alt={""} className={styles["thumb"]} />
               </div>
 
               <div className={styles["table-span-1"]}>{x.name}</div>

@@ -33,19 +33,19 @@ export default function Footer() {
         <ul className={styles["list"]}>
           <li className={styles["itemTtile"]}>branch locations</li>
           <li>
-            <Link to={"/catalog?destinations=Bulgaria"}>Bulgaria</Link>
+            <Link to={"/catalog/query?dest=Dubai"}>Dubai</Link>
           </li>
           <li>
-            <Link to={"/catalog?destinations=Japan"}>Japan</Link>
+            <Link to={"/catalog/query?dest=Japan"}>Japan</Link>
           </li>
           <li>
-            <Link to={"/catalog?destinations=France"}>France</Link>
+            <Link to={"/catalog/query?dest=France"}>France</Link>
           </li>
           <li>
-            <Link to={"/catalog?destinations=Indonesia"}>Indonesia</Link>
+            <Link to={"/catalog/query?dest=Indonesia"}>Indonesia</Link>
           </li>
           <li>
-            <Link to={"/catalog?destinations=Mexico"}>Mexico</Link>
+            <Link to={"/catalog/query?dest=Mexico"}>Mexico</Link>
           </li>
         </ul>
 
