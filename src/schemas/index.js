@@ -89,12 +89,22 @@ export const newRoomSchema = yup.object().shape({
 export const profileSchema = yup.object().shape({
   username: yup.string().min(3).required("username is required"),
   email: yup.string().email("Please enter a valid email").required("Required"),
-  password: yup.string(),
-  confirmPassword: yup
+  newPass: yup.string().test("string", "not valid", (str) => {
+    if (!str) return true;
+    // return passwordRules.test(str);
+    if (str.length < 5) return false;
+    return true;
+  }),
+  rePass: yup
     .string()
-    .oneOf([yup.ref("password"), null], "Passwords must match")
-    .required(),
-  address: yup.string().test("address", () => true),
+    .when("newPass", (newPass, field) => {
+      return newPass
+        ? field
+            .oneOf([yup.ref("newPass")], "Passwords dont match")
+            .required("Confirm Password is required")
+        : field;
+    })
+    .oneOf([yup.ref("newPass")], "Passwords must match"),
 });
 
 // ****** //

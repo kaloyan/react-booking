@@ -12,7 +12,8 @@ import { createBlobImage, extractImageName } from "../../../utils/helpers";
 import { uploadAvatar, delAvatar } from "../../../services/firebaseSrv";
 import { useRequest } from "../../../hooks/useRequest";
 import { pushMessage } from "../../../features/slices/localSlice";
-import { formSchema } from "../../../schemas/index";
+import { useValidator } from "../hooks/useValidator";
+import { profileSchema } from "../../../schemas/index";
 
 export default function Profile() {
   const handle = "account";
@@ -25,6 +26,7 @@ export default function Profile() {
 
   const [userId, setUserId] = useState("");
   const [avatar, setAvatar] = useState("");
+  // const [avatar, setAvatar] = useState("");
   const [newAvatar, setNewAvatar] = useState("");
   const [modal, setModal] = useState(null);
 
@@ -45,13 +47,12 @@ export default function Profile() {
       rePass: "",
     },
 
-    onSubmit: async (values, actions) => {
-      if (values.newPass !== "" && values.newPass !== values.repPass) {
-        dispatch(pushMessage({ text: "Passwords dont match", type: "error" }));
-        return;
-      }
+    validationSchema: profileSchema,
 
-      if (values.avatar !== newAvatar) {
+    onSubmit: async (values) => {
+      let image = avatar;
+
+      if (avatar !== newAvatar) {
         if (values.avatar !== "") {
           try {
             const avatarHandle = extractImageName(values.avatar);
@@ -61,18 +62,15 @@ export default function Profile() {
           }
         }
 
-        const image = await uploadAvatar(newAvatar);
-        // console.log(image);
-        values.avatar = image;
-
-        updateProfile();
-      } else {
-        updateProfile();
+        image = await uploadAvatar(newAvatar);
       }
-    },
 
-    validationSchema: formSchema,
+      formik.values.avatar = image;
+      updateProfile();
+    },
   });
+
+  const { getError, getClass } = useValidator(formik);
 
   useEffect(() => {
     if (data) {
@@ -82,11 +80,10 @@ export default function Profile() {
         phone: data.phone,
         address: data.address,
         gender: data.gender,
-        avatar: data.avatar,
         birthday: data.birthday,
-        oldPass: "",
         newPass: "",
         rePass: "",
+        avatar: "",
       });
 
       setUserId(data.id);
@@ -182,7 +179,12 @@ export default function Profile() {
             <label htmlFor="avatar" className={styles["file-upload"]}>
               Upload picture
             </label>
-            <input type="file" id="avatar" onChange={handleChangeAvatar} />
+            <input
+              type="file"
+              className={styles["input-select-files"]}
+              id="avatar"
+              onChange={handleChangeAvatar}
+            />
           </div>
         </div>
 
@@ -195,7 +197,10 @@ export default function Profile() {
               name="username"
               value={formik.values.username}
               onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              className={getClass("username")}
             />
+            {getError("username")}
           </div>
 
           <div className={styles["item"]}>
@@ -206,7 +211,10 @@ export default function Profile() {
               name="email"
               value={formik.values.email}
               onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              className={getClass("email")}
             />
+            {getError("email")}
           </div>
 
           <div className={styles["item"]}>
@@ -217,7 +225,10 @@ export default function Profile() {
               name="phone"
               value={formik.values.phone}
               onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              className={getClass("phone")}
             />
+            {getError("phone")}
           </div>
 
           <div className={styles["item"]}>
@@ -228,7 +239,10 @@ export default function Profile() {
               name="address"
               value={formik.values.address}
               onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              className={getClass("address")}
             />
+            {getError("address")}
           </div>
 
           <div className={styles["item"]}>
@@ -238,11 +252,14 @@ export default function Profile() {
               id="gender"
               value={formik.values.gender}
               onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              className={getClass("gender")}
             >
               <option value="">-- Prefer not to say --</option>
               <option value="male">Male</option>
               <option value="female">Female</option>
             </select>
+            {getError("gender")}
           </div>
 
           <div className={styles["item"]}>
@@ -253,7 +270,10 @@ export default function Profile() {
               name="birthday"
               value={formik.values.birthday}
               onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              className={getClass("birthday")}
             />
+            {getError("birthday")}
           </div>
 
           <hr />
@@ -271,7 +291,10 @@ export default function Profile() {
               minLength="3"
               value={formik.values.newPass}
               onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              className={getClass("newPass")}
             />
+            {getError("newPass")}
           </div>
 
           <div className={styles["item"]}>
@@ -283,7 +306,10 @@ export default function Profile() {
               minLength="3"
               value={formik.values.rePass}
               onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              className={getClass("rePass")}
             />
+            {getError("rePass")}
           </div>
 
           <hr />
