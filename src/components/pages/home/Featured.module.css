@@ -37,6 +37,7 @@
   height: 2px;
   box-shadow: 0 0 3px rgba(0, 0, 0, 0.115);
   color: white;
+  margin-right: 2.5rem;
 }
 
 .tagline a {

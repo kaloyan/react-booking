@@ -1,6 +1,6 @@
 import styles from "./Home.module.css";
 
-import Hero from "../../ui/Hero";
+import Hero from "./Hero";
 import Header from "../../layouts/Header";
 import Featured from "./Featured";
 import PropertyList from "./PropertyList";

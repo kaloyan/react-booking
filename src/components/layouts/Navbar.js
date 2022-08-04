@@ -35,7 +35,7 @@ export default function Navbar() {
     };
   }, []);
 
-  const setActive = ({ isActive }) => (isActive ? styles["active-link"] : "");
+  const setActive = (prop) => (prop.isActive ? styles["active-link"] : "");
 
   return (
     <div className={menuStyle}>
@@ -46,6 +46,28 @@ export default function Navbar() {
             <span className={styles["logo"]}>ReactBooking</span>
           </NavLink>
         </div>
+
+        <ul className={styles["header-list"]}>
+          <NavLink to={"/catalog/query?type=hotel"}>
+            <span>Hotels</span>
+          </NavLink>
+
+          <NavLink to={"/catalog/query?type=apartment"}>
+            <span>Apartments</span>
+          </NavLink>
+
+          <NavLink to={"/catalog/query?type=resort"}>
+            <span>Resorts</span>
+          </NavLink>
+
+          <NavLink to={"/catalog/query?type=villa"}>
+            <span>Villas</span>
+          </NavLink>
+
+          <NavLink to={"/catalog/query?type=cabin"}>
+            <span>Cabins</span>
+          </NavLink>
+        </ul>
 
         <ul className={styles["nav-items"]}>
           {data?.username ? (

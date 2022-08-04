@@ -85,11 +85,7 @@ export default function UsersList() {
                 <div key={x._id}>
                   <div className={styles["table-span-tiny"]}>
                     {x.avatar ? (
-                      <img
-                        src={x.avatar}
-                        alt="avatar"
-                        className={styles["thumb"]}
-                      />
+                      <img src={x.avatar} alt="" className={styles["thumb"]} />
                     ) : (
                       <span className={styles["thumb"]}>
                         <FontAwesomeIcon icon={faUser} />
