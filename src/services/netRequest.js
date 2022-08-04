@@ -51,6 +51,10 @@ export const user = {
     return request(urls.accountUrl);
   },
 
+  getById: (userId) => {
+    return request(urls.usersUrl + userId);
+  },
+
   update: (id, data) => {
     const url = urls.usersUrl + id;
     return request(url, { method: "PUT", data });
@@ -63,6 +67,10 @@ export const user = {
 
   all: () => {
     return request(urls.usersUrl);
+  },
+
+  remove: (userId) => {
+    return request(urls.usersUrl + userId, { method: "DELETE" });
   },
 
   readMsg: (messageId) => {
