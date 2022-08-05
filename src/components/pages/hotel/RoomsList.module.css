@@ -1,3 +1,36 @@
 .container {
   width: 100%;
 }
+
+.room-list {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.title {
+  /* font-size: 1.1rem; */
+  font-weight: bold;
+  margin: 1rem;
+}
+
+.room-list li {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+  width: 100%;
+  padding: 1rem;
+  font-size: 1rem;
+}
+
+.room-list li:nth-child(odd) {
+  background: rgba(220, 220, 220, 0.269);
+}
+
+.no-rooms {
+  font-size: 2rem;
+  color: var(--text-very-dark);
+  text-align: center;
+  padding: 1rem;
+  grid-column: span 4;
+}
