@@ -107,22 +107,3 @@ export const profileSchema = yup.object().shape({
     .oneOf([yup.ref("newPass")], "Passwords must match"),
 });
 
-// ****** //
-export const formSchema = yup.object().shape({
-  name: yup.string().required(),
-  age: yup.number().required().positive().integer(),
-  email: yup.string().email("Please enter a valid email").required("Required"),
-  website: yup.string().url(),
-  createdOn: yup.date().default(function () {
-    return new Date();
-  }),
-  password: yup
-    .string()
-    .min(5)
-    .matches(passwordRules, { message: "Please enter stronger password" })
-    .required("Required"),
-  confirmPassword: yup
-    .string()
-    .oneOf([yup.ref("password"), null], "Passwords must match")
-    .required(),
-});

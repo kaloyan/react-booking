@@ -238,9 +238,9 @@ form {
 
 hr {
   grid-column: span 2;
-  width: 70%;
-  margin: 2rem;
+  width: 85%;
   color: var(--color-bg);
+  margin: 2rem auto;
 }
 
 .grid-col-span-2 {

@@ -12,7 +12,7 @@ export default function NotFound({ error }) {
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    document.title = `404 - Not found`;
+    //document.title = `404 - Not found`;
   }, []);
 
   return (

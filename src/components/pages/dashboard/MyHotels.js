@@ -112,7 +112,7 @@ export default function MyHotels() {
                 <img
                   src={hotel.pictures[0]}
                   className={styles["thumb"]}
-                  alt="hotel"
+                  alt=""
                 />
               </div>
 

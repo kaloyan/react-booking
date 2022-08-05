@@ -16,7 +16,7 @@ export default function Catalog() {
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    document.title = `ReactBooking - Catalog`;
+    //document.title = `ReactBooking - Catalog`;
     catalog.query();
   }, [location.search]);
 

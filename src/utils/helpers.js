@@ -1,5 +1,7 @@
 // Helper functions
 
+import heroImages from "../assets/hero-items.json";
+
 export const extractImageName = (path) => {
   let result = null;
 
@@ -36,4 +38,9 @@ export const storageTool = {
     localStorage.removeItem(key);
     return true;
   },
+};
+
+export const getHeroImage = () => {
+  const num = Math.floor(Math.random() * heroImages.length);
+  return heroImages[num];
 };

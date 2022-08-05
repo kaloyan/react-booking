@@ -1,0 +1,71 @@
+.list-item {
+  width: 280px;
+  height: 320px;
+  background: white;
+  margin: 10px;
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.416);
+  cursor: pointer;
+  position: relative;
+  z-index: 0;
+  overflow: hidden;
+  transition: 0.2s;
+}
+
+.list-item:hover {
+  box-shadow: 0 0 7px rgba(0, 0, 0, 0.416);
+}
+
+.header {
+  width: 100%;
+  height: 65%;
+  position: relative;
+  z-index: 1;
+}
+
+.content {
+  padding: 1rem;
+  font-size: 1rem;
+  color: var(--text-very-dark);
+  position: relative;
+  overflow: hidden;
+  height: 35%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.content > div {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.image {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+}
+
+.name {
+  font-weight: bold;
+}
+
+.price span {
+  font-weight: bold;
+}
+
+.rating > button {
+  background-color: var(--color-primary);
+  color: white;
+  padding: 0.2rem 0.5rem;
+  border: none;
+  border-radius: 0.3rem;
+  margin: 0.5rem;
+  font-weight: bold;
+}
+
+.rating > span {
+  font-size: 0.8rem;
+}
