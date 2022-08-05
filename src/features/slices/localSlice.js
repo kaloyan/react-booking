@@ -13,6 +13,7 @@ const initialState = {
     limit: 8,
     offset: 0,
   },
+  redirect: "",
 };
 
 export const localSlice = createSlice({
@@ -62,6 +63,14 @@ export const localSlice = createSlice({
     setFilters: (state, action) => {
       state.filters = action.payload;
     },
+
+    setRedirect: (state, action) => {
+      state.redirect = action.payload;
+    },
+
+    removeRedirect: (state) => {
+      state.redirect = "";
+    },
   },
 });
 
@@ -73,6 +82,8 @@ export const {
   removeMessage,
   setSpinner,
   setFilters,
+  setRedirect,
+  removeRedirect,
 } = localSlice.actions;
 
 export default localSlice.reducer;

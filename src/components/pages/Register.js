@@ -1,5 +1,6 @@
 import { useNavigate, Link } from "react-router-dom";
 import { useFormik } from "formik";
+import { useSelector, useDispatch } from "react-redux";
 
 import styles from "./Forms.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -9,11 +10,14 @@ import { useRequest } from "../../hooks/useRequest";
 import { useValidator } from "./hooks/useValidator";
 import { registerSchema } from "../../schemas";
 import { storageTool } from "../../utils/helpers";
+import { removeRedirect } from "../../features/slices/localSlice";
 
 export default function Login() {
   const handle = "account";
   const user = useRequest("user", handle);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { redirect } = useSelector((state) => state.local);
 
   const formik = useFormik({
     initialValues: {
@@ -35,8 +39,12 @@ export default function Login() {
         })
         .then((res) => {
           if (res) {
+            const urlTo = redirect || "";
+
             storageTool.set("role", res.role);
-            navigate("/");
+            dispatch(removeRedirect());
+
+            navigate(urlTo);
           }
         });
     },

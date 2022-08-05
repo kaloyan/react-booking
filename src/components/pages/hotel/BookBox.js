@@ -1,19 +1,44 @@
 import styles from "./BookBox.module.css";
+import { useSelector, useDispatch } from "react-redux";
+import { useNavigate, useLocation } from "react-router-dom";
+import { setRedirect } from "../../../features/slices/localSlice";
 
-export default function PriceBox({ showReserve }) {
+export default function PriceBox({ showReserve, rating, price }) {
+  const { account } = useSelector((state) => state.responses);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const location = useLocation();
+
+  const handleLogin = () => {
+    // firset set offer in local state for redirect
+    dispatch(setRedirect(location.pathname));
+    // next redirect to login page
+    navigate("/login");
+  };
+
   return (
     <div className={styles["book-box"]}>
       <h1>Perfect for 5-night stay</h1>
 
-      <span>Top Location: Highly rated by recent guests (9.0)</span>
+      <span>Top Location: Highly rated by recent guests ({rating})</span>
 
       <h2>
-        <b>$520</b> (5 nights)
+        <b>${price * 5}</b> (5 nights)
       </h2>
 
-      <button type="button" onClick={() => showReserve(true)}>
-        Reserve room Now!
-      </button>
+      {account?.username ? (
+        <button
+          type="button"
+          className={styles["action"]}
+          onClick={() => showReserve(true)}
+        >
+          Book room Now!
+        </button>
+      ) : (
+        <button type="button" onClick={handleLogin}>
+          Login in order to book
+        </button>
+      )}
     </div>
   );
 }
