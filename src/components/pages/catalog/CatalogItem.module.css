@@ -1,22 +1,29 @@
 .item {
-  /* display: flex;
-  justify-content: space-between; */
   display: grid;
-  grid-template-columns: 1fr 2fr 1fr;
-
-  gap: 1rem;
-  padding: 0.6rem;
+  grid-template-columns: 1fr 2fr 0.6fr;
+  height: 350px;
+  gap: 0.5rem;
   margin-bottom: 1rem;
-  border-radius: 0.3rem;
+  border-radius: 0.1rem;
   background: white;
   padding: 1.5rem;
   max-width: 960px;
-  box-shadow: 0 0 7px 0 rgba(0, 0, 0, 0.375);
+  box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.375);
+  overflow: hidden;
+}
+
+.item > div {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: flex-start;
+  padding: 0.3rem;
 }
 
 .image {
-  width: 200px;
-  height: 200px;
+  height: 230px;
+  width: 230px;
+  border-radius: 0.2rem;
   object-fit: cover;
 }
 
@@ -27,29 +34,20 @@
   flex: 2;
 }
 
-.details {
-  flex: 1;
+.item .description h3 {
+  color: var(--text-very-dark);
+}
+
+.item .details {
+  height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  padding: 0;
 }
 
 .title {
   color: var(--color-primary);
-  font-size: 1.2rem;
-}
-
-.distance {
-  font-size: 0.8rem;
-}
-
-.taxiOp {
-  width: max-content;
-  padding: 0.2rem;
-  font-size: 0.8rem;
-  background-color: var(--color-success);
-  color: white;
-  border-radius: 0.3rem;
 }
 
 .subtitle {
@@ -58,23 +56,23 @@
 }
 
 .features {
-  font-size: 0.9rem;
+  font-size: 1.1rem;
+  overflow: hidden;
 }
 
-.cancelOp {
-  font-size: 0.8rem;
+.cancel-op,
+.cancel-subtitle {
   font-weight: bold;
-  color: var(--color-success);
+  font-size: 0.9rem;
+  color: var(--color-primary);
 }
 
-.cancelSubtitle {
-  font-size: 0.8rem;
-  color: var(--color-success);
-}
-
-.rating {
+.item .rating {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 1rem;
+  width: 90%;
 }
 
 .rating > span {
@@ -82,31 +80,35 @@
 }
 
 .rating > button {
-  background-color: var(--color-primary);
+  background-color: var(--color-primary-btn);
   color: white;
   padding: 0.3rem;
   font-weight: bold;
   border: none;
   border-radius: 0.3rem;
+  font-size: 1rem;
+  text-align: center;
+  width: 40px;
 }
 
-.detailText {
+.detail-text {
   display: flex;
   flex-direction: column;
   gap: 0.3rem;
   text-align: right;
+  height: fit-content;
 }
 
 .price {
-  font-size: 1.4rem;
+  font-size: 1.6rem;
 }
 
-.taxOps {
+.tax-ops {
   font-size: 0.8rem;
   color: gray;
 }
 
-.checkBtn {
+.check-btn {
   background-color: var(--color-primary-btn);
   color: white;
   font-weight: bold;
@@ -114,4 +116,5 @@
   border: none;
   border-radius: 0.5rem;
   cursor: pointer;
+  font-size: 1.3rem;
 }

@@ -1,37 +1,49 @@
 import { Link } from "react-router-dom";
 import styles from "./CatalogItem.module.css";
 
-export default function CatalogItem({ data }) {
+export default function CatalogItem({ data: item }) {
   return (
-    <div className={styles.item}>
-      <img src={data.pictures[0]} alt={data.name} className={styles.image} />
+    <div className={styles["item"]}>
+      <div>
+        <img
+          src={item.pictures[0]}
+          alt={item.name}
+          className={styles["image"]}
+        />
 
-      <div className={styles.description}>
-        <h1 className={styles.title}>{data.name}</h1>
-
-        <span className={styles.distance}>{data.distance}</span>
-        <span className={styles.taxiOp}>Free airport taxi</span>
-        <span className={styles.subtitle}>
-          Studio aprtment with air conditioning
-        </span>
-        <span className={styles.features}>{data.description}</span>
-        <span className={styles.cancelOp}>Free cancellation</span>
-        <span className={styles.cancelSubtitle}>
-          You can cancel later, so lock in this great price today
-        </span>
+        <div className={styles["rating"]}>
+          Rating: <span>{item.rating >= 4 ? "Excellent" : "Good"}</span>
+          <button>{item.rating}</button>
+        </div>
       </div>
 
-      <div className={styles.details}>
-        <div className={styles.rating}>
-          <span>Excellent</span>
-          <button>{data.rating}</button>
+      <div className={styles["description"]}>
+        <h2 className={styles["title"]}>{item.name}</h2>
+        <h3>
+          {item.city}, {item.country}
+        </h3>
+
+        <span className={styles["cancel-subtitle"]}>
+          You can cancel later, so lock in this great price today
+        </span>
+
+        <div>
+          <span className={styles["features"]}>
+            {item.description.substring(0, 400)} ...
+            <Link to={item._id}>see more</Link>
+          </span>
+        </div>
+      </div>
+
+      <div className={styles["details"]}>
+        <div className={styles["detail-text"]}>
+          <span className={styles["price"]}>${item.cheepestPrice}</span>
+          <span className={styles["tax-ops"]}>Includes taxes and fees</span>
         </div>
 
-        <div className={styles.detailText}>
-          <span className={styles.price}>${data.cheepestPrice}</span>
-          <span className={styles.taxOps}>Includes taxes and fees</span>
-          <Link to={`/catalog/${data._id}`}>
-            <button className={styles.checkBtn}>See availability</button>
+        <div>
+          <Link to={`/catalog/${item._id}`}>
+            <button className={styles["check-btn"]}>See Availability</button>
           </Link>
         </div>
       </div>
