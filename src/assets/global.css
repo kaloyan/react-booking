@@ -59,3 +59,8 @@ a:visited {
 .input-error:focus {
   border: 2px solid var(--color-danger) !important;
 }
+
+.leaflet-container {
+  width: 600px;
+  height: 300px;
+}

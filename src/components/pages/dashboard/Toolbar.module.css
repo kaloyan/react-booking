@@ -1,17 +1,15 @@
 .container {
-  margin-bottom: 4rem;
+  width: 1050px;
 }
 
 .menu {
   list-style: none;
   display: flex;
-  justify-content: center;
-  flex-direction: column;
+  justify-content: flex-start;
   gap: 1rem;
   width: fit-content;
-  margin: 1.5rem 0;
-  font-size: 1.2rem;
-  box-shadow: 0px 0 12px 0 rgba(0, 0, 0, 0.103);
+  margin: 2rem 0 0 0;
+  font-size: 1.3rem;
 }
 
 .menu li a {
@@ -21,10 +19,12 @@
   text-align: center;
   background-color: white;
   color: black;
+  border-bottom: 7px transparent;
 }
 
 .menu li a.activeLink {
-  border-bottom: 3px solid var(--color-primary-btn);
+  border-top: 3px solid var(--color-primary-btn);
+  border-bottom: 7px solid white;
   font-weight: bold;
   color: var(--color-primary);
 }

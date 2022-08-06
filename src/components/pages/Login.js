@@ -28,7 +28,7 @@ export default function Login() {
     onSubmit: async (values) => {
       user.login(values).then((res) => {
         if (res) {
-          const urlTo = redirect || "";
+          const urlTo = redirect || "/";
 
           storageTool.set("role", res.role);
           dispatch(removeRedirect());

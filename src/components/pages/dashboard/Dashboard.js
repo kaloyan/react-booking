@@ -11,7 +11,6 @@ import Reservations from "./Reservations";
 import MyHotels from "./MyHotels";
 import NewHotel from "./NewHotel";
 import EditHotel from "./EditHotel";
-import MyReservations from "./MyReservations";
 import Destinations from "./Destinations";
 import NewDestination from "./NewDestination";
 import EditDestination from "./EditDestination";
@@ -23,9 +22,7 @@ import { AdminGuard } from "../../RouteGuards";
 export default function index() {
   return (
     <main className={styles["container"]}>
-      <div>
-        <Toolbar />
-      </div>
+      <Toolbar />
 
       <div>
         <Routes>
@@ -61,8 +58,6 @@ export default function index() {
             path="hotels/del/:id"
             element={<Navigate to={"../hotels"} replace={true} />}
           />
-
-          <Route path="my-reservations" element={<MyReservations />} />
         </Routes>
       </div>
     </main>

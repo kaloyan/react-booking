@@ -39,7 +39,7 @@ export default function Login() {
         })
         .then((res) => {
           if (res) {
-            const urlTo = redirect || "";
+            const urlTo = redirect || "/";
 
             storageTool.set("role", res.role);
             dispatch(removeRedirect());
