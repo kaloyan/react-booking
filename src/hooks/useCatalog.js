@@ -34,11 +34,11 @@ export const useCatalog = () => {
       dispatch(
         setFilters({
           destination: destination || "",
-          minRating: minRating || "",
-          properyType: properyType || "",
-          maxPrice: maxPrice || "",
-          limit: limit || 8,
-          offset: offset || 0,
+          // minRating: minRating || "",
+          // properyType: properyType || "",
+          // maxPrice: maxPrice || "",
+          // limit: limit || 8,
+          // offset: offset || 0,
         })
       );
 

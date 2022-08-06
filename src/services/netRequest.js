@@ -117,7 +117,6 @@ export const destinations = {
 // Hotels
 export const catalog = {
   create: (data) => {
-    // console.log(data);
     const url = urls.hotelsUrl;
     return request(url, { method: "POST", data });
   },

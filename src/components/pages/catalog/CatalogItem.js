@@ -30,7 +30,7 @@ export default function CatalogItem({ data: item }) {
         <div>
           <span className={styles["features"]}>
             {item.description.substring(0, 400)} ...
-            <Link to={item._id}>see more</Link>
+            <Link to={`/catalog/${item._id}`}> see more</Link>
           </span>
         </div>
       </div>
@@ -43,7 +43,9 @@ export default function CatalogItem({ data: item }) {
 
         <div>
           <Link to={`/catalog/${item._id}`}>
-            <button className={styles["check-btn"]}>See Availability</button>
+            <button className={styles["check-btn"]}>
+              See rooms availability
+            </button>
           </Link>
         </div>
       </div>

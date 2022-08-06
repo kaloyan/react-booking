@@ -95,7 +95,7 @@ export default function SearchBar() {
             )}
           </button>
 
-          {!openOptions && <div>options</div>}
+          {!openOptions && <div className={styles["options-btn"]}>options</div>}
         </div>
       </div>
 

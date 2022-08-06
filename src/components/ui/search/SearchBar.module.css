@@ -149,3 +149,7 @@
   background-color: var(--color-primary-btn);
   color: white;
 }
+
+.options-btn {
+  color: white;
+}

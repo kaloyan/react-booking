@@ -26,7 +26,7 @@ export default function PriceBox({ showReserve, rating, price }) {
         <b>${price * 5}</b> (5 nights)
       </h2>
 
-      {account?.username ? (
+      {account?.role === "user" && (
         <button
           type="button"
           className={styles["action"]}
@@ -34,7 +34,15 @@ export default function PriceBox({ showReserve, rating, price }) {
         >
           Book room Now!
         </button>
-      ) : (
+      )}
+
+      {(account?.role === "admin" || account?.role === "owner") && (
+        <span className={styles["login-info"]}>
+          Login in as tourist in order to book
+        </span>
+      )}
+
+      {!account?.role && (
         <button type="button" onClick={handleLogin}>
           Login in order to book
         </button>

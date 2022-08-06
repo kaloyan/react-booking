@@ -1,6 +1,7 @@
 .container {
   width: 100%;
   min-height: 70vh;
+  margin-top: 5rem;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -16,7 +17,7 @@
 }
 
 .error-message {
-  font-size: 6rem;
+  font-size: 4rem;
   width: 700px;
   font-weight: bold;
   color: var(--text-dark);
@@ -28,19 +29,21 @@
   font-style: italic;
 }
 
-.container svg {
-  color: var(--text-dark);
-  font-size: 8rem;
-  margin-bottom: 5rem;
-}
-
 .container input[type="button"] {
-  padding: 1.5rem;
-  font-size: 1.5rem;
-  font-weight: bold;
+  padding: 1rem;
+  font-size: 1.1rem;
   border: none;
   background: var(--color-primary-btn);
   color: white;
   cursor: pointer;
   margin-bottom: 3rem;
+}
+
+.search-box {
+  width: 800px;
+  height: 200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 5rem;
 }

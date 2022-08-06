@@ -104,14 +104,13 @@
 }
 
 .tax-ops {
-  font-size: 0.8rem;
+  font-size: 0.9rem;
   color: gray;
 }
 
 .check-btn {
   background-color: var(--color-primary-btn);
   color: white;
-  font-weight: bold;
   padding: 0.5rem;
   border: none;
   border-radius: 0.5rem;

@@ -1,6 +1,4 @@
 import styles from "./Error.module.css";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faExclamationCircle } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 
@@ -19,9 +17,7 @@ export default function Error(props) {
       <div>
         <div className={styles["error-message"]}>{title}</div>
         <span>{message}</span>
-        <div>
-          <FontAwesomeIcon icon={faExclamationCircle} />
-        </div>
+
         <div>
           <input type="button" value="Go Back" onClick={() => navigate(-1)} />
         </div>
