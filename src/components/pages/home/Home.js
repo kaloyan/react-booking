@@ -16,8 +16,6 @@ export default function Home() {
 
       <Featured />
       <PropertyList />
-
-      <h1 className={styles.title}>Homes guests love</h1>
       <FeaturedHotels />
 
       <Subscribtion />

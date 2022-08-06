@@ -24,9 +24,11 @@ export default function Featured() {
         {data?.length > 0 && data.map((x) => <Card key={x._id} data={x} />)}
       </div>
 
+      <div>
+        <Link to={"/destinations"}>Find more destinations</Link>
+      </div>
       <div className={styles["tagline"]}>
         <hr />
-        <Link to={"/destinations"}>Find more destinations</Link>
       </div>
     </section>
   );

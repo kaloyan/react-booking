@@ -14,13 +14,20 @@ export default function Reservations() {
   const reservations = useRequest("reservations", handle);
   const data = useSelector((state) => state.responses[handle]);
 
-  const { id: ownerId } = useSelector((state) => state.responses.account);
+  // const { id: ownerId } = useSelector((state) => state.responses.account);
+  const { account } = useSelector((state) => state.responses);
+
   const [selected, setSelected] = useState(null);
 
   useEffect(() => {
-    reservations.getByOwner(ownerId);
+    if (account?.role === "owner") {
+      reservations.getByOwner(account.id);
+    } else if (account?.role === "user") {
+      reservations.getByUser(account.id);
+    }
+
     return () => reservations.cleaner();
-  }, []);
+  }, [account]);
 
   const handleView = (e, id) => {
     e.preventDefault();
@@ -29,7 +36,12 @@ export default function Reservations() {
 
   const handleCloseView = () => {
     setSelected(null);
-    reservations.getByOwner(ownerId);
+
+    if (account.role === "owner") {
+      reservations.getByOwner(account.id);
+    } else if (account.role === "user") {
+      reservations.getByUser(account.id);
+    }
   };
 
   return (

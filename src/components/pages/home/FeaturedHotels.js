@@ -15,14 +15,18 @@ export default function FeaturedHotels() {
   }, []);
 
   return (
-    <div className={styles["list"]}>
-      {data && (
-        <>
-          {data.map((item) => (
-            <ListItem key={item._id} item={item} />
-          ))}
-        </>
-      )}
-    </div>
+    <section className={styles["container"]}>
+      <h1 className={styles["header"]}>Homes guests love</h1>
+
+      <div className={styles["list"]}>
+        {data && (
+          <>
+            {data.map((item) => (
+              <ListItem key={item._id} item={item} />
+            ))}
+          </>
+        )}
+      </div>
+    </section>
   );
 }

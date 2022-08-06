@@ -6,3 +6,9 @@
   width: 100%;
   max-width: 1024px;
 }
+
+.header {
+  color: var(--text-very-dark);
+  text-align: left;
+  margin: 1rem 3rem;
+}

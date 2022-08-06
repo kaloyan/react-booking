@@ -10,6 +10,7 @@ export default function ReservationView({ resId, closeHandler }) {
   const handle = useId();
   const reservations = useRequest("reservations", handle);
   const data = useSelector((state) => state.responses[handle]);
+  const { account } = useSelector((state) => state.responses);
 
   useEffect(() => {
     reservations.get(resId);
@@ -19,8 +20,8 @@ export default function ReservationView({ resId, closeHandler }) {
   const [confirmDel, setConfermDel] = useState(false);
 
   const handleRemove = async () => {
-    reservations.delete(data._id).then((success) => {
-      if (success) {
+    reservations.delete(data._id).then((res) => {
+      if (res) {
         reservations.cleaner();
         closeHandler();
       }
@@ -47,13 +48,26 @@ export default function ReservationView({ resId, closeHandler }) {
 
               <div className={styles["block"]}>
                 <div className={styles["row"]}>
-                  <em>Guest</em>
-                  <span>{data?.guest?.name}</span>
-                  {data?.guest?.image ? (
-                    <img src={data?.guest?.image} alt="<no image>" />
-                  ) : (
-                    <FontAwesomeIcon icon={faUser} />
-                  )}
+                  <em>{account?.role === "owner" ? "Guest" : "Hotel owner"}</em>
+                  <span>
+                    {account?.role === "owner"
+                      ? data?.guest?.name
+                      : data?.owner?.name}
+                  </span>
+
+                  {account?.role === "owner" &&
+                    (data?.guest?.image ? (
+                      <img src={data?.guest?.image} alt="<no image>" />
+                    ) : (
+                      <FontAwesomeIcon icon={faUser} />
+                    ))}
+
+                  {account?.role === "user" &&
+                    (data?.owner?.avatar ? (
+                      <img src={data?.owner?.avatar} alt="<no image>" />
+                    ) : (
+                      <FontAwesomeIcon icon={faUser} />
+                    ))}
                 </div>
 
                 <div className={styles["row"]}>
@@ -62,9 +76,17 @@ export default function ReservationView({ resId, closeHandler }) {
                   <div>
                     <em htmlFor="">email: </em>
                     <span>
-                      <a href={`mailto:${data?.guest?.email}`}>
-                        {data?.guest?.email || "<not set>"}
-                      </a>
+                      {account?.role === "owner" && (
+                        <a href={`mailto:${data?.guest?.email}`}>
+                          {data?.guest?.email || "<not set>"}
+                        </a>
+                      )}
+
+                      {account?.role === "user" && (
+                        <a href={`mailto:${data?.owner?.email}`}>
+                          {data?.owner?.email || "<not set>"}
+                        </a>
+                      )}
                     </span>
                   </div>
                 </div>
@@ -75,9 +97,17 @@ export default function ReservationView({ resId, closeHandler }) {
                   <div>
                     <em htmlFor="">phone: </em>
                     <span>
-                      <a href={`tel:${data?.guest?.phone}`}>
-                        {data?.guest?.phone || "<not set>"}
-                      </a>
+                      {account?.role === "owner" && (
+                        <a href={`tel:${data?.guest?.phone}`}>
+                          {data?.guest?.phone || "<not set>"}
+                        </a>
+                      )}
+
+                      {account?.role === "user" && (
+                        <a href={`tel:${data?.owner?.phone}`}>
+                          {data?.owner?.phone || "<not set>"}
+                        </a>
+                      )}
                     </span>
                   </div>
                 </div>
