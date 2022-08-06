@@ -1,0 +1,35 @@
+div.favbox {
+  margin: 1.5rem auto;
+  padding: 1.5rem;
+  /* border: 1px solid red; */
+  height: 100px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  cursor: pointer;
+}
+
+.icon {
+  color: var(--text-very-dark);
+  font-size: 2.7rem;
+  transition: 0.3s;
+}
+
+.icon.saved {
+  font-size: 3rem;
+  color: yellow;
+}
+
+.favbox:hover .icon {
+  color: yellow;
+}
+
+.favbox:hover .icon.saved {
+  color: var(--text-very-dark);
+}
+
+.favbox span {
+  color: var(--color-primary);
+}
