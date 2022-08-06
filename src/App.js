@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./components/pages/home/Home";
 import Hotel from "./components/pages/hotel/Hotel";
 import Catalog from "./components/pages/catalog/Catalog";
+import DestinationsList from "./components/pages/DestinationsList";
 import Login from "./components/pages/Login";
 import Register from "./components/pages/Register";
 import NotFound from "./components/pages/NotFound";
@@ -32,7 +33,7 @@ function App() {
 
         <Routes>
           <Route path="/" element={<Home />} />
-          {/* <Route path="/catalog" element={<Catalog />} /> */}
+
           <Route path="/catalog/query/*" element={<Catalog />} />
           <Route path="/catalog/:id" element={<Hotel />} />
           <Route path="/login" element={<Login />} />
@@ -48,6 +49,8 @@ function App() {
               }
             />
           </Route>
+
+          <Route path="/destinations" element={<DestinationsList />} />
 
           <Route path="/error" element={<Error />} />
           <Route path="/denied" element={<NoAccess />} />
