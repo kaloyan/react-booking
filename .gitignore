@@ -29,7 +29,7 @@ firebase-debug.*.log*
 
 # Firebase cache
 .firebase/
-**/firebaseCfg.js
+#**/firebaseCfg.js
 
 # Firebase config
 
