@@ -23,3 +23,6 @@ export const roomsUrl = `${BASE_URL}/api/v1/rooms/`;
 
 // reservations api urls
 export const reserveUrl = `${BASE_URL}/api/v1/reservate/`;
+
+// reviews api urls
+export const reviewUrl = `${BASE_URL}/api/v1/review/`;

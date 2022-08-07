@@ -226,6 +226,38 @@ export const reservations = {
   },
 };
 
+// Reviews
+export const reviews = {
+  getByHotel: (hotelId) => {
+    const url = urls.reviewUrl + "hotel/" + hotelId;
+    return request(url);
+  },
+
+  getByUser: (userId) => {
+    const url = urls.reviewUrl + "user/" + userId;
+    return request(url);
+  },
+
+  update: (reviewId) => {
+    //todo
+  },
+
+  remove: (revireId) => {
+    //todo
+  },
+
+  create: (hotelId, data) => {
+    const url = urls.reviewUrl + "hotel/" + hotelId;
+    return request(url, { method: "POST", data });
+  },
+
+  canPost: (hotelId) => {
+    const url = urls.reviewUrl + "canpost/hotel/" + hotelId;
+    return request(url);
+  },
+};
+
+// Firebase storage service
 export const imageServices = {
   upload: async (imageList, hotelId) => {
     try {

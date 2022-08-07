@@ -119,11 +119,7 @@ export default function Hotel() {
                   <RoomsList rooms={data.rooms} />
                 </div>
 
-                <hr />
-
-                <div className={styles["reviews"]}>
-                  <ReviewBox />
-                </div>
+                <ReviewBox hotelId={id} />
               </div>
             </div>
           </div>

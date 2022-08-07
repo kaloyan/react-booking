@@ -34,6 +34,13 @@ export const useCatalog = () => {
       dispatch(
         setFilters({
           destination: destination || "",
+
+          minRating: "",
+          properyType: "",
+          maxPrice: "",
+          limit: 8,
+          offset: 0,
+
           // minRating: minRating || "",
           // properyType: properyType || "",
           // maxPrice: maxPrice || "",

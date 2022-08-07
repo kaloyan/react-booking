@@ -3,24 +3,27 @@ import * as yup from "yup";
 const passwordRules = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{5,}$/;
 
 export const loginSchema = yup.object().shape({
-  email: yup.string().email("Please enter a valid email").required("Required"),
-  password: yup.string().required("Required"),
+  email: yup
+    .string()
+    .email("please enter a valid email")
+    .required("email is required"),
+  password: yup.string().required("password is required"),
 });
 
 export const registerSchema = yup.object().shape({
   username: yup
     .string()
-    .min(3, "Must me at least 3 characters")
-    .required("Username is required"),
-  email: yup.string().email("Please enter a valid email").required("Required"),
+    .min(3, "must me at least 3 characters")
+    .required("username is required"),
+  email: yup.string().email("please enter a valid email").required("required"),
   password: yup
     .string()
     .min(5)
     // .matches(passwordRules, { message: "Please enter stronger password" })
-    .required("Required"),
+    .required("required"),
   repass: yup
     .string()
-    .oneOf([yup.ref("password"), null], "Passwords must match")
+    .oneOf([yup.ref("password"), null], "passwords must match")
     .required(),
 });
 
@@ -88,7 +91,7 @@ export const newRoomSchema = yup.object().shape({
 
 export const profileSchema = yup.object().shape({
   username: yup.string().min(3).required("username is required"),
-  email: yup.string().email("Please enter a valid email").required("Required"),
+  email: yup.string().email("please enter a valid email").required("required"),
   newPass: yup.string().test("string", "not valid", (str) => {
     if (!str) return true;
     // return passwordRules.test(str);
@@ -100,10 +103,18 @@ export const profileSchema = yup.object().shape({
     .when("newPass", (newPass, field) => {
       return newPass
         ? field
-            .oneOf([yup.ref("newPass")], "Passwords dont match")
-            .required("Confirm Password is required")
+            .oneOf([yup.ref("newPass")], "passwords dont match")
+            .required("confirm password is required")
         : field;
     })
-    .oneOf([yup.ref("newPass")], "Passwords must match"),
+    .oneOf([yup.ref("newPass")], "passwords must match"),
 });
 
+export const reviewSchema = yup.object().shape({
+  comment: yup
+    .string()
+    .min(50)
+    .max(500)
+    .required("please type at least 50 characters comment"),
+  rating: yup.number().required("please select rating"),
+});
