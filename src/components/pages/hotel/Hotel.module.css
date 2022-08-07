@@ -15,7 +15,6 @@
   margin: 1.5rem 0;
   position: relative;
   justify-content: center;
-  /* align-items: center; */
   background: white;
   padding: 2rem;
 }
@@ -59,12 +58,21 @@
 
 .map {
   grid-column: span 3;
+  margin-left: 4rem;
+}
+
+.map button {
+  padding: 1rem;
+  background: white;
+  border: 1px solid var(--color-primary-btn);
+  color: var(--color-primary-btn);
+  font-weight: bold;
+  font-size: 1.1rem;
+  cursor: pointer;
 }
 
 .title {
   font-size: 2.8rem;
-  /* grid-column: span 3; */
-  /* color: var(--text-very-dark); */
 }
 
 .address {
@@ -106,10 +114,8 @@
 
 .wrapper hr {
   width: 80%;
-  /* justify-self: center; */
   align-self: center;
   grid-column: span 4;
-  /* color: var(--text-dark); */
   color: var(--color-bg);
   margin: 1rem 0;
   box-shadow: 0 0 1px 0 rgba(0, 0, 0, 0.2);

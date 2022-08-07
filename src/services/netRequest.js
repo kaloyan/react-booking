@@ -25,6 +25,9 @@ const request = async (url, options = { method: "GET", data: null }) => {
       case "DELETE":
         response = await axios.delete(url, { withCredentials: true });
         break;
+      default:
+        response = await axios.get(url, { withCredentials: true });
+        break;
     }
 
     return response?.data || response?.response?.data;

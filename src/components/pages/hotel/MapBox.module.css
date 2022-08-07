@@ -1,3 +1,8 @@
 .map-container {
-  height: 180px;
+  height: fit-content;
+  margin: 1rem;
+}
+
+.not-found {
+  color: var(--text-very-dark);
 }

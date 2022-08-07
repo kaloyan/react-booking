@@ -8,7 +8,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLocationDot } from "@fortawesome/free-solid-svg-icons";
 
 // import components
-import Header from "../../layouts/Header";
 import Subscription from "../../ui/Subscribtion";
 import Reserve from "./reserve/Reserve";
 import BookBox from "./BookBox";
@@ -22,6 +21,7 @@ export default function Hotel() {
   const { id } = useParams();
   const [showReserve, setShowReserve] = useState(false);
   const [lowestPrice, setLowestPrice] = useState(0);
+  const [showMap, setShowMap] = useState(false);
 
   const handle = useId();
   const catalog = useRequest("catalog", handle);
@@ -54,8 +54,6 @@ export default function Hotel() {
         />
       )}
 
-      <Header compact={true} />
-
       <div className={styles["container"]}>
         {data && (
           <div>
@@ -80,9 +78,7 @@ export default function Hotel() {
                   <button>{data.rating}</button>
                 </div>
 
-                {/* <div className={styles["favorite"]}> */}
                 <FavoritesBox />
-                {/* </div> */}
 
                 <dd className={styles["highlight"]}>
                   Book a stay over ${lowestPrice * 5} at this property and get a
@@ -103,24 +99,27 @@ export default function Hotel() {
                   </div>
                 </div>
 
+                <div className={styles["map"]}>
+                  {!showMap ? (
+                    <button type="button" onClick={() => setShowMap(true)}>
+                      Show address on the map
+                    </button>
+                  ) : (
+                    <MapBox
+                      data={{
+                        address: data.address,
+                        city: data.city,
+                        country: data.country,
+                      }}
+                    />
+                  )}
+                </div>
+
                 <div className={styles["grid-span-4"]}>
                   <RoomsList rooms={data.rooms} />
                 </div>
 
                 <hr />
-
-                {/* <div className={styles["map"]}>
-                <MapBox />
-              </div> */}
-
-                {/* <div>
-                  <button
-                    className={styles["book-btn"]}
-                    onClick={() => setShowReserve(true)}
-                  >
-                    Reserve room Now!
-                  </button>
-                </div> */}
 
                 <div className={styles["reviews"]}>
                   <ReviewBox />

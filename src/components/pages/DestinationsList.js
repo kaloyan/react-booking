@@ -1,5 +1,4 @@
 import { useEffect, useId } from "react";
-// import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useRequest } from "../../hooks/useRequest";
 
@@ -19,7 +18,7 @@ export default function DestinationsList() {
   return (
     <section className={styles["list-container"]}>
       <div className={styles["wrapper"]}>
-        <h1>Explore popular destinations</h1>
+        <h1 className={styles["title"]}>Explore popular destinations</h1>
 
         <div className={styles["card-container"]}>
           {data?.length > 0 && data.map((x) => <Card key={x._id} data={x} />)}

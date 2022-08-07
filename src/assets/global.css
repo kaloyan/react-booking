@@ -63,4 +63,5 @@ a:visited {
 .leaflet-container {
   width: 600px;
   height: 300px;
+  z-index: 0;
 }
