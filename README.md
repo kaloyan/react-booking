@@ -2,14 +2,14 @@
 Hotel Booking App with React
 </h1>
 
-[!GitHub license](https://github.com/facebook/react/blob/master/LICENSE) [!npm version](https://www.npmjs.com/package/react) 
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) ![React](https://img.shields.io/badge/react-18.2-blue)
 
 ReactBooking is an online hotel booking application build with MERN Stack.
 
 Live online version is available [here](https://reactbooking-app.web.app/)
 
   
-  <img src="https://firebasestorage.googleapis.com/v0/b/reactbooking-app.appspot.com/o/img%2Fscreenshots%2Freact-bookink-1.jpeg?alt=media&token=afb56510-a884-4089-b0e6-9f3a70a11a8a">
+  ![screenshot](https://firebasestorage.googleapis.com/v0/b/reactbooking-app.appspot.com/o/img%2Fscreenshots%2Freact-bookink-1.jpeg?alt=media&token=afb56510-a884-4089-b0e6-9f3a70a11a8a)
   
   # Features
   - Online Booking System
