@@ -1,8 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { v4 as uuid } from "uuid";
+import { storageTool } from "../../utils/helpers";
+
+const favoritesKey = "catalog_favs";
 
 const initialState = {
-  favorites: [],
+  favorites: storageTool.get(favoritesKey) || [],
   messages: [],
   showSpinner: false,
   filters: {
@@ -20,28 +23,14 @@ export const localSlice = createSlice({
   name: "local",
   initialState,
   reducers: {
-    getFavorites: (state) => {
-      try {
-        const favString = localStorage.getItem("bookink_favs");
-
-        if (favString) {
-          state.favorites = JSON.parse(favString);
-        } else {
-          state.favorites = [];
-        }
-      } catch (err) {
-        console.log(err);
-      }
-    },
-
     addFavorite: (state, action) => {
       state.favorites.push(action.payload);
-      localStorage.setItem("bookink_favs", JSON.stringify(state.favorites));
+      storageTool.set(favoritesKey, state.favorites);
     },
 
     removeFavorite: (state, action) => {
-      state.favorites = state.favorites.filter((x) => x.id !== action.payload);
-      localStorage.setItem("bookink_favs", JSON.stringify(state.favorites));
+      state.favorites = state.favorites.filter((x) => x !== action.payload);
+      storageTool.set(favoritesKey, state.favorites);
     },
 
     pushMessage: (state, action) => {
@@ -75,7 +64,6 @@ export const localSlice = createSlice({
 });
 
 export const {
-  getFavorites,
   addFavorite,
   removeFavorite,
   pushMessage,

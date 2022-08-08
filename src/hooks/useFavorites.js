@@ -1,27 +1,25 @@
 // useFavorites hook
 
-import { storageTool } from "../utils/helpers";
+import { useEffect, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { addFavorite, removeFavorite } from "../features/slices/localSlice";
 
-export const useFavorites = () => {
-  //todo
+export const useFavorites = (id) => {
+  const dispatch = useDispatch();
+  const { favorites } = useSelector((state) => state.local);
+  const [isActive, setIsActive] = useState(false);
 
-  const getSaved = () => {
-    const myFavorites = storageTool.get("favorites");
+  useEffect(() => {
+    setIsActive(favorites.some((x) => x === id));
+  }, [id, favorites]);
 
-    //todo
+  const save = () => {
+    dispatch(addFavorite(id));
   };
 
-  const checkCurrent = (id) => {
-    //todo
+  const remove = () => {
+    dispatch(removeFavorite(id));
   };
 
-  const save = (id) => {
-    //todo
-  };
-
-  const load = (items) => {
-    //todo
-  };
-
-  return { getSaved, checkCurrent, save, load };
+  return { save, remove, isActive };
 };

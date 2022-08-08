@@ -1,36 +1,29 @@
-import { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
 import { useFavorites } from "../../../hooks/useFavorites";
-
 import styles from "./FavoritesBox.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 
-export default function FavoritesBox() {
-  const location = useLocation();
-  const favorites = useFavorites();
-  const [isFavorite, setIsFavorite] = useState(false);
-  const itemId = location.pathname.split("/").pop();
-  // console.log(itemId);
-
-  useEffect(() => {
-    //todo
-    const isSaved = favorites.checkCurrent(itemId);
-    // console.log(isSaved);
-    setIsFavorite(isSaved);
-  }, []);
+export default function FavoritesBox({ id }) {
+  const favorites = useFavorites(id);
 
   const handleToFavorites = () => {
-    //todo
-    console.log("click");
+    if (favorites.isActive) {
+      favorites.remove();
+    } else {
+      favorites.save();
+    }
   };
 
   return (
     <div className={styles["favbox"]} onClick={handleToFavorites}>
-      <div className={`${styles["icon"]} ${isFavorite && styles["saved"]}`}>
+      <div
+        className={`${styles["icon"]} ${favorites.isActive && styles["saved"]}`}
+      >
         <FontAwesomeIcon icon={faStar} />
       </div>
-      <span>{isFavorite ? "Remove from favorites" : "Add to favorited"}</span>
+      <span>
+        {favorites.isActive ? "Remove from favorites" : "Add to favorited"}
+      </span>
     </div>
   );
 }

@@ -78,8 +78,6 @@ export default function Hotel() {
                   <button>{data.rating}</button>
                 </div>
 
-                <FavoritesBox />
-
                 <dd className={styles["highlight"]}>
                   Book a stay over ${lowestPrice * 5} at this property and get a
                   free airport taxi
@@ -90,6 +88,8 @@ export default function Hotel() {
                   price={lowestPrice}
                   rating={data.rating}
                 />
+
+                <FavoritesBox id={id} />
               </div>
 
               <div className={styles["grid-span-4"]}>

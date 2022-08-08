@@ -1,0 +1,11 @@
+.list-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 1.1rem auto;
+}
+
+.list-container h1 {
+  color: var(--text-very-dark);
+  margin: 1.5rem;
+}

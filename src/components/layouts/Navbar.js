@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 
 import styles from "./Navbar.module.css";
 import AccountTool from "../ui/AccountTool";
+import FavoriteBox from "../ui/FavoriteBox";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBookAtlas } from "@fortawesome/free-solid-svg-icons";
 import { useRequest } from "../../hooks/useRequest";
@@ -70,6 +71,8 @@ export default function Navbar() {
         </ul>
 
         <ul className={styles["nav-items"]}>
+          <FavoriteBox />
+
           {data?.username ? (
             <AccountTool />
           ) : (

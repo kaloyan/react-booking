@@ -1,0 +1,27 @@
+.container {
+  position: relative;
+  cursor: pointer;
+  margin-right: 1rem;
+}
+
+.icon {
+  color: var(--color-primary-btn);
+  font-size: 1.2rem;
+  height: fit-content;
+  width: fit-content;
+}
+
+.icon::after {
+  content: attr(data-content);
+  background: rgb(223, 91, 91);
+  top: -30%;
+  left: 70%;
+  font-size: 0.8rem;
+  font-weight: bold;
+  height: 1rem;
+  width: 1rem;
+  color: white;
+  text-align: center;
+  border-radius: 50%;
+  position: absolute;
+}

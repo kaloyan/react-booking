@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./components/pages/home/Home";
 import Hotel from "./components/pages/hotel/Hotel";
 import Catalog from "./components/pages/catalog/Catalog";
+import Favorites from "./components/pages/catalog/Favorites";
 import DestinationsList from "./components/pages/DestinationsList";
 import Login from "./components/pages/Login";
 import Register from "./components/pages/Register";
@@ -35,7 +36,9 @@ function App() {
           <Route path="/" element={<Home />} />
 
           <Route path="/catalog/query/*" element={<Catalog />} />
+          <Route path="/catalog/favorites" element={<Favorites />} />
           <Route path="/catalog/:id" element={<Hotel />} />
+
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
 

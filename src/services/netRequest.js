@@ -163,6 +163,11 @@ export const catalog = {
     const url = urls.hotelsUrl + query;
     return request(url);
   },
+
+  getFavs: (data) => {
+    const url = urls.hotelsUrl + "favorites";
+    return request(url, { method: "POST", data });
+  },
 };
 
 // Rooms
