@@ -1,70 +1,61 @@
-# Getting Started with Create React App
+<h1 align="center">
+Hotel Booking App with React
+</h1>
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+[!GitHub license](https://github.com/facebook/react/blob/master/LICENSE) [!npm version](https://www.npmjs.com/package/react) 
 
-## Available Scripts
+ReactBooking is an online hotel booking application build with MERN Stack.
 
-In the project directory, you can run:
+Live online version is available [here](https://reactbooking-app.web.app/)
 
-### `npm start`
+  
+  <img src="https://firebasestorage.googleapis.com/v0/b/reactbooking-app.appspot.com/o/img%2Fscreenshots%2Freact-bookink-1.jpeg?alt=media&token=afb56510-a884-4089-b0e6-9f3a70a11a8a">
+  
+  # Features
+  - Online Booking System
+	- Add / Delete Reservations
+	- Add / Reviews
+	- Add  / Remove Favorites
+  - Admin Dashboard
+	- Add / Update / Delete Hotels
+	- Add / Update / Delete Rooms
+	- Add / Delete / Update Destinations
+	- Manage Users
+	- View / Delete Messages
+	
+### Tech
+* [ReactJS](https://reactjs.org/) - A JavaScript library for building user interfaces.
+* [Redux Toolkit](https://redux-toolkit.js.org/) - The official, opinionated, batteries-included toolset for efficient Redux development
+* [Formik](https://formik.org/) - Formik is the world's most popular open source form library for React and React Native
+* [Firebase](https://firebase.google.com/) - Store and sync app data at global scale
+* [Leaflet](https://leafletjs.com/) - an open-source JavaScript library
+for mobile-friendly interactive maps
+* [bear-react-carousel](https://carousel.bearests.com/) - modern mobile touch slider with hardware accelerated transitions for ReactJS
+* [date-fns](https://date-fns.org/) - Modern JavaScript date utility library
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### Installation
 
-### `npm test`
+ReactBooking requires [react-booking-server](https://github.com/kaloyan/react-booking-server)  to run.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```
+Create a .env file and set
+REACT_APP_BASE_URL=__YOUR_BACKEND_SERVER_URL_
+```
 
-### `npm run build`
+Configure Firebase configuration
+```
+Edit src/config/firebaseCfg.js and set you firebase project config
+```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Install all dependencies and start application
+```
+npm install
+npm start
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+License
+----
 
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+MIT
