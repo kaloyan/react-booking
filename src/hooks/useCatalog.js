@@ -4,7 +4,7 @@ import { useSearchParams } from "react-router-dom";
 import { setFilters } from "../features/slices/localSlice";
 
 export const useCatalog = () => {
-  let [searchParams, setSearchParams] = useSearchParams();
+  let [searchParams] = useSearchParams();
 
   const catalog = useRequest("catalog", "catalog");
   const dispatch = useDispatch();

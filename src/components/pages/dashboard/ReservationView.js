@@ -15,6 +15,7 @@ export default function ReservationView({ resId, closeHandler }) {
   useEffect(() => {
     reservations.get(resId);
     return () => reservations.cleaner();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const [confirmDel, setConfermDel] = useState(false);
@@ -42,7 +43,7 @@ export default function ReservationView({ resId, closeHandler }) {
                 <div className={styles["row"]}>
                   <em>Hotel</em>
                   <span>{data?.hotel?.name}</span>
-                  <img src={data?.hotel?.image} alt="<no image>" />
+                  <img src={data?.hotel?.image} alt="hotel" />
                 </div>
               </div>
 
@@ -57,14 +58,14 @@ export default function ReservationView({ resId, closeHandler }) {
 
                   {account?.role === "owner" &&
                     (data?.guest?.image ? (
-                      <img src={data?.guest?.image} alt="<no image>" />
+                      <img src={data?.guest?.image} alt="guest" />
                     ) : (
                       <FontAwesomeIcon icon={faUser} />
                     ))}
 
                   {account?.role === "user" &&
                     (data?.owner?.avatar ? (
-                      <img src={data?.owner?.avatar} alt="<no image>" />
+                      <img src={data?.owner?.avatar} alt="hotel owber" />
                     ) : (
                       <FontAwesomeIcon icon={faUser} />
                     ))}

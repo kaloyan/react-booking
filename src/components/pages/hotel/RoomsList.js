@@ -21,7 +21,7 @@ export default function RoomsList({ rooms }) {
           </>
         )}
 
-        {rooms?.length == 0 && (
+        {rooms?.length === 0 && (
           <li>
             <div className={styles["no-rooms"]}>
               No available rooms at the moment

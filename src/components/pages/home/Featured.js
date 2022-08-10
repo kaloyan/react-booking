@@ -14,6 +14,7 @@ export default function Featured() {
   useEffect(() => {
     destinations.featured();
     return () => destinations.cleaner();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

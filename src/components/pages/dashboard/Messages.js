@@ -17,6 +17,7 @@ export default function Messages() {
 
   useEffect(() => {
     user.get();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleDelete = async (input) => {
@@ -120,7 +121,7 @@ export default function Messages() {
       </div>
 
       {/* if no message dispay info text */}
-      {data?.messages?.length == 0 && (
+      {data?.messages?.length === 0 && (
         <div className={styles["empty-box"]}>
           <FontAwesomeIcon icon={faCircleCheck} />
           No messages

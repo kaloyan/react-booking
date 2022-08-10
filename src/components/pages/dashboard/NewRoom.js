@@ -27,6 +27,7 @@ export default function NewRoom() {
       catalog.cleaner();
       rooms.cleaner();
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const formik = useFormik({

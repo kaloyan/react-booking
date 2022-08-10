@@ -74,6 +74,7 @@ export default function EditHotel() {
       imageService.cleaner();
       rooms.cleaner();
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
 
   useEffect(() => {
@@ -90,10 +91,11 @@ export default function EditHotel() {
         featured: data.featured,
       });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data]);
 
   const handleModal = (e) => {
-    const item = data.rooms.filter((x) => x._id == e.target.value);
+    const item = data.rooms.filter((x) => x._id === e.target.value);
     setModal(item[0]);
   };
 

@@ -114,7 +114,7 @@ export default function Destinations() {
         })}
       </div>
 
-      {data?.length == 0 && (
+      {data?.length === 0 && (
         <div className={styles["empty-box"]}>No destinations</div>
       )}
     </section>

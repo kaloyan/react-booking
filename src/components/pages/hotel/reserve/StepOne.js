@@ -17,7 +17,7 @@ export default function StepOne() {
   const leaveMinDate = add(arriveMinDate, { days: 1 });
 
   const handleValidate = (e) => {
-    if (e.target.id == "arrive" && e.target.value !== "") {
+    if (e.target.id === "arrive" && e.target.value !== "") {
       const date = new Date(e.target.value);
       leaveRef.current.min = format(add(date, { days: 1 }), "yyy-MM-dd");
     }

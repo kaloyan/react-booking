@@ -21,10 +21,10 @@ export default function Catalog() {
     window.scrollTo(0, 0);
 
     catalog.query();
-  }, [location.search]);
+  }, [location.search, catalog]);
 
   useEffect(() => {
-    if (data?.items?.length == 0) {
+    if (data?.items?.length === 0) {
       setNoResults(true);
     } else {
       setNoResults(false);

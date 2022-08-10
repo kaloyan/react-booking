@@ -14,12 +14,12 @@ export default function UsersList() {
   const data = useSelector((state) => state.responses[handle]);
 
   const [modal, setModal] = useState(null);
-  const navigate = useNavigate();
 
   useEffect(() => {
     window.scrollTo(0, 0);
     user.all();
     return () => user.cleaner();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleDelete = () => {

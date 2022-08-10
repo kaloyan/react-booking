@@ -65,15 +65,15 @@ export default function Reserve({ close, rooms, hotelId }) {
   });
 
   useEffect(() => {
-    if (step == 0) {
+    if (step === 0) {
       setCanContinue(formik.values.days > 0);
     }
 
-    if (step == 1) {
+    if (step === 1) {
       setCanContinue(formik.values.rooms.length > 0);
     }
 
-    if (step == 2) {
+    if (step === 2) {
       calculateTotalPrice();
     }
   }, [step, formik.values]);

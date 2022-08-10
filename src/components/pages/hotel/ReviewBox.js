@@ -20,6 +20,7 @@ export default function ReviewBox({ hotelId }) {
   useEffect(() => {
     reviews.getByHotel(hotelId);
     return () => reviews.cleaner();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [hotelId]);
 
   useEffect(() => {
@@ -28,6 +29,7 @@ export default function ReviewBox({ hotelId }) {
     }
 
     return () => allowed.cleaner();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [account]);
 
   const formik = useFormik({

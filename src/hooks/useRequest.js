@@ -48,6 +48,7 @@ export const useRequest = (module, handle) => {
         beginRequest = false;
         dispatch(setSpinner(false));
       });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [request]);
 
   const slice = {};

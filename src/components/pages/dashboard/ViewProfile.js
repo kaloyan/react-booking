@@ -22,6 +22,7 @@ export default function Profile() {
     }
 
     return () => user.cleaner();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
 
   return (

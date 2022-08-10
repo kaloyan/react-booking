@@ -21,6 +21,7 @@ export default function MyHotels() {
   useEffect(() => {
     catalog.getOwn();
     return () => catalog.cleaner();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleModal = (id, e) => {
@@ -150,7 +151,7 @@ export default function MyHotels() {
           ))}
       </div>
 
-      {data?.length == 0 && (
+      {data?.length === 0 && (
         <div className={styles["empty-box"]}>You dont have any hotels yet</div>
       )}
     </section>

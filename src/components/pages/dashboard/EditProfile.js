@@ -22,6 +22,7 @@ export default function Profile() {
 
   useEffect(() => {
     user.get();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const [userId, setUserId] = useState("");
@@ -90,6 +91,7 @@ export default function Profile() {
       setAvatar(data.avatar);
       setNewAvatar(data.avatar);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data]);
 
   const updateProfile = async () => {
@@ -98,7 +100,6 @@ export default function Profile() {
       email: formik.values.email,
       phone: formik.values.phone,
       address: formik.values.address,
-      gender: formik.values.gender,
       avatar: formik.values.avatar,
       birthday: formik.values.birthday,
       gender: formik.values.gender,

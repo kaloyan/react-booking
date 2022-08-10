@@ -8,6 +8,7 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import { useRequest } from "../../../hooks/useRequest";
+import { uploadDest } from "../../../services/firebaseSrv";
 import { useId } from "react";
 
 import ImageSelect from "../../ui/ImageSelect";
@@ -21,12 +22,14 @@ export default function EditDestination() {
   const data = useSelector((state) => state.responses[handle]);
 
   useEffect(() => {
+    window.scrollTo(0, 0);
+
     if (id) {
       destinations.get(id);
     }
 
     return () => destinations.cleaner();
-  }, []);
+  }, [id]);
 
   const formik = useFormik({
     initialValues: {
@@ -36,19 +39,22 @@ export default function EditDestination() {
       description: "",
     },
 
-    onSubmit: (values) => {
-      // console.log(values);
-      // console.log(picture);
+    onSubmit: async (values) => {
+      let pictureUrl = null;
 
-      //   const pictureUrl = await uploadDest(picture);
-      //   const pictureUrl = picture.name;
+      if (picture) {
+        pictureUrl = await uploadDest(picture);
+      }
 
       const newData = {
         name: values.name,
-        // image: pictureUrl,
         description: values.description,
         featured: values.featured,
       };
+
+      if (pictureUrl) {
+        newData.image = pictureUrl;
+      }
 
       destinations.update(id, newData).then(() => {
         navigate("../destinations");
@@ -70,7 +76,6 @@ export default function EditDestination() {
   const navigate = useNavigate();
 
   const handleGetPictures = (files) => {
-    // const files = Array.from(e.target.files);
     setPicture(files[0]);
   };
 

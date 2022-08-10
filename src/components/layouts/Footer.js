@@ -77,19 +77,31 @@ export default function Footer() {
             <p>Follow us on on sotial media:</p>
           </li>
           <li className={styles["icons"]}>
-            <a href="http://www.facebook.com" target={"_blank"}>
+            <a
+              href="http://www.facebook.com"
+              target={"_blank"}
+              rel="noreferrer"
+            >
               <FontAwesomeIcon icon={faFacebook} />
             </a>
-            <a href="http://www.linkedin.com" target={"_blank"}>
+            <a
+              href="http://www.linkedin.com"
+              target={"_blank"}
+              rel="noreferrer"
+            >
               <FontAwesomeIcon icon={faLinkedin} />
             </a>
-            <a href="http://www.instagram.com" target={"_blank"}>
+            <a
+              href="http://www.instagram.com"
+              target={"_blank"}
+              rel="noreferrer"
+            >
               <FontAwesomeIcon icon={faInstagram} />
             </a>
-            <a href="http://www.twitter.com" target={"_blank"}>
+            <a href="http://www.twitter.com" target={"_blank"} rel="noreferrer">
               <FontAwesomeIcon icon={faTwitter} />
             </a>
-            <a href="http://www.youtube.com" target={"_blank"}>
+            <a href="http://www.youtube.com" target={"_blank"} rel="noreferrer">
               <FontAwesomeIcon icon={faYoutube} />
             </a>
           </li>

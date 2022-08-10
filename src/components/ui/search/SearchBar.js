@@ -27,6 +27,7 @@ export default function SearchBar() {
       rating: filters.minRating,
       dest: filters.destination,
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filters]);
 
   const formik = useFormik({

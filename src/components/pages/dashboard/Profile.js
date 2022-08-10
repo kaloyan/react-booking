@@ -17,6 +17,7 @@ export default function Profile() {
 
   useEffect(() => {
     user.get();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -24,6 +25,7 @@ export default function Profile() {
       counts.counts(data.id);
     }
     return () => counts.cleaner();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data]);
 
   return (

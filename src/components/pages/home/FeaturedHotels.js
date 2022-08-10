@@ -12,6 +12,7 @@ export default function FeaturedHotels() {
   useEffect(() => {
     catalog.featuredHotels();
     return () => catalog.cleaner();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

@@ -27,6 +27,7 @@ export default function Reservations() {
     }
 
     return () => reservations.cleaner();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [account]);
 
   const handleView = (e, id) => {
@@ -114,7 +115,7 @@ export default function Reservations() {
         })}
       </div>
 
-      {data?.length == 0 && (
+      {data?.length === 0 && (
         <div className={styles["empty-box"]}>
           You dont have any reservations
         </div>

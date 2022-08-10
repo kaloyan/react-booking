@@ -40,7 +40,7 @@ export default function ImageSelect({ handleGetPictures, pictures, single }) {
           <div className={styles["photo-box"]}>
             {imgs.map((x, idx) => (
               <div key={x.id} className={styles["image-box"]}>
-                <img src={x.url} className={styles["thumb"]} alt="photo" />
+                <img src={x.url} className={styles["thumb"]} alt="" />
                 <button
                   type="button"
                   onClick={() => handleRemoveImg(idx, x.id)}
@@ -54,7 +54,7 @@ export default function ImageSelect({ handleGetPictures, pictures, single }) {
           <div className={styles["photo-box"]}>
             {pictures.map((x, idx) => (
               <div key={idx} className={styles["image-box"]}>
-                <img src={x} className={styles["thumb"]} alt="photo" />
+                <img src={x} className={styles["thumb"]} alt="" />
               </div>
             ))}
           </div>

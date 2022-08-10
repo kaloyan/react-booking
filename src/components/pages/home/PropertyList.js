@@ -14,6 +14,7 @@ export default function PropertyList() {
   useEffect(() => {
     catalog.getPropertyList();
     return () => catalog.cleaner();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

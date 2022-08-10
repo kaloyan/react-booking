@@ -1,4 +1,4 @@
-import { useEffect, useState, useId } from "react";
+import { useEffect, useId } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useFormik } from "formik";
@@ -31,6 +31,7 @@ export default function NewRoom() {
       catalog.cleaner();
       rooms.cleaner();
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
 
   useEffect(() => {
@@ -44,6 +45,7 @@ export default function NewRoom() {
         hotel: "2ea82bbe66b85396bec363b",
       });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [hotels, roomData]);
 
   const formik = useFormik({
