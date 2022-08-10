@@ -27,13 +27,21 @@ export default function Messages() {
   const handleModal = async (id, e) => {
     e.preventDefault();
 
-    const item = data.messages.filter((x) => x._id === id);
+    const item = data.messages.filter((x) => x.id === id);
 
     setModal({
       item: item[0],
     });
 
     return;
+  };
+
+  const toggleReadMessage = (messageId) => {
+    const messages = data.messages.map((x) =>
+      x.id === messageId ? { ...x, unread: !x.unread } : x
+    );
+
+    user.updateMsg(data.id, { messages });
   };
 
   return (
@@ -79,11 +87,15 @@ export default function Messages() {
           data.messages.map((x) => (
             <div key={x.id}>
               <div className={styles["table-span-tiny"]}>
-                {x.unread ? (
-                  <FontAwesomeIcon icon={faEnvelope} />
-                ) : (
-                  <span></span>
-                )}
+                <div
+                  className={styles["mail-icon"]}
+                  onClick={() => toggleReadMessage(x.id)}
+                >
+                  <FontAwesomeIcon
+                    icon={faEnvelope}
+                    className={x.unread ? styles["unread"] : styles["read"]}
+                  />
+                </div>
               </div>
 
               <div className={styles["table-span-4"]}>
@@ -96,8 +108,8 @@ export default function Messages() {
 
               <div className={styles["table-span-1"]}>
                 <Link
-                  to={`del/${x._id}`}
-                  onClick={(e) => handleModal(x._id, e)}
+                  to={`del/${x.id}`}
+                  onClick={(e) => handleModal(x.id, e)}
                   className={styles["action-btn"]}
                 >
                   <span>Delete</span>

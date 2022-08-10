@@ -76,8 +76,9 @@ export const user = {
     return request(urls.usersUrl + userId, { method: "DELETE" });
   },
 
-  readMsg: (messageId) => {
-    //todo
+  updateMsg: (id, messages) => {
+    const url = urls.usersUrl + "msg/" + id;
+    return request(url, { method: "PUT", data: messages });
   },
 
   deleteMsg: (messageId) => {

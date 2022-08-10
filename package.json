@@ -31,7 +31,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "devstart": "REACT_APP_BASE_URL='http://localhost:3000' react-scripts start",
+    "devstart": "REACT_APP_BASE_URL='http://localhost:3030' react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",

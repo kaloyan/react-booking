@@ -128,8 +128,15 @@ form {
 }
 
 .table-span-tiny svg {
-  color: var(--color-primary);
   margin: auto;
+}
+
+.table-span-tiny svg.unread {
+  color: var(--color-primary);
+}
+
+.table-span-tiny svg.read {
+  color: var(--text-dark);
 }
 
 .content span {
@@ -353,4 +360,9 @@ input[type="submit"] {
 .warning {
   color: rgb(250, 107, 107);
   font-size: 1.2rem;
+}
+
+.mail-icon {
+  cursor: pointer;
+  padding: 0.5rem;
 }
