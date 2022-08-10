@@ -87,8 +87,9 @@ export default function StepOne() {
         {formik.values.days > 0 && (
           <div>
             <label htmlFor="">
-              You will stay: {formik.values.days} day
-              {formik.values.days > 1 ? "s" : ""}.
+              {`You will stay: ${formik.values.days} day${
+                formik.values.days > 1 ? "s" : ""
+              }.`}
             </label>
           </div>
         )}

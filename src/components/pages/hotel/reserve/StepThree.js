@@ -38,7 +38,7 @@ export default function StepThree() {
         </div>
 
         <h1>
-          Total price: $ <span>{totalPrice}</span>
+          Total price: $<span>{totalPrice}</span>
         </h1>
 
         <div className={styles["payment"]}>
