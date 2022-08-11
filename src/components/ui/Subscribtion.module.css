@@ -10,16 +10,16 @@
   color: white;
 }
 
-.inputContainer > input {
+.input-container > input {
   width: 350px;
   height: 3rem;
   padding: 0.5rem;
   border: none;
   font-size: 1.3rem;
-  margin-right: 0.5rem;
+  margin-right: 0.2rem;
 }
 
-.inputContainer > button {
+.input-container > button {
   height: 3rem;
   background-color: var(--color-primary-btn);
   border: none;
