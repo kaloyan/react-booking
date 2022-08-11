@@ -1,18 +1,40 @@
 import { useEffect } from "react";
-import { useSelector } from "react-redux";
-import { Link, useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { useFormik } from "formik";
 
 import styles from "./Dashboard.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser, faIdCard } from "@fortawesome/free-solid-svg-icons";
+import { pushMessage } from "../../../features/slices/localSlice";
 import { useRequest } from "../../../hooks/useRequest";
 
 export default function Profile() {
-  // const handle = "account";
   const { id } = useParams("id");
-
   const user = useRequest("user", id);
   const data = useSelector((state) => state.responses[id]);
+  const dispatch = useDispatch();
+
+  const formik = useFormik({
+    initialValues: {
+      role: "",
+    },
+
+    onSubmit: (values) => {
+      const update = {
+        role: values.role,
+      };
+
+      user.update(id, update).then(() => {
+        dispatch(
+          pushMessage({
+            text: "User's profile updated successfully",
+            type: "success",
+          })
+        );
+      });
+    },
+  });
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -25,17 +47,23 @@ export default function Profile() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
 
+  useEffect(() => {
+    if (data?.role) {
+      formik.values.role = data.role;
+    }
+  }, [data]);
+
   return (
-    <section className={styles["grid-container"]}>
+    <form className={styles["grid-container"]} onSubmit={formik.handleSubmit}>
       <div className={styles["header"]}>
         <div className={styles["bread-crump"]}>
           <FontAwesomeIcon icon={faIdCard} />
-          <h1>My Profile</h1>
+          <h1>Profile of {data?.username}</h1>
         </div>
 
         <div>
-          <Link to={"edit"} className={styles["action-btn"]}>
-            <span>Edit</span>
+          <Link to={-1} className={styles["action-btn"]}>
+            <span>Back</span>
           </Link>
         </div>
       </div>
@@ -82,7 +110,26 @@ export default function Profile() {
         </div>
 
         <hr />
+
+        <div className={styles["item"]}>
+          <label>Change role: </label>
+
+          <select
+            name="role"
+            id="role"
+            value={formik.values.role}
+            onChange={formik.handleChange}
+          >
+            <option value="admin">Administrator</option>
+            <option value="user">Tourist</option>
+            <option value="owner">Hotel owner</option>
+          </select>
+        </div>
+
+        <div className={styles["item"]}>
+          <input type="submit" value="Save" />
+        </div>
       </div>
-    </section>
+    </form>
   );
 }

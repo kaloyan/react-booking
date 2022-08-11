@@ -5,6 +5,8 @@ node_modules/
 /.pnp
 .pnp.js
 
+/package-lock.json
+
 # dotenv environment variables file
 #.env
 

@@ -33,7 +33,7 @@ export default function Profile() {
       <div className={styles["header"]}>
         <div className={styles["bread-crump"]}>
           <FontAwesomeIcon icon={faIdCard} />
-          <h1>My Profile</h1>
+          <h1>My Profile ({data?.username})</h1>
         </div>
 
         <div>
