@@ -54,12 +54,14 @@ export const useRequest = (module, handle) => {
   const slice = {};
   slice.cleaner = () => dispatch(delResponse(handle));
 
+  const action = (func, ...params) => {
+    return new Promise((resolve, reject) => {
+      setRequest([func, resolve, reject, ...params]);
+    });
+  };
+
   for (const func of Object.keys(netRequests[module])) {
-    slice[func] = (...params) => {
-      return new Promise((resolve, reject) => {
-        setRequest([func, resolve, reject, ...params]);
-      });
-    };
+    slice[func] = action.bind(null, func);
   }
 
   return slice;
