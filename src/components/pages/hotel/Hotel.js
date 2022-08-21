@@ -28,7 +28,7 @@ export default function Hotel() {
   const data = useSelector((state) => state.responses[handle]);
 
   useEffect(() => {
-    window.scrollTo(0, 0);
+    // window.scrollTo(0, 0);
 
     if (id) {
       catalog.get(id);

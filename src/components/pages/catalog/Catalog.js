@@ -18,7 +18,7 @@ export default function Catalog() {
   const catalog = useCatalog();
 
   useEffect(() => {
-    window.scrollTo(0, 0);
+    // window.scrollTo(0, 0);
 
     catalog.query();
   }, [location.search, catalog]);

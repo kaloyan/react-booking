@@ -22,7 +22,7 @@ export default function EditDestination() {
   const data = useSelector((state) => state.responses[handle]);
 
   useEffect(() => {
-    window.scrollTo(0, 0);
+    // window.scrollTo(0, 0);
 
     if (id) {
       destinations.get(id);

@@ -16,7 +16,7 @@ export default function UsersList() {
   const [modal, setModal] = useState(null);
 
   useEffect(() => {
-    window.scrollTo(0, 0);
+    // window.scrollTo(0, 0);
     user.all();
     return () => user.cleaner();
     // eslint-disable-next-line react-hooks/exhaustive-deps

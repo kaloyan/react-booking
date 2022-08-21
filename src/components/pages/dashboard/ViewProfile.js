@@ -37,7 +37,7 @@ export default function Profile() {
   });
 
   useEffect(() => {
-    window.scrollTo(0, 0);
+    // window.scrollTo(0, 0);
 
     if (id) {
       user.getById(id);
